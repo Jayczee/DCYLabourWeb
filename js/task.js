@@ -1,40 +1,43 @@
 
 var ClassNo;
+var ClassNo1;
 var arrTasktxt=new Array(1000000);
 $(function (){
+    /*********************************************/
+    /*********************************************/
+    /********************主页面**********************/
     //发布任务名称输入框的事件驱动
-    $(".txtAccount").on("blur keyup",function (){
+    $("#txtAccount").on("blur keyup",function (){
         required($(this),"任务名称不能为空");
     });
     //发布任务操作步骤输入框的事件驱动
-    $(".txtStep").on("blur keyup",function (){
+    $("#txtStep").on("blur keyup",function (){
         required($(this),"操作步骤不能为空");
     });
     //发布班级输入框的事件驱动///////////
-    $(".txtClasss").on("blur change",function (){
+    $("#txtClasss").on("blur change",function (){
 
         if (required($(this),"请选择班级")==true){
             var opt=document.getElementById('txtClasss');
-            var opt1=document.getElementById('txtClasss1');
             ClassNo=opt.options[opt.selectedIndex].value;
             initStudent(ClassNo);
         }
     });
     //发布小组名称输入框的事件驱动
-    $(".txtName").on("blur keyup",function (){
+    $("#txtName").on("blur keyup",function (){
         required($(this),"小组名称不能为空");
     });
     //发布组长输入框的事件驱动
-    $(".txtIdcard").on("blur change",function (){
+    $("#txtIdcard").on("blur change",function (){
         required($(this),"请选择组长");
     });
     //发布组员输入框的事件驱动
-    $(".txtIdcards").on("blur change",function (){
+    $("#txtIdcards").on("blur change",function (){
         required($(this),"请选择组员");
     });
     //设置默认时间
     defaaltDate();
-    $(".btnRegister").on("click",function () {
+    $("#btnRegister").on("click",function () {
         //非空验证
         var accountCheck=required($(".txtAccount"),"任务名称不能为空");
         var stepCheck=required($(".txtStep"),"操作步骤不能为空");
@@ -48,7 +51,7 @@ $(function (){
             var account=$(".txtAccount").val();
             var time=$(".txtTime").val();
             var classc=$(".txtClasss").val();
-            var teacher=$(".txtTeacher").val();
+            var teacher=$.cookie('.username');
             var name=$(".txtName").val();
             var idcard=$(".txtIdcard").val();
             var idcards=$(".txtIdcards").val();
@@ -87,6 +90,30 @@ $(function (){
                 "zuoWuCeLiang": crops,
                 "taskCon": 0
             }
+            var scname=GetStuByCardNum(idcard);//组长姓名
+            var stusname="";//组员姓名
+            var stusid=idcards.toString().split(',');
+            var i=0;
+            for(i=0;i<stusid.length;i++){
+                stusname+=GetStuByCardNum(stusid[i]);
+            }
+            var tname="";
+            /*获取教师姓名*/
+            $.ajax({
+                type:"GET",
+                url:"http://www.jayczee.top:50121/"+"User/GetTeacher/"+$.cookie('.username'),
+                success:function (res){
+                    if(res.resCode==28){
+                        console.log(res);
+                        tname=res.data.tname;
+                    }
+                    else{
+                        tname="无";
+                    }
+                }
+            });
+            /*获取组长姓名*/
+
 
             $.ajax({
                 type:"POST",
@@ -102,10 +129,10 @@ $(function (){
                             +"<td>"+account+"</td>"
                             +"<td>"+time+"</td>"
                             +"<td>"+classc+"</td>"
-                            +"<td>"+teacher+"</td>"
+                            +"<td>"+tname+"</td>"
                             +"<td>"+name+"</td>"
-                            +"<td>"+idcard+"</td>"
-                            +"<td>"+idcards+"</td>"
+                            +"<td>"+scname+"</td>"
+                            +"<td>"+stusname+"</td>"
                             +"<td>"+step+"</td>"
                             +"<td>"+turns+"</td>"
                             +"<td>"+soils+"</td>"
@@ -129,6 +156,165 @@ $(function (){
             });
         }
     });
+    /*********************************************/
+    /*********************************************/
+    /*********************************************/
+    /*********************************************/
+    /*********************************************/
+    /*******************编辑任务弹窗***********************/
+    //发布任务名称输入框的事件驱动
+    $("#txtAccount1").on("blur keyup",function (){
+        required($(this),"任务名称不能为空");
+    });
+    //发布任务操作步骤输入框的事件驱动
+    $("#txtStep1").on("blur keyup",function (){
+        required($(this),"操作步骤不能为空");
+    });
+    //发布班级输入框的事件驱动///////////
+    $("#txtClasss1").on("blur change",function (){
+
+        if (required($(this),"请选择班级")==true){
+            var opt=document.getElementById('txtClasss1');
+            ClassNo1=opt.options[opt.selectedIndex].value;
+            initStudent(ClassNo1);
+        }
+    });
+    //发布小组名称输入框的事件驱动
+    $("#txtName1").on("blur keyup",function (){
+        required($(this),"小组名称不能为空");
+    });
+    //发布组长输入框的事件驱动
+    $("#txtIdcard1").on("blur change",function (){
+        required($(this),"请选择组长");
+    });
+    //发布组员输入框的事件驱动
+    $("#txtIdcards1").on("blur change",function (){
+        required($(this),"请选择组员");
+    });
+    //设置默认时间
+    defaaltDate();
+    $("#btnRegister1").on("click",function () {
+        //非空验证
+        var accountCheck=required($(".txtAccount"),"任务名称不能为空");
+        var stepCheck=required($(".txtStep"),"操作步骤不能为空");
+        var classCheck=required($(".txtClasss"),"请选择班级");
+        var nameCheck=required($(".txtName"),"小组名称不能为空");
+        var idcardCheck=required($(".txtIdcard"),"请选择组长");
+        var idcardsCheck=required($(".txtIdcards"),"请选择组员");
+        if (accountCheck && stepCheck && classCheck && nameCheck && idcardCheck && idcardsCheck) {
+            //获取用户输入的内容
+
+            var account=$(".txtAccount").val();
+            var time=$(".txtTime").val();
+            var classc=$(".txtClasss").val();
+            var teacher=$.cookie('.username');
+            var name=$(".txtName").val();
+            var idcard=$(".txtIdcard").val();
+            var idcards=$(".txtIdcards").val();
+            var step=$(".txtStep").val();
+            var turns=$(".turn").is(":checked")?1:0;
+            var soils=$(".soil").is(":checked")?1:0;
+            var measures=$(".measure").is(":checked")?1:0;
+            var executives=$(".executive").is(":checked")?1:0;
+            var crops=$(".crop").is(":checked")?1:0;
+            var waters=$(".water").is(":checked")?1:0;
+            var miechongs=$(".miechong").is(":checked")?1:0;
+            var summers=$(".summer").is(":checked")?1:0;
+            var sprays=$(".spray").is(":checked")?1:0;
+            var fertilizers=$(".fertilizer").is(":checked")?1:0;
+            var insecticides=$(".insecticide").is(":checked")?1:0;
+
+            var body={
+                "taskName":account,//任务名称
+                "taskStartTime": time,//开始时间
+                "taskTUid": teacher,//教师UID
+                "taskClass": classc,//任务班级
+                "taskGroup": name,//任务组名
+                "taskStuCapID": idcard,
+                "taskStus": idcards.toString(),
+                "taskDetail": step,
+                "fandi": turns,
+                "zhengdi": soils,
+                "celiang": measures,
+                "cuoShi": executives,
+                "cuoShiShiFei": fertilizers.toString(),
+                "cuoShiShaChong": insecticides.toString(),
+                "cuoShiJiaoGuan": waters,
+                "cuoShiMieChong": miechongs,
+                "cuoShiGuangZhao": summers,
+                "cuoShiPenSa": sprays,
+                "zuoWuCeLiang": crops,
+                "taskCon": 0
+            }
+            var scname=GetStuByCardNum(idcard);//组长姓名
+            var stusname="";//组员姓名
+            var stusid=idcards.toString().split(',');
+            var i=0;
+            for(i=0;i<stusid.length;i++){
+                stusname+=GetStuByCardNum(stusid[i]);
+            }
+            var tname="";
+            /*获取教师姓名*/
+            $.ajax({
+                type:"GET",
+                url:"http://www.jayczee.top:50121/"+"User/GetTeacher/"+$.cookie('.username'),
+                success:function (res){
+                    if(res.resCode==28){
+                        console.log(res);
+                        tname=res.data.tname;
+                    }
+                    else{
+                        tname="无";
+                    }
+                }
+            });
+            /*获取组长姓名*/
+
+
+            $.ajax({
+                type:"POST",
+                url:"http://www.jayczee.top:50121/Task/AddTask",
+                contentType:"application/json",
+                data:JSON.stringify(body),
+                success:function (res){
+                    if(res.resCode==11){
+                        //创建HTML节点
+                        var tr=$("<tr>"
+                            +"<td>"+"<input type='radio' name='taskradio' value='"+res.data.taskID+"'>"+"</td>"
+                            +"<td>"+res.data.taskID+"</td>"
+                            +"<td>"+account+"</td>"
+                            +"<td>"+time+"</td>"
+                            +"<td>"+classc+"</td>"
+                            +"<td>"+tname+"</td>"
+                            +"<td>"+name+"</td>"
+                            +"<td>"+scname+"</td>"
+                            +"<td>"+stusname+"</td>"
+                            +"<td>"+step+"</td>"
+                            +"<td>"+turns+"</td>"
+                            +"<td>"+soils+"</td>"
+                            +"<td>"+measures+"</td>"
+                            +"<td>"+executives+"</td>"
+                            +"<td>"+crops+"</td>"
+                            +"<td>"+waters+"</td>"
+                            +"<td>"+miechongs+"</td>"
+                            +"<td>"+summers+"</td>"
+                            +"<td>"+sprays+"</td>"
+                            +"<td>"+fertilizers+"</td>"
+                            +"<td>"+insecticides+"</td>"
+                            +"<td><a href='#' onclick='ShowTaskDetail(this)'>查看</a></td>"
+                            +"</tr>");
+
+                        //将HTML节点添加到table子节点的最后
+                        $("#taskInfoTab").append(tr);
+                        alert("发布任务成功！");
+                    }
+                },
+            });
+        }
+    });
+    /*********************************************/
+    /*********************************************/
+    /*********************************************/
 });
 
 //非空验证
@@ -203,7 +389,8 @@ function InitData(){//初始化任务、班级数据
             if (res.resCode == 30){
                 var i=0;
                 for(i=0;i<res.data.length;i++){
-                    $(".txtClasss").append(new Option(res.data[i].cName,res.data[i].cNo));
+                    $("#txtClasss").append(new Option(res.data[i].cName,res.data[i].cNo));
+                    $("#txtClasss1").append(new Option(res.data[i].cName,res.data[i].cNo));
                 }
             }
         }
@@ -225,6 +412,23 @@ function InitData(){//初始化任务、班级数据
                         taskStuName+=GetStuByCardNum(stuCardNum[j]);
                     }
 
+                    var tname="";
+                    var ttuid=res.data[i].taskTUid
+                    /*获取教师姓名*/
+                    $.ajax({
+                        type:"GET",
+                        async:false,
+                        url:"http://www.jayczee.top:50121/User/GetTeacher/"+ttuid,
+                        success:function (res2){
+                            if(res2.resCode==28){
+                                tname=res2.data.tname;
+                            }
+                            else{
+                                tname="无";
+                            }
+                        }
+                    });
+
                     var isFandi=parseInt(res.data[i].fandi)>0?"是":"否";
                     var isZhengdi=parseInt(res.data[i].zhengdi)>0?"是":"否";
                     var isCeliang=parseInt(res.data[i].celiang)>0?"是":"否";
@@ -242,7 +446,7 @@ function InitData(){//初始化任务、班级数据
                         +"<td>"+res.data[i].taskName+"</td>"
                         +"<td>"+res.data[i].taskStartTime+"</td>"
                         +"<td>"+res.data[i].taskClass+"</td>"
-                        +"<td>"+res.data[i].taskTUid+"</td>"
+                        +"<td>"+tname+"</td>"
                         +"<td>"+res.data[i].taskGroup+"</td>"
                         +"<td>"+stuCapName+"</td>"
                         +"<td>"+taskStuName+"</td>"
@@ -267,18 +471,17 @@ function InitData(){//初始化任务、班级数据
     });
 }
 
-//组长
-function  initStudent(obj){
+//获取一个班级的学生名单
+function  initStudent(cno){
     $.ajax({
         type:"GET",
-        url:"http://www.jayczee.top:50121/Student/GetStusByCNo/"+obj ,
+        url:"http://www.jayczee.top:50121/Student/GetStusByCNo/"+cno ,
         success:function (res ){
             if (res.resCode == 5){
                 var i=0,j=0;
                 $(".txtIdcard").empty();
                 $(".txtIdcards").empty();
                 for(i=0;i<res.data.length;i++){
-
                     $(".txtIdcard").append(new Option(res.data[i].sName,res.data[i].sCardNum));
                     $(".txtIdcards").append(new Option(res.data[i].sName,res.data[i].sCardNum));
                 }
@@ -291,9 +494,7 @@ function  initStudent(obj){
     });
 }
 
-//指导教师
-
-
+//通过卡号获取学生姓名
 function GetStuByCardNum(stuCard){
     var stuName="";
     $.ajax({
@@ -311,7 +512,7 @@ function GetStuByCardNum(stuCard){
     return stuName;
 }
 
-//弹窗JS脚本 用于更改css实现弹窗
+//任务详情弹窗
 function ShowMsg(obj){
 
     let blur=document.getElementById("containerbox");
@@ -401,8 +602,10 @@ function ShowTaskFinishInfo(obj){
         }
     })
 }
+
+var teform=false;
 //编辑任务弹窗
-function ShowTaskEdit(obj){
+function ShowTaskEdit(){
     //根据确认框选择结果确认操作
     var tskid=$("input[name='taskradio']:checked").attr('value');
     if(tskid==null){
@@ -414,7 +617,13 @@ function ShowTaskEdit(obj){
         blur.classList.toggle('active');
         let popup=document.getElementById("taskEdit");
         popup.classList.toggle('active');
-//        var tskid=$(obj).parents('tr').children("td").get(1).innerHTML;//获取点击行任务ID
+        if(teform==false)//窗体状态变量  窗体打开时为true 关闭时为false
+            teform=true;
+        else{
+            teform=false;
+            return;
+        }
+
     }
 }
 

@@ -6,7 +6,6 @@ function  check(){
 //    var id3=document.getElementById("miechong");
 //    var id4=document.getElementById("summer");
 //    var id5=document.getElementById("spray");
-    var id6=document.getElementById(".executive");
 //    if (id.checked){
 //        document.getElementById("fertilizer1").disabled=false;
 //    }
@@ -19,54 +18,41 @@ function  check(){
 //    }else {
 //        document.getElementById("insecticide1").disabled=true;
 //    }
-
-    if (id6.checked){
-        document.getElementById(".crop").disabled=false;
+    var flag=document.getElementById("executive").checked;
+    var flag1=document.getElementById("executive1").checked;
+    if(flag){
+        document.getElementById("crop").disabled='';
+        document.getElementById("water").disabled='';
+        document.getElementById("miechong").disabled='';
+        document.getElementById("summer").disabled='';
+        document.getElementById("spray").disabled='';
+        document.getElementById("fertilizer").disabled='';
+        document.getElementById("insecticide").disabled='';
+    }else{
+        document.getElementById("crop").disabled='disabled';
+        document.getElementById("water").disabled='disabled';
+        document.getElementById("miechong").disabled='disabled';
+        document.getElementById("summer").disabled='disabled';
+        document.getElementById("spray").disabled='disabled';
+        document.getElementById("fertilizer").disabled='disabled';
+        document.getElementById("insecticide").disabled='disabled';
     }
-    else {
-        document.getElementById(".crop").disabled=true;
-    }
-
-    if (id6.checked){
-        document.getElementById(".water").disabled=false;
-    }
-    else {
-        document.getElementById(".water").disabled=true;
-    }
-
-    if (id6.checked){
-        document.getElementById(".miechong").disabled=false;
-    }
-    else {
-        document.getElementById(".miechong").disabled=true;
-    }
-
-    if (id6.checked){
-        document.getElementById(".summer").disabled=false;
-    }
-    else {
-        document.getElementById(".summer").disabled=true;
-    }
-
-    if (id6.checked){
-        document.getElementById(".spray").disabled=false;
-    }
-    else {
-        document.getElementById(".spray").disabled=true;
-    }
-
-    if (id6.checked){
-        document.getElementById(".fertilizer").disabled=false;
-    }
-    else {
-        document.getElementById(".fertilizer").disabled=true;
-    }
-
-    if (id6.checked){
-        document.getElementById(".insecticide").disabled=false;
-    }
-    else {
-        document.getElementById(".insecticide").disabled=true;
+    if(flag1){
+        document.getElementById("crop1").disabled='';
+        document.getElementById("water1").disabled='';
+        document.getElementById("miechong1").disabled='';
+        document.getElementById("summer1").disabled='';
+        document.getElementById("spray1").disabled='';
+        document.getElementById("fertilizer1").disabled='';
+        document.getElementById("insecticide1").disabled='';
+    }else{
+        document.getElementById("crop1").disabled='disabled';
+        document.getElementById("water1").disabled='disabled';
+        document.getElementById("miechong1").disabled='disabled';
+        document.getElementById("summer1").disabled='disabled';
+        document.getElementById("spray1").disabled='disabled';
+        document.getElementById("fertilizer1").disabled='disabled';
+        document.getElementById("insecticide1").disabled='disabled';
     }
     // if (id2.checked){
     //     document.getElementById("water1").disabled=false;

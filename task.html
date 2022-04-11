@@ -26,7 +26,7 @@
         <div class="content">
             <div id="app">
                 <div style="margin-top:30px; margin-bottom:1px;">
-                    <a class="taskbtn" onclick="ShowTaskEdit(this);">任务编辑</a>
+                    <a class="taskbtn" onclick="ShowTaskEdit();">任务编辑</a>
                     <input type="button" value="删除任务" class="taskbtn" onclick="deleteData()">
                 </div>
                 <div id="taskInfo" style="overflow: scroll; width: 100%;height:400px; font-size: 12px;">
@@ -66,19 +66,19 @@
                             <div class="float1">
                                 <p class="r1"><label for="txtAccount">任务名称：</label>
                                     <input type="text" id="txtAccount" class="txtAccount" name="txtAccount"  placeholder="请输入任务名称">
-                                    <label for="" class="la"></label>
+                                    <label  class="la"></label>
                                 </p>
                                 <p class="r2">
                                     <label for="txtTime">开始时间：</label>
                                     <input type="datetime-localt" id="txtTime" class="txtTime" name="txtTime">
-                                    <label for="" class="la"></label>
+                                    <label  class="la"></label>
                                 </p>
                                 <p class="r3">
                                     <label for="txtClasss">发布班级：</label>
                                     <select name="txtClasss" class="txtClasss" id="txtClasss">
                                         <option value="">-请选择班级-</option>
                                     </select>
-                                    <label for="" class="la"></label>
+                                    <label  class="la"></label>
                                 </p>
                             </div>
                             <div class="float2">
@@ -90,26 +90,26 @@
                                 <p>
                                     <label for="txtName">小组名称：</label>
                                     <input type="text" id="txtName" class="txtName" name="txtName" placeholder="请输入任务小组名称">
-                                    <label for="" class="la"></label>
+                                    <label  class="la"></label>
                                 </p>
                                 <p>
                                     <label for="txtIdcard">组长姓名：</label>
                                     <select name="" id="txtIdcard" class="txtIdcard">
                                         <option value="">-请选择组长-</option>
                                     </select>
-                                    <label for="" class="la"></label>
+                                    <label  class="la"></label>
                                 </p>
                             </div>
                             <div class="float3">
                                 <p>
                                     <label for="txtIdcards">组员姓名：</label>
                                     <select id='txtIdcards' class="txtIdcards" multiple="multiple" name="example-basic" size="5"></select>
-                                    <label for="" class="la"></label>
+                                    <label  class="la"></label>
                                 </p>
                                 <p>
                                     <label for="txtStep">操作步骤：</label>
                                     <textarea type="text" id="txtStep" class="txtStep" name="txtStep" placeholder="请输入任务操作步骤" style="white-space: pre-line; resize: none"  ></textarea>
-                                    <label for="" class="la"></label>
+                                    <label  class="la"></label>
                                 </p>
                             </div>
 
@@ -304,12 +304,12 @@
                 <div class="float1">
                     <p class="r1"><label for="txtAccount1">任务名称：</label>
                         <input type="text" id="txtAccount1" class="txtAccount" name="txtAccount1"  placeholder="请输入任务名称">
-                        <label for="" class="la"></label>
+                        <label  class="la"></label>
                     </p>
                     <p class="r2">
                         <label for="txtTime1">开始时间：</label>
                         <input type="datetime-localt" id="txtTime1" class="txtTime" name="txtTime1">
-                        <label for="" class="la"></label>
+                        <label  class="la"></label>
                     </p>
 
                 </div>
@@ -322,7 +322,7 @@
                     <p>
                         <label for="txtName1">小组名称：</label>
                         <input type="text" id="txtName1" class="txtName" name="txtName1" placeholder="请输入任务小组名称">
-                        <label for="" class="la"></label>
+                        <label  class="la"></label>
                     </p>
                 </div>
                 <div class="float4">
@@ -331,26 +331,26 @@
                         <select name="txtClasss1" id="txtClasss1" class="txtClasss">
                             <option value="">-请选择班级-</option>
                         </select>
-                        <label for="" class="la"></label>
+                        <label  class="la"></label>
                     </p>
                     <p>
                         <label for="txtIdcard1">组长姓名：</label>
                         <select name="" id="txtIdcard1" class="txtIdcard">
                             <option value="">-请选择组长-</option>
                         </select>
-                        <label for="" class="la"></label>
+                        <label  class="la"></label>
                     </p>
                 </div>
                 <div class="float3">
                     <p>
                         <label for="txtIdcards1">组员姓名：</label>
                         <select id='txtIdcards1' class="txtIdcards" multiple="multiple" name="example-basic" size="5"></select>
-                        <label for="" class="la"></label>
+                        <label  class="la"></label>
                     </p>
                     <p>
                         <label for="txtStep1">操作步骤：</label>
                         <textarea type="text" id="txtStep1" class="txtStep" name="txtStep1" placeholder="请输入任务操作步骤" style="white-space: pre-line; resize: none"  ></textarea>
-                        <label for="" class="la"></label>
+                        <label  class="la"></label>
                     </p>
                 </div>
 
@@ -378,7 +378,15 @@
 </body>
 <script type="text/javascript">
     $(function (){
+        //任务发布组员选择
         $("#txtIdcards").multiselect({
+            noneSelectedText: "-请选择组员-",
+            checkAllText: "全选",
+            uncheckAllText: '全不选',
+            selectedList:4
+        });
+        //任务编辑弹窗组员选择
+        $("#txtIdcards1").multiselect({
             noneSelectedText: "-请选择组员-",
             checkAllText: "全选",
             uncheckAllText: '全不选',
