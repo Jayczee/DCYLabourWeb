@@ -10,14 +10,13 @@ $(function (){
     $(".txtStep").on("blur keyup",function (){
         required($(this),"操作步骤不能为空");
     });
-    //发布班级输入框的事件驱动
+    //发布班级输入框的事件驱动///////////
     $(".txtClasss").on("blur change",function (){
 
         if (required($(this),"请选择班级")==true){
             var opt=document.getElementById('txtClasss');
             var opt1=document.getElementById('txtClasss1');
             ClassNo=opt.options[opt.selectedIndex].value;
-            ClassNo1=opt1.options[opt1.selectedIndex].value;
             initStudent(ClassNo);
         }
     });
