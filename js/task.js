@@ -17,9 +17,7 @@ $(function (){
             var opt=document.getElementById('txtClasss');
             var opt1=document.getElementById('txtClasss1');
             ClassNo=opt.options[opt.selectedIndex].value;
-            ClassNo1=opt1.options[opt1.selectedIndex].value;
             initStudent(ClassNo);
-            initStudent(ClassNo1);
         }
     });
     //发布小组名称输入框的事件驱动
