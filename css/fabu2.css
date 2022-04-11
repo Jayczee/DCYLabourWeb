@@ -1,0 +1,66 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+body{
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    display: block;
+}
+#header{
+    width: 100%;
+    height: 60px;
+    background-color: #000c17;
+    color: white;
+    font-size: 20px;
+    filter: opacity(80%);
+    box-shadow: 0 0 10px 5px #000000;
+}
+.logo{
+    width: 20%;
+    height: 60px;
+    line-height: 60px;
+    /*padding-left: 20px;*/
+    /*padding-top: 15px;*/
+    display: inline-block;
+}
+.loginName{
+    display: inline-block;
+    float: right;
+    height: 60px;
+    line-height: 60px;
+}
+#content{
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    display: block;
+}
+a{
+    text-decoration: none;
+}
+li{
+    list-style: none;
+}
+#left{
+    width: 15%;
+    height: 100%;
+    display: inline-block;
+    clear: both;/*清除两边元素*/
+    overflow: hidden;
+    margin-left: 30px;
+    margin-top: 20px;
+}
+#right{
+    width: 80%;
+    height: 100%;
+    display: inline-block;
+    clear: both;/*清除两边元素*/
+    overflow: hidden;
+    float: right;
+}
+.right{
+    width: 100%;
+    height: 100%;
+}

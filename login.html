@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>智慧劳动教育教师网页端</title>
+		<link rel="stylesheet" href="./css/login.css" />
+		<script type="text/javascript" src="http://libs.baidu.com/jquery/2.1.4/jquery.min.js"></script>
+		<script type="text/javascript" src="js/jquery-3.5.1.min.js"></script>
+		<script type="text/javascript" src="http://libs.baidu.com/jquery/2.0.0/jquery.js"></script>
+		<script type="text/javascript" src="https://cdn.staticfile.org/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+		<script type="text/javascript" src="js/login.js"></script>
+
+		<script type="text/javascript" src=""></script>
+		<script type="text/javascript">
+			//验证码
+			var code;
+
+			function createCode() { //函数体
+				code = "";
+				var codeLength = 5; //验证码的长度
+				var checkCode = document.getElementById("checkCode");
+				//所有候选组成验证码的字符
+				var codeChars = new Array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9,
+					'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
+					'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z');
+				for(var i = 0; i < codeLength; i++) {
+					var charNum = Math.floor(Math.random() * 52); //设置随机产生
+					code += codeChars[charNum];
+				}
+				if(checkCode) {
+					checkCode.className = "code";
+					checkCode.innerHTML = code;
+				}
+			}
+		</script>
+	</head>
+
+	<body onload="createCode()">
+		<div id="add">
+			<div id="img">
+				<img src="img/teacher.jpg" />
+			</div>
+			<div id="log">
+				<div id="text">智慧劳动教育系统教师端</div>
+				<form action="" id="log1" method="post">
+					<div style="height: 80px;">
+						<div class="text">
+							<li oninput="txtuser.style.display = 'none'">账&nbsp;&nbsp;&nbsp;号：<input type="text" placeholder="请输入账号......" class="username" /></li>
+							<li>
+								<p class="txtuser" style="color: red;display:none">*账号不能为空</p>
+							</li>
+							<span></span>
+						</div>
+					</div>
+					<div style="height: 80px;">
+						<div class="text" style="height: 43.6px; ">
+							<li oninput="txtpwd.style.display = 'none'">密&nbsp;&nbsp;&nbsp;码：<input type="password" placeholder="请输入密码......" class="password" /></li>
+							<li>
+								<p class="txtpwd" style="color: red;display:none">*密码不能为空</p>
+							</li>
+						</div>
+					</div>
+					<div style="height: 80px;">
+						<div class="text">
+							<li oninput="txtyanzhengma.style.display = 'none'" class="left">
+								验证码：<input type="text" class="yanzhengma" />
+							</li>
+							<li class="yzleft">
+								<p class="code" id="checkCode" onclick="createCode()"></p>
+								<a class="yz" href="#" onclick="createCode()">看不清换一张</a>
+							</li>
+
+							<li id="yingcang">
+								<p class="txtyanzhengma" style="color: red;display:none">*验证码不能为空</p>
+							</li>
+						</div>
+					</div>
+					<div id="button" class="text">
+						<button class="btn" id="btn" name="ok" type="button">登录</button>
+					</div>
+
+					<div class="copyright text">
+						Copyright©by &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;重庆市多创云教育科技有限公司
+					</div>
+					<script type="text/javascript">
+						var user = document.querySelector('.username');
+						var txtuser = document.querySelector(".txtuser");
+						var pwd = document.querySelector('.password');
+						var txtpwd = document.querySelector(".txtpwd");
+						var yanzheng = document.querySelector('.yanzhengma');
+						var txtyanzhengma = document.querySelector(".txtyanzhengma");
+						user.onblur = function(){
+							if(this.value.length==''){
+								txtuser.style.display='block';
+							}else{
+								txtuser.style.display='none';
+							}
+						}
+						pwd.onblur = function(){
+							if(this.value.length==''){
+								txtpwd.style.display='block';
+							}else{
+								txtpwd.style.display='none';
+							}
+						}
+						yanzheng.onblur=function () {
+							if(this.value.length==''){
+								txtyanzhengma.style.display='block';
+							}else{
+								txtyanzhengma.style.display='none';
+							}
+						}
+						$('.btn').click(function(){
+							var user = $('.username').val();
+							var pwd = $('.password').val();
+							var yanzheng = $('.yanzhengma').val();
+							var flag=true;
+							txtuser.style.display = 'none';
+							txtpwd.style.display = 'none';
+							txtyanzhengma.style.display = 'none';
+							if(user=='') {
+								txtuser.style.display = 'block';
+								flag = false;
+							}
+							if(pwd=='') {
+								txtpwd.style.display = 'block';
+								flag = false;
+							}
+							if(yanzheng=='') {
+								txtyanzhengma.style.display = 'block';
+								flag = false;
+							}
+							if(flag){
+								if(yanzheng.toUpperCase()!=code.toUpperCase()){
+									alert("验证码错误,请重新输入");
+									createCode();
+									return;
+								}else{
+									btn();
+								}
+							}
+						})
+					</script>
+				</form>
+			</div>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+	<title></title>
+	<link rel="stylesheet" href="css/antd.min.css">
+	<link rel="stylesheet" href="css/fa.css">
+	<script type="text/javascript" src="http://libs.baidu.com/jquery/2.0.0/jquery.js"></script>
+	<script type="text/javascript" src="https://cdn.staticfile.org/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+	<script type="text/javascript" src="js/fa.js"></script>
+	<link rel="stylesheet" type="text/css" href="css/jquery.multiselect.css" />
+	<link rel="stylesheet" type="text/css" href="css/jquery.multiselect.filter.css" />
+	<link rel="stylesheet" type="text/css" href="css/jquery-ui.css"/>
+	<link rel="stylesheet" type="text/css" href="css/style.css" />
+	<link rel="stylesheet" type="text/css" href="css/prettify.css" />
+	<script type="text/javascript" src="js/prettify.js"></script>
+	<script type="text/javascript" src="js/jquery-ui.min.js"></script>
+	<script type="text/javascript" src="js/jquery.multiselect.js"></script>
+	<script type="text/javascript" src="js/jquery.multiselect.filter.js"></script>
+</head>
+<body>
+<div id="app" style="height: 100%">
+	<div style="height: 100%">
+		<a-layout id="layout-top" style="height: 100%">
+			<a-layout-header class="header" style="height: 8%">
+				<div class="logo">劳动教育管理系统</div>
+				<div class="btn">
+					<div class="loginName" id="loginName"></div>
+					<div class="tuichu" onclick="tuichu()"><a href="">退出登录</a></div>
+				</div>
+			</a-layout-header>
+			<a-layout style="height: 92%">
+				<a-layout-sider width="200" style="background:#fff;height: 100%" class="daohang">
+					<a-menu mode="inline" :style="{height:'100%' , borderRight:0}">
+						<a-sub-menu key="sub1">
+							<span slot="title">劳动教育管理</span>
+							<a-menu-item key="1" ><a href="task.html" target="iframe-link">任务发布</a></a-menu-item>
+							<a-menu-item key="2" ><a href="edit.html" target="iframe-link">任务编辑</a></a-menu-item>
+							<a-menu-item key="3" ><a href="check.html" target="iframe-link">任务查看</a></a-menu-item>
+						</a-sub-menu>
+						<a-sub-menu key="sub2">
+							<span slot="title">劳动教育人员管理</span>
+							<a-menu-item key="4" ><a href="addstudent.html" target="iframe-link">添加学生</a></a-menu-item>
+							<a-menu-item key="5" ><a href="addteacher.html" target="iframe-link">添加老师</a></a-menu-item>
+						</a-sub-menu>
+					</a-menu>
+				</a-layout-sider>
+				<a-layout style="padding:0 24px 24px; height: 100%">
+					<iframe name="iframe-link" id="mainFrm"  style="border: medium none; height: 100%" >
+						<a-breadcrumb style="margin: 16px 0;">
+							<a-breadcrumb-item>首页</a-breadcrumb-item>
+							<a-breadcrumb-item>劳动教育管理</a-breadcrumb-item>
+							<a-breadcrumb-item>劳动教育人员管理</a-breadcrumb-item>
+						</a-breadcrumb>
+						<a-layout-content :style="{background:'#fff',padding:'24px',margin:0,minHeight:'280px'}"></a-layout-content>
+					</iframe>
+				</a-layout>
+			</a-layout>
+		</a-layout>
+	</div>
+
+</div>
+<script src="js/vue.min.js"></script>
+<script  src="js/antd.min.js"></script>
+<script>
+	var vm=new Vue({
+		el:"#app"
+	});
+	function changef(){
+		function changeFrameHeight(){
+			var ifm= document.getElementById("mainFrm");
+			ifm.height=document.documentElement.clientHeight;
+		}
+		window.onresize=function()
+		{
+			changeFrameHeight();
+		}
+	}
+</script>
+</body>
+</html>

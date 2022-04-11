@@ -1,0 +1,225 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+
+body{
+    width: 100%;
+    height: 100%;
+}
+
+#app,#taskEdit{
+    width: 80%;
+    height: 100%;
+    margin: 0 auto;
+}
+table {
+    border-collapse: collapse;
+    margin: 0 auto;
+    text-align: center;
+}
+
+table td,
+table th {
+    border: 1px solid #cad9ea;
+    color: #666;
+    height: 30px;
+}
+
+table th {
+    background-color: #CCE8EB;
+    width: 120px;
+}
+
+table tr:nth-child(odd) {
+    background: #fff;
+}
+
+table tr:nth-child(even) {
+    background: #F5FAFA;
+}
+/* 去掉a标签下划线 */
+a{
+    text-decoration: none;
+}
+
+/* 去掉无序列表符号 */
+ul{
+    list-style: none;
+}
+#register,#taskInfo{
+    width: 100%;
+    height: 100%;
+}
+input,select{
+    padding: 5px;
+}
+
+#regForm p label:first-child,#regForm1 p label:first-child{
+    font-weight: bold;
+}
+#regForm p label:last-child,#regForm1 p label:last-child{
+    color: red;
+}
+#regForm,#regForm1{
+    width: 100%;
+}
+#btnRegister, #btnRegister1{
+    width: 180px;
+    background-color: #008B8B;
+    border-radius: 5px;
+    box-shadow: 5px 5px 10px;
+}
+.float1,.float2,.float3,.float4{
+    width: 100%;
+    height: 30%;
+    overflow: hidden;
+}
+.float1 input,.float2 input,.float4 input{
+    width: 200px;
+    padding: 6px;
+}
+.float1 select,.float2 select,.float4 select{
+    width: 200px;
+    padding: 6px;
+    height: 30px;
+}
+.float1 p,.float2 p,.float4 p{
+    float: left;
+    margin-left: 40px;
+    overflow: hidden;
+}
+.float3 select{
+    width: 225px;
+    padding: 6px;
+    height: 30px;
+}
+#register p,#regForm1 p{
+    margin: 10px 50px;
+}
+.btnBox{
+    width: 100%;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+#txtStep,#txtStep1{
+    width: 43%;
+    height: 120px;
+}
+.chc{
+    margin-left: 15px;
+}
+
+/*用于弹窗的CSS设置事件*/
+.containerbox#containerbox.active{
+    filter: blur(20px);
+    pointer-events: none;
+    user-select: none ;
+}
+#popupbox{
+    position: fixed;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    width: 600px;
+    padding: 50px;
+    box-shadow: 0 5px 30px rgb(0,0,0.3);
+    background: #fff;
+    visibility: hidden;
+    opacity: 0;
+    transition: 0.5s;
+}
+#popupbox.active{
+    top: 50%;
+    visibility: visible;
+    opacity: 1;
+    transition: 0.5s;
+}
+/*鼠标点击后链接不变色*/
+a:visited {
+    color:#0000FF;
+    text-decoration:none;
+}
+/*任务完成信息查看*/
+#TaskFinishbox{
+    position: fixed;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    width: 1200px;
+    padding: 50px;
+    box-shadow: 0 5px 30px rgb(0,0,0.3);
+    background: #fff;
+    visibility: hidden;
+    opacity: 0;
+    transition: 0.5s;
+}
+#TaskFinishbox.active{
+    top: 50%;
+    visibility: visible;
+    opacity: 1;
+    transition: 0.5s;
+}
+
+/*任务编辑*/
+#taskEdit{
+    position: fixed;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    width: 1200px;
+    padding: 50px;
+    box-shadow: 0 5px 30px rgb(0,0,0.3);
+    background: #fff;
+    visibility: hidden;
+    opacity: 0;
+    transition: 0.5s;
+    height:50%;
+}
+#taskEdit.active{
+    top: 50%;
+    visibility: visible;
+    opacity: 1;
+    transition: 0.5s;
+}
+
+/*任务进度表格单元格的宽度*/
+.TaskDetailTiTle{
+    width: 150px;
+}
+.TaskDetailData{
+    width: 120px;
+}
+/*任务表按钮样式*/
+.taskbtn {
+    font-size:12px;
+    font-family:Arial;
+    font-weight:normal;
+    -moz-border-radius:6px;
+    -webkit-border-radius:6px;
+    border-radius:6px;
+    border:1px solid #84bbf3;
+    padding:5px 13px;
+    text-decoration:none;
+    background:-webkit-gradient( linear, left top, left bottom, color-stop(5%, #bddbfa), color-stop(100%, #80b5ea) );
+    background:-moz-linear-gradient( center top, #bddbfa 5%, #80b5ea 100% );
+    background:-ms-linear-gradient( top, #bddbfa 5%, #80b5ea 100% );
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#bddbfa', endColorstr='#80b5ea');
+    background-color:#bddbfa;
+    color:#ffffff;
+    display:inline-block;
+    text-shadow:1px 1px 0px #528ecc;
+    -webkit-box-shadow:inset 1px 1px 0px 0px #dcecfb;
+    -moz-box-shadow:inset 1px 1px 0px 0px #dcecfb;
+    box-shadow:inset 1px 1px 0px 0px #dcecfb;
+}.taskbtn:hover {
+     background:-webkit-gradient( linear, left top, left bottom, color-stop(5%, #80b5ea), color-stop(100%, #bddbfa) );
+     background:-moz-linear-gradient( center top, #80b5ea 5%, #bddbfa 100% );
+     background:-ms-linear-gradient( top, #80b5ea 5%, #bddbfa 100% );
+     filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#80b5ea', endColorstr='#bddbfa');
+     background-color:#80b5ea;
+ }.taskbtn:active {
+      position:relative;
+      top:1px;
+ }

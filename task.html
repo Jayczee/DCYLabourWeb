@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <script type="text/javascript" src="js/jquery-3.5.1.min.js"></script>
+    <script type="text/javascript" src="js/task.js"></script>
+    <script type="text/javascript" src="js/taskcheck.js"></script>
+    <link rel="stylesheet" href="css/task.css">
+    <link rel="stylesheet" type="text/css" href="css/jquery.multiselect.css" />
+    <link rel="stylesheet" type="text/css" href="css/jquery.multiselect.filter.css" />
+    <link rel="stylesheet" type="text/css" href="css/jquery-ui.css"/>
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <link rel="stylesheet" type="text/css" href="css/prettify.css" />
+    <script type="text/javascript" src="js/prettify.js"></script>
+    <script type="text/javascript" src="js/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="js/jquery.multiselect.js"></script>
+    <script type="text/javascript" src="js/jquery.multiselect.filter.js"></script>
+    <script type="text/javascript" src="https://cdn.staticfile.org/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+    <meta charset="UTF-8">
+    <title>任务发布</title>
+</head>
+
+<body onload="InitData();">
+    <div class="containerbox" id="containerbox">
+        <div class="content">
+            <div id="app">
+                <div style="margin-top:30px; margin-bottom:1px;">
+                    <a class="taskbtn" onclick="ShowTaskEdit(this);">任务编辑</a>
+                    <input type="button" value="删除任务" class="taskbtn" onclick="deleteData()">
+                </div>
+                <div id="taskInfo" style="overflow: scroll; width: 100%;height:400px; font-size: 12px;">
+                    <table id="taskInfoTab" style="width: 100%;text-align: center;">
+                        <tr>
+                            <th></th>
+                            <th>序号</th>
+                            <th>任务名称</th>
+                            <th>发布时间</th>
+                            <th>发布班级</th>
+                            <th>指导教师</th>
+                            <th>小组名称</th>
+                            <th>组长姓名</th>
+                            <th>组员姓名</th>
+                            <th>操作步骤</th>
+                            <th>是否需要翻地</th>
+                            <th>是否需要整地</th>
+                            <th>是否需要测量</th>
+                            <th>是否需要执行措施</th>
+                            <th>是否需要测量作物</th>
+                            <th>是否需要浇灌</th>
+                            <th>是否需要灭虫</th>
+                            <th>是否需要光照</th>
+                            <th>是否需要喷洒</th>
+                            <th>是否需要施肥</th>
+                            <th>是否需要杀虫</th>
+                            <th>查看完成进度</th>
+                        </tr>
+                        <tr>
+                        </tr>
+                    </table>
+                </div>
+                <div id="register">
+                    <form action="" id="regForm" onsubmit="return false">
+                        <fieldset>
+                            <legend>发布任务</legend>
+                            <div class="float1">
+                                <p class="r1"><label for="txtAccount">任务名称：</label>
+                                    <input type="text" id="txtAccount" class="txtAccount" name="txtAccount"  placeholder="请输入任务名称">
+                                    <label for="" class="la"></label>
+                                </p>
+                                <p class="r2">
+                                    <label for="txtTime">开始时间：</label>
+                                    <input type="datetime-localt" id="txtTime" class="txtTime" name="txtTime">
+                                    <label for="" class="la"></label>
+                                </p>
+                                <p class="r3">
+                                    <label for="txtClasss">发布班级：</label>
+                                    <select name="txtClasss" class="txtClasss" id="txtClasss">
+                                        <option value="">-请选择班级-</option>
+                                    </select>
+                                    <label for="" class="la"></label>
+                                </p>
+                            </div>
+                            <div class="float2">
+                                <p>
+                                    <label for="txtTeacher">指导教师：</label>
+                                    <input type="text" name="txtTeacher" class="txtTeacher" id="txtTeacher" disabled="disabled">
+                                    <label for="" class="la"></label>
+                                </p>
+                                <p>
+                                    <label for="txtName">小组名称：</label>
+                                    <input type="text" id="txtName" class="txtName" name="txtName" placeholder="请输入任务小组名称">
+                                    <label for="" class="la"></label>
+                                </p>
+                                <p>
+                                    <label for="txtIdcard">组长姓名：</label>
+                                    <select name="" id="txtIdcard" class="txtIdcard">
+                                        <option value="">-请选择组长-</option>
+                                    </select>
+                                    <label for="" class="la"></label>
+                                </p>
+                            </div>
+                            <div class="float3">
+                                <p>
+                                    <label for="txtIdcards">组员姓名：</label>
+                                    <select id='txtIdcards' class="txtIdcards" multiple="multiple" name="example-basic" size="5"></select>
+                                    <label for="" class="la"></label>
+                                </p>
+                                <p>
+                                    <label for="txtStep">操作步骤：</label>
+                                    <textarea type="text" id="txtStep" class="txtStep" name="txtStep" placeholder="请输入任务操作步骤" style="white-space: pre-line; resize: none"  ></textarea>
+                                    <label for="" class="la"></label>
+                                </p>
+                            </div>
+
+                            <p>
+                                <input type="checkbox" name="turn" id="turn" class="turn" value="0"/>翻地
+                                <input type="checkbox" name="soil" id="soil" class="chc soil"/>整地
+                                <input type="checkbox" name="measure" id="measure" class="chc measure"/>测量
+                            </p>
+                            <p>
+                                <input type="checkbox" name="executive" id="executive" class="executive" onclick="check()"/>执行措施
+                                <input type="checkbox" name="crop" id="crop" class="chc crop" disabled="disabled"/>测量作物
+                                <input type="checkbox" name="water" id="water"  class="chc water" disabled="disabled"/>浇灌
+                                <input type="checkbox" name="miechong" id="miechong" class="chc miechong" disabled="disabled"/>灭虫
+                                <input type="checkbox" name="summer" id="summer" class="chc summer" disabled="disabled"/>光照
+                                <input type="checkbox" name="spray" id="spray" class="chc spray" disabled="disabled"/>喷洒
+                                <input type="checkbox" name="fertilizer" class="chc fertilizer" id="fertilizer" disabled="disabled" />施肥
+                                <input type="checkbox" name="insecticide" class="chc insecticide" id="insecticide" disabled="disabled" />杀虫
+                            </p>
+                            <div class="btnBox">
+                                <input type="submit" id="btnRegister" class="btnRegister" value="发布任务" />
+                            </div>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 用于弹窗的DIV -->
+    <div id="popupbox">
+        <h2 id="txtTitle">任务详情：</h2>
+        <p id="txtContent"></p>
+        <a href="#" onclick="ShowMsg()">关闭</a>
+    </div>
+    <!--显示任务进度弹窗-->
+    <div id="TaskFinishbox">
+        <table>
+            <tr>
+                <th colspan="8">劳动任务完成信息</th>
+            </tr>
+            <tr>
+                <td rowspan="2" class="TaskDetailTiTle">劳动小组名称或组别</td>
+                <td rowspan="2" id="fiGroup"></td>
+                <td rowspan="2">班级年级</td>
+                <td rowspan="2" id="fiClass"></td>
+                <td rowspan="2">指导老师</td>
+                <td rowspan="2" id="fiTeacher"></td>
+                <td rowspan="2">组长</td>
+                <td rowspan="2" id="fiStuCap"></td>
+            </tr>
+            <tr>
+
+            </tr>
+            <tr>
+                <td rowspan="2">到场组员</td>
+                <td rowspan="2" colspan="7" id="fiStuPre"></td>
+            </tr>
+            <tr>
+
+            </tr>
+            <tr>
+                <td rowspan="2">劳动任务名称</td>
+                <td rowspan="2" colspan="7" id="fiTaskName"></td>
+            </tr>
+            <tr>
+
+            </tr>
+            <tr>
+                <td rowspan="2">翻地信息</td>
+                <td class="TaskDetailData">翻地时间</td>
+                <td class="TaskDetailData">除草</td>
+                <td class="TaskDetailData">地块长</td>
+                <td class="TaskDetailData">地块宽</td>
+                <td class="TaskDetailData">地块面积</td>
+                <td class="TaskDetailData"></td>
+                <td class="TaskDetailData"></td>
+            </tr>
+            <tr>
+                <td id="fiFandiTime"></td>
+                <td id="fiChuCao"></td>
+                <td id="fiDiKuaiW"></td>
+                <td id="fiDiKuaiH"></td>
+                <td id="fiDiKuaiArea"></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>拍3-5张相应照片</td>
+                <td colspan="7" id="fiFandiPicURL"></td>
+            </tr>
+            <tr>
+                <td rowspan="2">整地数据</td>
+                <td>整地时间</td>
+                <td>垄畦数量</td>
+                <td>垄沟1宽度+深度</td>
+                <td>垄沟2宽度+深度</td>
+                <td>垄沟3宽度+深度</td>
+                <td>垄沟4宽度+深度</td>
+                <td>垄沟5宽度+深度</td>
+            </tr>
+            <tr>
+                <td id="fiZhengdiTime"></td>
+                <td id="fiLongQi"></td>
+                <td id="fiLongGou1"></td>
+                <td id="fiLongGou2"></td>
+                <td id="fiLongGou3"></td>
+                <td id="fiLongGou4"></td>
+                <td id="fiLongGou5"></td>
+            </tr>
+            <tr>
+                <td>拍3-5张相应照片</td>
+                <td colspan="7" id="fiZhengdiPicURL"></td>
+            </tr>
+            <tr>
+                <td rowspan="2">环境土壤数据</td>
+                <td>采集录入时间时间</td>
+                <td>环境温度</td>
+                <td>环境湿度</td>
+                <td>土壤温度</td>
+                <td>土壤湿度</td>
+                <td>土壤光照度</td>
+                <td>土壤PH值</td>
+            </tr>
+            <tr>
+                <td id="fiCeliangTime"></td>
+                <td id="fiHuanJingTemp"></td>
+                <td id="fiHuanJingWet"></td>
+                <td id="fiTuRangTemp"></td>
+                <td id="fiTuRangWet"></td>
+                <td id="fiTuRangLight"></td>
+                <td id="fiTuRangPH"></td>
+            </tr>
+            <tr>
+                <td>拍3-5张相应照片</td>
+                <td colspan="7" id="fiCeliangPicURL"></td>
+            </tr>
+            <tr>
+                <td rowspan="2">措施执行信息</td>
+                <td>执行时间</td>
+                <td>施肥用量（g）</td>
+                <td>杀虫药用量（g）</td>
+                <td>浇灌时长</td>
+                <td>光照补充时长</td>
+                <td>灭虫时长</td>
+                <td>手持喷壶喷撒（ml）</td>
+            </tr>
+            <tr>
+                <td id="fiCuoshiTime"></td>
+                <td id="fiShiFei"></td>
+                <td id="fiShaChong"></td>
+                <td id="fiJiaoGuan"></td>
+                <td id="fiGuangZhao"></td>
+                <td id="fiMieChong"></td>
+                <td id="fiPenSa"></td>
+            </tr>
+            <tr>
+                <td>拍3-5张相应照片</td>
+                <td colspan="7" id="fiCuoshiPicURL"></td>
+            </tr>
+            <tr>
+                <td rowspan="2">农作物生长信息</td>
+                <td>观察测量录入时间</td>
+                <td>生长阶段</td>
+                <td>植株叶片或颜色</td>
+                <td>植株高度</td>
+                <td>现有植株数量</td>
+                <td>补充植株数量</td>
+                <td>成果收获（数量/重量）</td>
+            </tr>
+            <tr>
+                <td id="fiZuowuTime"></td>
+                <td id="fiZuowuJieDuan"></td>
+                <td id="fiZuowuYanSe"></td>
+                <td id="fiZuowuH"></td>
+                <td id="fiZuowuNum1"></td>
+                <td id="fiZuowuNum2"></td>
+                <td id="fiZuowuShouHuo"></td>
+            </tr>
+            <tr>
+                <td>拍3-5张相应照片</td>
+                <td colspan="7" id="fiZuowuPicURL"></td>
+            </tr>
+        </table>
+
+        <a href="#" onclick="ShowTaskFinishInfo()">关闭</a>
+    </div>
+    <!--    显示任务编辑弹窗-->
+    <div id="taskEdit">
+        <form action="" id="regForm1" onsubmit="return false">
+            <fieldset>
+                <legend>编辑任务</legend>
+                <div class="float1">
+                    <p class="r1"><label for="txtAccount1">任务名称：</label>
+                        <input type="text" id="txtAccount1" class="txtAccount" name="txtAccount1"  placeholder="请输入任务名称">
+                        <label for="" class="la"></label>
+                    </p>
+                    <p class="r2">
+                        <label for="txtTime1">开始时间：</label>
+                        <input type="datetime-localt" id="txtTime1" class="txtTime" name="txtTime1">
+                        <label for="" class="la"></label>
+                    </p>
+
+                </div>
+                <div class="float2">
+                    <p>
+                        <label for="txtTeacher1">指导教师：</label>
+                        <input type="text" name="txtTeacher1" id="txtTeacher1" class="txtTeacher" disabled="disabled">
+                        <label for="" class="la"></label>
+                    </p>
+                    <p>
+                        <label for="txtName1">小组名称：</label>
+                        <input type="text" id="txtName1" class="txtName" name="txtName1" placeholder="请输入任务小组名称">
+                        <label for="" class="la"></label>
+                    </p>
+                </div>
+                <div class="float4">
+                    <p class="r3">
+                        <label for="txtClasss1">发布班级：</label>
+                        <select name="txtClasss1" id="txtClasss1" class="txtClasss">
+                            <option value="">-请选择班级-</option>
+                        </select>
+                        <label for="" class="la"></label>
+                    </p>
+                    <p>
+                        <label for="txtIdcard1">组长姓名：</label>
+                        <select name="" id="txtIdcard1" class="txtIdcard">
+                            <option value="">-请选择组长-</option>
+                        </select>
+                        <label for="" class="la"></label>
+                    </p>
+                </div>
+                <div class="float3">
+                    <p>
+                        <label for="txtIdcards1">组员姓名：</label>
+                        <select id='txtIdcards1' class="txtIdcards" multiple="multiple" name="example-basic" size="5"></select>
+                        <label for="" class="la"></label>
+                    </p>
+                    <p>
+                        <label for="txtStep1">操作步骤：</label>
+                        <textarea type="text" id="txtStep1" class="txtStep" name="txtStep1" placeholder="请输入任务操作步骤" style="white-space: pre-line; resize: none"  ></textarea>
+                        <label for="" class="la"></label>
+                    </p>
+                </div>
+
+                <p>
+                    <input type="checkbox" name="turn1" id="turn1" class="turn" value="0"/>翻地
+                    <input type="checkbox" name="soil1" id="soil1" class="chc soil"/>整地
+                    <input type="checkbox" name="measure1" id="measure1" class="chc measure"/>测量
+                </p>
+                <p>
+                    <input type="checkbox" name="executive1" id="executive1" class="executive" onclick="check()"/>执行措施
+                    <input type="checkbox" name="crop1" id="crop1" class="chc crop" disabled="disabled"/>测量作物
+                    <input type="checkbox" name="water1" id="water1"  class="chc water" disabled="disabled"/>浇灌
+                    <input type="checkbox" name="miechong1" id="miechong1" class="chc miechong" disabled="disabled"/>灭虫
+                    <input type="checkbox" name="summer1" id="summer1" class="chc summer" disabled="disabled"/>光照
+                    <input type="checkbox" name="spray1" id="spray1" class="chc spray" disabled="disabled"/>喷洒
+                    <input type="checkbox" name="fertilizer1" class="chc fertilizer" id="fertilizer1" disabled="disabled" />施肥
+                    <input type="checkbox" name="insecticide1" class="chc insecticide" id="insecticide1" disabled="disabled" />杀虫
+                <div class="btnBox">
+                    <input type="submit" id="btnRegister1" class="btnRegister" value="编辑任务" />
+                </div>
+            </fieldset>
+        </form>
+        <a href="#" onclick="ShowTaskEdit(this)">关闭</a>
+    </div>
+</body>
+<script type="text/javascript">
+    $(function (){
+        $("#txtIdcards").multiselect({
+            noneSelectedText: "-请选择组员-",
+            checkAllText: "全选",
+            uncheckAllText: '全不选',
+            selectedList:4
+        });
+    });
+</script>
+</html>
