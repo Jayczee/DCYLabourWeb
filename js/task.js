@@ -17,7 +17,9 @@ $(function (){
             var opt=document.getElementById('txtClasss');
             var opt1=document.getElementById('txtClasss1');
             ClassNo=opt.options[opt.selectedIndex].value;
+            ClassNo1=opt1.options[opt1.selectedIndex].value;
             initStudent(ClassNo);
+            initStudent(ClassNo1);
         }
     });
     //发布小组名称输入框的事件驱动
@@ -97,6 +99,7 @@ $(function (){
                     if(res.resCode==11){
                         //创建HTML节点
                         var tr=$("<tr>"
+                            +"<td>"+"<input type='radio' name='taskradio' value='"+res.data.taskID+"'>"+"</td>"
                             +"<td>"+res.data.taskID+"</td>"
                             +"<td>"+account+"</td>"
                             +"<td>"+time+"</td>"
