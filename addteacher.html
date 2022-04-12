@@ -7,24 +7,27 @@
 </head>
 <body>
 <div id="app">
-    <h2>添加老师</h2>
-    <div class="form-group">
-        <label for="id">编号：</label>
-        <input type="text" v-model="newPerson.name"/>
-        <span>{{nameTip}}</span>
-    </div>
-    <div class="form-group">
-        <label for="name">姓名：</label>
-        <input type="text" v-model="newPerson.name"/>
-        <span>{{nameTip}}</span>
-    </div>
-    <div class="form-group">
-        <label >性别：</label>
-        <input type="text" v-model="newPerson.step"/>
-        <span>{{stepTip}}</span>
-    </div>
-    <div class="">
-        <button @click="createPerson">添加老师</button>
+    <div id="register">
+        <form action="#" id="regForm" onsubmit="return false">
+            <p>
+                <label for="txtName">姓名：</label>
+                <input type="text" id="txtName" name="txtName">
+                <label for=""></label>
+            </p>
+            <p>
+                <label for="">性别：</label>
+                <select name="" id="selGender">
+                    <option value="男">男</option>
+                    <option value="女">女</option>
+                </select>
+            </p>
+            <p>
+                <label for="txtPwd">卡号：</label>
+                <input type="text" id="txtPwd" name="txtPwd" placeholder="请输入教师卡号">
+                <label for=""></label>
+            </p>
+            <div class="btnbox"><input type="submit" id="btnStudent" value="添加"></div>
+        </form>
     </div>
 </div>
 <script>

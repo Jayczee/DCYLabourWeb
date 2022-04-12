@@ -1,0 +1,153 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+body{
+    width: 100%;
+    height: 100%;
+}
+
+#app{
+    width: 100%;
+    height: 100%;
+    margin: 0 auto;
+    font-size: 20px;
+    font-family: 微软雅黑;
+}
+#register,#taskEdit{
+    width: 100%;
+    height: 60%;
+}
+#regForm p,#regForm1 p{
+    margin: 40px;
+}
+#regForm input,#regForm1 input{
+    width: 200px;
+    height: 20px;
+    padding: 5px 5px;
+}
+#regForm select,#regForm1 select{
+    width: 212px;
+    height: 35px;
+    padding: 5px 5px;
+}
+.btnbox{
+    width: 100%;
+    height: 60px;
+    padding: 5px 5px;
+
+}
+#regForm .btnbox input,#regForm1 .btnbox input{
+    width: 10%;
+    height: 40px;
+}
+#left,#left1{
+    width: 50%;
+    display: inline-block;
+    overflow: hidden;
+}
+#right,#right1{
+    width: 50%;
+    float: right;
+    display: inline-block;
+    overflow: hidden;
+}
+/*任务表按钮样式*/
+.taskbtn {
+    font-size:12px;
+    font-family:Arial;
+    font-weight:normal;
+    -moz-border-radius:6px;
+    -webkit-border-radius:6px;
+    border-radius:6px;
+    border:1px solid #84bbf3;
+    padding:5px 13px;
+    text-decoration:none;
+    background:-webkit-gradient( linear, left top, left bottom, color-stop(5%, #bddbfa), color-stop(100%, #80b5ea) );
+    background:-moz-linear-gradient( center top, #bddbfa 5%, #80b5ea 100% );
+    background:-ms-linear-gradient( top, #bddbfa 5%, #80b5ea 100% );
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#bddbfa', endColorstr='#80b5ea');
+    background-color:#bddbfa;
+    color:#ffffff;
+    display:inline-block;
+    text-shadow:1px 1px 0px #528ecc;
+    -webkit-box-shadow:inset 1px 1px 0px 0px #dcecfb;
+    -moz-box-shadow:inset 1px 1px 0px 0px #dcecfb;
+    box-shadow:inset 1px 1px 0px 0px #dcecfb;
+}
+.taskbtn:hover {
+     background:-webkit-gradient( linear, left top, left bottom, color-stop(5%, #80b5ea), color-stop(100%, #bddbfa) );
+     background:-moz-linear-gradient( center top, #80b5ea 5%, #bddbfa 100% );
+     background:-ms-linear-gradient( top, #80b5ea 5%, #bddbfa 100% );
+     filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#80b5ea', endColorstr='#bddbfa');
+     background-color:#80b5ea;
+}
+.taskbtn:active {
+      position:relative;
+      top:1px;
+}
+/*表单样式*/
+table {
+    border-collapse: collapse;
+    margin: 0 auto;
+    text-align: center;
+}
+
+table td,
+table th {
+    border: 1px solid #cad9ea;
+    color: #666;
+    height: 30px;
+}
+
+table th {
+    background-color: #CCE8EB;
+    width: 120px;
+}
+
+table tr:nth-child(odd) {
+    background: #fff;
+}
+
+table tr:nth-child(even) {
+    background: #F5FAFA;
+}
+/* 去掉a标签下划线 */
+a{
+    text-decoration: none;
+}
+
+/* 去掉无序列表符号 */
+ul{
+    list-style: none;
+}
+/*用于弹窗的CSS设置事件*/
+.containerbox#containerbox.active{
+    filter: blur(20px);
+    pointer-events: none;
+    user-select: none ;
+}
+#register,#taskEdit,#taskCheck{
+    position: fixed;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    width: 600px;
+    padding: 50px;
+    box-shadow: 0 5px 30px rgb(0,0,0.3);
+    background: #fff;
+    visibility: hidden;
+    opacity: 0;
+    transition: 0.5s;
+}
+#register.active,#taskEdit.active,#taskCheck.active{
+    top: 50%;
+    visibility: visible;
+    opacity: 1;
+    transition: 0.5s;
+}
+/*鼠标点击后链接不变色*/
+a:visited {
+    color:#0000FF;
+    text-decoration:none;
+}

@@ -3,44 +3,147 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/addPeople.css">
     <title>添加学生</title>
 </head>
 <body>
-<div id="app">
-    <div id="register">
-        <form action="#" id="regForm" onsubmit="return false">
-                <p>
-                    <label for="txtId">序号：</label>
-                    <input type="text" id="txtId" name="txtId">
-                    <label for=""></label>
-                </p>
-                <p>
-                    <label for="txtName">姓名：</label>
-                    <input type="text" id="txtName" name="txtName">
-                    <label for=""></label>
-                </p>
-                <p>
-                    <label for="">性别：</label>
-                    <select name="" id="selGender">
-                        <option value="男">男</option>
-                        <option value="女">女</option>
-                    </select>
-                </p>
-                <p>
-                    <label for="txtPwd">卡号：</label>
-                    <input type="password" id="txtPwd" name="txtPwd" placeholder="请输入账号密码">
-                    <label for=""></label>
-                </p>
-                <p>
-                    <label for="txtClass">班级：</label>
-                    <select name="txtClass" id="txtClass">
-                        <option value="">-请选择班级-</option>
-                    </select>
-                    <label for="" class="la"></label>
-                </p>
-            <div class="btnbox"><input type="submit" id="btnStudent" value="添加学生" disabled="disabled"></div>
-        </form>
+<div class="containerbox" id="containerbox">
+    <div class="content">
+        <div id="app">
+            <div id="taskTable" style="width: 100%;height:100%;">
+                <div style="margin-top:30px; margin-bottom:1px;">
+                    <a class="taskbtn">添加</a>
+                    <a class="taskbtn">编辑</a>
+                    <a class="taskbtn">查看</a>
+                    <input class="taskbtn" type="button" value="删除">
+                </div>
+                <div id="taskInfo" style="overflow: scroll; width: 100%;height:100%; font-size: 15px;">
+                    <table id="taskInfoTab" style="width: 100%;text-align: center;overflow:auto;overflow-x: hidden">
+                        <tr>
+                            <th>序号</th>
+                            <th>姓名</th>
+                            <th>性别</th>
+                            <th>卡号</th>
+                            <th>班级</th>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
+
+<!--弹窗显示添加-->
+<div id="register">
+    <form action="#" id="regForm" onsubmit="return false">
+        <div id="left">
+            <p>
+                <label for="txtName">姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名：</label>
+                <input type="text" id="txtName" name="txtName">
+                <label for=""></label>
+            </p>
+            <p>
+                <label for="txtyear">入学年份：</label>
+                <input type="text" id="txtyear" name="txtyear">
+                <label for=""></label>
+            </p>
+            <p>
+                <label for="txtCard">卡&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;号：</label>
+                <input type="text" id="txtCard" name="txtCard" placeholder="请输入学生卡号">
+                <label for=""></label>
+            </p>
+        </div>
+        <div id="right">
+            <p>
+                <label for="selGender">性别：</label>
+                <select name="" id="selGender">
+                    <option value="">-请选择性别-</option>
+                </select>
+            </p>
+            <p>
+                <label for="txtClass">班级：</label>
+                <select name="txtClass" id="txtClass">
+                    <option value="">-请选择班级-</option>
+                </select>
+                <label for="" class="la"></label>
+            </p>
+        </div>
+        <div class="btnbox">
+            <input type="submit" id="btnStudent" value="添加">
+        </div>
+    </form>
+    <a href="#" onclick="ShowTaskFinishInfo()">关闭</a>
+</div>
+
+<!--弹窗显示编辑-->
+<div id="taskEdit">
+    <form action="#" id="regForm1" onsubmit="return false">
+        <div id="left1">
+            <p>
+                <label for="txtName1">姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名：</label>
+                <input type="text" id="txtName1" name="txtName1" placeholder="请输入学生姓名">
+                <label for=""></label>
+            </p>
+            <p>
+                <label for="txtyear1">入学年份：</label>
+                <select name="" id="txtyear1">
+                    <option value="">-请选择性别-</option>
+                </select>
+                <label for=""></label>
+            </p>
+            <p>
+                <label for="txtCard1">卡&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;号：</label>
+                <input type="text" id="txtCard1" name="txtCard1" placeholder="请输入学生卡号">
+                <label for=""></label>
+            </p>
+        </div>
+        <div id="right1">
+            <p>
+                <label for="selGender1">性别：</label>
+                <select name="" id="selGender1">
+                    <option value="">-请选择性别-</option>
+                </select>
+                <label for=""></label>
+            </p>
+            <p>
+                <label for="txtClass1">班级：</label>
+                <select name="txtClass1" id="txtClass1">
+                    <option value="">-请选择班级-</option>
+                </select>
+                <label for=""></label>
+            </p>
+        </div>
+        <div class="btnbox">
+            <input type="submit" id="btnStudent1" value="编辑">
+        </div>
+    </form>
+    <a href="#" onclick="ShowTaskFinishInfo()">关闭</a>
+</div>
+
+<!--弹窗显示查看-->
+<div id="taskCheck">
+    <table>
+        <tr>
+            <th colspan="6">学生信息列表</th>
+        </tr>
+        <tr>
+            <th>序号</th>
+            <th>姓名</th>
+            <th>性别</th>
+            <th>卡号</th>
+            <th>班级</th>
+            <th>入学年份</th>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+    </table>
+</div>
+
 </body>
 </html>
