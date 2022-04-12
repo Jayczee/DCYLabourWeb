@@ -1,7 +1,7 @@
 
 var ClassNo;
 var ClassNo1;
-var arrTasktxt=new Array(1000000);
+var arrTasktxt=new Array(1000000);//保存任务数据的数组
 $(function (){
     /*********************************************/
     /*********************************************/
