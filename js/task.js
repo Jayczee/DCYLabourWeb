@@ -155,7 +155,7 @@ $(function (){
                             +"<td>"+isCSPS+"</td>"
                             +"<td>"+isShiFei+"</td>"
                             +"<td>"+isShaChong+"</td>"
-                            +"<td><a href='#' onclick='ShowTaskDetail(this)'>查看</a></td>"
+                            +"<td><a href='#' onclick='ShowTaskFinishInfo(this)'>查看</a></td>"
                             +"</tr>");
 
                         //将HTML节点添加到table子节点的最后
@@ -237,6 +237,7 @@ $(function (){
             var insecticides=$("#insecticide1").is(":checked")?1:0;
 
             var body={
+                "taskID":tskid,
                 "taskName":account,//任务名称
                 "taskStartTime": time,//开始时间
                 "taskTUid": teacher,//教师UID
@@ -325,7 +326,7 @@ $(function (){
                             +"<td>"+isCSPS+"</td>"
                             +"<td>"+isShiFei+"</td>"
                             +"<td>"+isShaChong+"</td>"
-                            +"<td><a href='#' onclick='ShowTaskDetail(this)'>查看</a></td>"
+                            +"<td><a href='#' onclick='ShowTaskFinishInfo(this)'>查看</a></td>"
                             +"</tr>"
                         );
 
@@ -593,8 +594,12 @@ function ShowTaskFinishInfo(obj){
                 tfform=false;
                 return;
             }else{
-
-                document.getElementById("fiStuPre").innerHTML=tskid;//到场组员
+                var stupre="";
+                var stupreid=res.data.stuPresent.split(',');
+                var i=0;
+                for(i=0;i<stupreid.length;i++)
+                    stupre+=GetStuByCardNum(stupreid[i]);
+                document.getElementById("fiStuPre").innerHTML=stupre;//到场组员
                 document.getElementById("fiFandiTime").innerHTML=res.data.fanDiTime;//翻地时间
                 document.getElementById("fiChuCao").innerHTML=res.data.chuCao;//除草
                 document.getElementById("fiDiKuaiW").innerHTML=res.data.diKuaiW;//地块长
