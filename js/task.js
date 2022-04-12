@@ -104,7 +104,6 @@ $(function (){
                 url:"http://www.jayczee.top:50121/"+"User/GetTeacher/"+$.cookie('.username'),
                 success:function (res){
                     if(res.resCode==28){
-                        console.log(res);
                         tname=res.data.tname;
                     }
                     else{
@@ -122,6 +121,17 @@ $(function (){
                 data:JSON.stringify(body),
                 success:function (res){
                     if(res.resCode==11){
+                        var isFandi=turns==1?"是":"否";
+                        var isZhengdi=soils==1?"是":"否";
+                        var isCeliang=measures==1?"是":"否";
+                        var isCuoshi=executives==1?"是":"否";
+                        var isZWCL=crops==1?"是":"否";
+                        var isCSJG=waters==1?"是":"否";
+                        var isCSMC=miechongs==1?"是":"否";
+                        var isCSGZ=summers==1?"是":"否";
+                        var isCSPS=sprays==1?"是":"否";
+                        var isShiFei=fertilizers==1?"是":"否";
+                        var isShaChong=insecticides==1?"是":"否";
                         //创建HTML节点
                         var tr=$("<tr>"
                             +"<td>"+"<input type='radio' name='taskradio' value='"+res.data.taskID+"'>"+"</td>"
@@ -133,23 +143,24 @@ $(function (){
                             +"<td>"+name+"</td>"
                             +"<td>"+scname+"</td>"
                             +"<td>"+stusname+"</td>"
-                            +"<td>"+step+"</td>"
-                            +"<td>"+turns+"</td>"
-                            +"<td>"+soils+"</td>"
-                            +"<td>"+measures+"</td>"
-                            +"<td>"+executives+"</td>"
-                            +"<td>"+crops+"</td>"
-                            +"<td>"+waters+"</td>"
-                            +"<td>"+miechongs+"</td>"
-                            +"<td>"+summers+"</td>"
-                            +"<td>"+sprays+"</td>"
-                            +"<td>"+fertilizers+"</td>"
-                            +"<td>"+insecticides+"</td>"
+                            +"<td>"+"<a href='#' onclick='ShowMsg(this)'>"+"查看详情"+"</a>"+"</td>"
+                            +"<td>"+isFandi+"</td>"
+                            +"<td>"+isZhengdi+"</td>"
+                            +"<td>"+isCeliang+"</td>"
+                            +"<td>"+isCuoshi+"</td>"
+                            +"<td>"+isZWCL+"</td>"
+                            +"<td>"+isCSJG+"</td>"
+                            +"<td>"+isCSMC+"</td>"
+                            +"<td>"+isCSGZ+"</td>"
+                            +"<td>"+isCSPS+"</td>"
+                            +"<td>"+isShiFei+"</td>"
+                            +"<td>"+isShaChong+"</td>"
                             +"<td><a href='#' onclick='ShowTaskDetail(this)'>查看</a></td>"
                             +"</tr>");
 
                         //将HTML节点添加到table子节点的最后
                         $("#taskInfoTab").append(tr);
+                        arrTasktxt[res.data.taskID]=step;
                         alert("发布任务成功！");
                     }
                 },
@@ -195,34 +206,35 @@ $(function (){
     defaaltDate();
     $("#btnRegister1").on("click",function () {
         //非空验证
-        var accountCheck=required($(".txtAccount"),"任务名称不能为空");
-        var stepCheck=required($(".txtStep"),"操作步骤不能为空");
-        var classCheck=required($(".txtClasss"),"请选择班级");
-        var nameCheck=required($(".txtName"),"小组名称不能为空");
-        var idcardCheck=required($(".txtIdcard"),"请选择组长");
-        var idcardsCheck=required($(".txtIdcards"),"请选择组员");
+        var accountCheck=required($("#txtAccount1"),"任务名称不能为空");
+        var stepCheck=required($("#txtStep1"),"操作步骤不能为空");
+        var classCheck=required($("#txtClasss1"),"请选择班级");
+        var nameCheck=required($("#txtName1"),"小组名称不能为空");
+        var idcardCheck=required($("#txtIdcard1"),"请选择组长");
+        var idcardsCheck=required($("#txtIdcards1"),"请选择组员");
         if (accountCheck && stepCheck && classCheck && nameCheck && idcardCheck && idcardsCheck) {
             //获取用户输入的内容
-
-            var account=$(".txtAccount").val();
-            var time=$(".txtTime").val();
-            var classc=$(".txtClasss").val();
+            var tskid=$("input[name='taskradio']:checked").attr('value');
+            var account=$("#txtAccount1").val();
+            var time=$("#txtTime1").val();
+            var classc=$("#txtClasss1").val();
             var teacher=$.cookie('.username');
-            var name=$(".txtName").val();
-            var idcard=$(".txtIdcard").val();
-            var idcards=$(".txtIdcards").val();
-            var step=$(".txtStep").val();
-            var turns=$(".turn").is(":checked")?1:0;
-            var soils=$(".soil").is(":checked")?1:0;
-            var measures=$(".measure").is(":checked")?1:0;
-            var executives=$(".executive").is(":checked")?1:0;
-            var crops=$(".crop").is(":checked")?1:0;
-            var waters=$(".water").is(":checked")?1:0;
-            var miechongs=$(".miechong").is(":checked")?1:0;
-            var summers=$(".summer").is(":checked")?1:0;
-            var sprays=$(".spray").is(":checked")?1:0;
-            var fertilizers=$(".fertilizer").is(":checked")?1:0;
-            var insecticides=$(".insecticide").is(":checked")?1:0;
+            var ttname=$("input[name='taskradio']:checked").parents('tr').children("td").get(5).innerHTML;
+            var name=$("#txtName1").val();
+            var idcard=$("#txtIdcard1").val();
+            var idcards=$("#txtIdcards1").val();
+            var step=$("#txtStep1").val();
+            var turns=$("#turn1").is(":checked")?1:0;
+            var soils=$("#soil1").is(":checked")?1:0;
+            var measures=$("#measure1").is(":checked")?1:0;
+            var executives=$("#executive1").is(":checked")?1:0;
+            var crops=$("#crop1").is(":checked")?1:0;
+            var waters=$("#water1").is(":checked")?1:0;
+            var miechongs=$("#miechong1").is(":checked")?1:0;
+            var summers=$("#summer1").is(":checked")?1:0;
+            var sprays=$("#spray1").is(":checked")?1:0;
+            var fertilizers=$("#fertilizer1").is(":checked")?1:0;
+            var insecticides=$("#insecticide1").is(":checked")?1:0;
 
             var body={
                 "taskName":account,//任务名称
@@ -257,10 +269,10 @@ $(function (){
             /*获取教师姓名*/
             $.ajax({
                 type:"GET",
+                async:false,
                 url:"http://www.jayczee.top:50121/"+"User/GetTeacher/"+$.cookie('.username'),
                 success:function (res){
                     if(res.resCode==28){
-                        console.log(res);
                         tname=res.data.tname;
                     }
                     else{
@@ -272,16 +284,28 @@ $(function (){
 
 
             $.ajax({
-                type:"POST",
-                url:"http://www.jayczee.top:50121/Task/AddTask",
+                type:"PUT",
+                url:"http://www.jayczee.top:50121/Task/UpdateTask",
+                async:false,
                 contentType:"application/json",
                 data:JSON.stringify(body),
                 success:function (res){
-                    if(res.resCode==11){
+                    if(res.resCode==14){
+                        var isFandi=turns==1?"是":"否";
+                        var isZhengdi=soils==1?"是":"否";
+                        var isCeliang=measures==1?"是":"否";
+                        var isCuoshi=executives==1?"是":"否";
+                        var isZWCL=crops==1?"是":"否";
+                        var isCSJG=waters==1?"是":"否";
+                        var isCSMC=miechongs==1?"是":"否";
+                        var isCSGZ=summers==1?"是":"否";
+                        var isCSPS=sprays==1?"是":"否";
+                        var isShiFei=fertilizers==1?"是":"否";
+                        var isShaChong=insecticides==1?"是":"否";
                         //创建HTML节点
                         var tr=$("<tr>"
-                            +"<td>"+"<input type='radio' name='taskradio' value='"+res.data.taskID+"'>"+"</td>"
-                            +"<td>"+res.data.taskID+"</td>"
+                            +"<td>"+"<input type='radio' name='taskradio' value='"+tskid+"'>"+"</td>"
+                            +"<td>"+tskid+"</td>"
                             +"<td>"+account+"</td>"
                             +"<td>"+time+"</td>"
                             +"<td>"+classc+"</td>"
@@ -289,24 +313,35 @@ $(function (){
                             +"<td>"+name+"</td>"
                             +"<td>"+scname+"</td>"
                             +"<td>"+stusname+"</td>"
-                            +"<td>"+step+"</td>"
-                            +"<td>"+turns+"</td>"
-                            +"<td>"+soils+"</td>"
-                            +"<td>"+measures+"</td>"
-                            +"<td>"+executives+"</td>"
-                            +"<td>"+crops+"</td>"
-                            +"<td>"+waters+"</td>"
-                            +"<td>"+miechongs+"</td>"
-                            +"<td>"+summers+"</td>"
-                            +"<td>"+sprays+"</td>"
-                            +"<td>"+fertilizers+"</td>"
-                            +"<td>"+insecticides+"</td>"
+                            +"<td>"+"<a href='#' onclick='ShowMsg(this)'>"+"查看详情"+"</a>"+"</td>"
+                            +"<td>"+isFandi+"</td>"
+                            +"<td>"+isZhengdi+"</td>"
+                            +"<td>"+isCeliang+"</td>"
+                            +"<td>"+isCuoshi+"</td>"
+                            +"<td>"+isZWCL+"</td>"
+                            +"<td>"+isCSJG+"</td>"
+                            +"<td>"+isCSMC+"</td>"
+                            +"<td>"+isCSGZ+"</td>"
+                            +"<td>"+isCSPS+"</td>"
+                            +"<td>"+isShiFei+"</td>"
+                            +"<td>"+isShaChong+"</td>"
                             +"<td><a href='#' onclick='ShowTaskDetail(this)'>查看</a></td>"
-                            +"</tr>");
+                            +"</tr>"
+                        );
 
                         //将HTML节点添加到table子节点的最后
                         $("#taskInfoTab").append(tr);
-                        alert("发布任务成功！");
+                        $("input[name='taskradio']:checked").parent().parent().remove();
+                        arrTasktxt[res.data.taskID]=step;
+                        alert("更新任务信息成功！");
+                        /*关闭编辑弹窗*/
+                        let blur=document.getElementById("containerbox");
+                        blur.classList.toggle('active');
+                        let popup=document.getElementById("taskEdit");
+                        popup.classList.toggle('active');
+                    }else{
+                        $("input[name='taskradio']:checked").parent().parent().remove();
+                        alert("该任务已被删除！无此任务信息");
                     }
                 },
             });
@@ -377,7 +412,7 @@ function deleteData () {
 }
 
 
-//获取班级
+//获取班级、任务
 function InitData(){//初始化任务、班级数据
     var username=$.cookie('.username');
     var userkind=$.cookie('.userkind');
@@ -624,20 +659,10 @@ function ShowTaskEdit(){
             return;
         }
 
+        document.getElementById("txtAccount1").value=$("input[name='taskradio']:checked").parents('tr').children("td").get(2).innerHTML;
+        document.getElementById("txtName1").value=$("input[name='taskradio']:checked").parents('tr').children("td").get(6).innerHTML;
+        document.getElementById("txtStep1").value=arrTasktxt[$("input[name='taskradio']:checked").parents('tr').children("td").get(1).innerHTML];
     }
 }
 
-////弹窗编辑页面
-//function EditHand(e){
-////    this.visible=false;
-////    console.log(this.thisEditRow)
-////    this.data.map((item,i)=>{
-////        if(item.key==this.thisEditRow.key ){
-////            this.data.splice(i,1,this.thisEditRow)
-////        }
-////    })
-////    $('#expressNum').val(),function(res){
-////        console.info(res.data);
-////
-////    },'json'
-//}
+
