@@ -10,7 +10,7 @@
     <title>添加学生</title>
 
 </head>
-<body onload="inintClass()">
+<body id="bbody">
 <div class="containerbox" id="containerbox" >
     <div class="content">
         <div id="app">
@@ -20,6 +20,11 @@
                     <a class="taskbtn">编辑</a>
                     <a class="taskbtn">查看</a>
                     <input class="taskbtn" type="button" value="删除" onclick="deleteData()">
+                    <label for="txtClass">班级：</label>
+                    <select name="txtClass" id="txtClass2">
+                        <option value="">-请选择班级-</option>
+                    </select>
+                    <label for="" class="la"></label>
                 </div>
                 <div id="taskInfo" style="overflow: scroll; width: 100%;height:100%; font-size: 15px;">
                     <table id="taskInfoTab" style="width: 100%;text-align: center;overflow:auto;overflow-x: hidden">
@@ -172,20 +177,6 @@
         obj1.options[obj.options.length-2].selected=1;
     }
 </script>
-<!--<script>-->
-<!--    window.onload=function(){-->
-<!--        //设置年份的选择-->
-<!--        var myDate= new Date();-->
-<!--        var startYear=myDate.getFullYear()-3;//起始年份-->
-<!--        var endYear=myDate.getFullYear()+1;//结束年份-->
-<!--        var obj=document.getElementById('txtyear1')-->
-<!--        for (var i=startYear;i<=endYear;i++)-->
-<!--        {-->
-<!--            obj.options.add(new Option(i,i));-->
-<!--        }-->
-<!--        obj.options[obj.options.length-2].selected=1;-->
-<!--    }-->
-<!--</script>-->
 
 </body>
 </html>

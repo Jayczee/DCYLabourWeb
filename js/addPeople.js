@@ -2,9 +2,17 @@ var ClassNo;
 var ClassNo1;
 var arrTasktxt=new Array(1000000);//保存任务数据的数组
 $(function (){
+    $("#txtClass2").on("input",function (){
+        if (required($(this),"请选择班级")==true){
+            var opt=document.getElementById('txtClass2');
+            ClassNo=opt.options[opt.selectedIndex].value;
+            initStudent(ClassNo);
+        }
+    });
     /* *********************************************** */
     /* *********************************************** */
     /********************添加页面弹窗**********************/
+    $("#bbody").onload=inintClass();
     //学生姓名输入框的事件驱动
     $("#txtName").on("blur keyup",function (){
         required($(this),"请输入学生姓名");
@@ -113,7 +121,7 @@ function deleteData () {
     if (confirm("你确定删除吗？")) {
         $.ajax({
             type:"DELETE",
-            url:"http://www.jayczee.top:50121/Task/DeleteTask/"+tskid,
+            url:"http://www.jayczee.top:50121/Student/DeleteStu/"+tskid,
             success:function (res ){
                 if (res.resCode == 16){
                     $("input[name='taskradio']:checked").parent().parent().remove();
@@ -127,71 +135,60 @@ function deleteData () {
     }
 }
 
+
 //获取班级信息
 function  inintClass(){
     //初始化数据
     var username=$.cookie('.username');
-    console.log("init:"+username);
     var userkind=$.cookie('.userkind');
     $("#loginName").html(username);
     $.ajax({
         type:"GET",
+        async:false,
         url:"http://www.jayczee.top:50121/User/GetClassByTUid/"+username,
         success:function (res ){
-            console.log("init:"+res);
             if (res.resCode == 30){
                 var i=0;
                 for(i=0;i<res.data.length;i++){
                     $("#txtClass").append(new Option(res.data[i].cName,res.data[i].cNo));
                     $("#txtClass1").append(new Option(res.data[i].cName,res.data[i].cNo));
+                    $("#txtClass2").append(new Option(res.data[i].cName,res.data[i].cNo));
                 }
             }
         }
     });
 
+}
+
+//获取学生信息
+//获取一个班级的学生名单
+function  initStudent(cno){
     $.ajax({
         type:"GET",
-        url:"http://www.jayczee.top:50121/Task/GetTaskByTUid/"+username+"/"+userkind,
-        success:function (res){
-            if(res.resCode==13){
+        url:"http://www.jayczee.top:50121/Student/GetStusByCNo/"+cno ,
+        success:function (res ){
+            if (res.resCode == 5){
                 var i=0,j=0;
+                var tb=document.getElementById('taskInfoTab');
+                var len=tb.getElementsByTagName("tr").length;
+                for(i=1;i<len;i++)
+                    tb.deleteRow(1);
                 for(i=0;i<res.data.length;i++){
-                    // var taskStuName="";
-                    // var stuCardNum=res.data[i].taskStus.split(",");
-                    // var stuCapName=GetStuByCardNum(res.data[i].taskStuCapID);
-                    // arrTasktxt[res.data[i].taskID]=res.data[i].taskDetail;
-                    // for(j=0;j<stuCardNum.length;j++){
-                    //     taskStuName+=GetStuByCardNum(stuCardNum[j]);
-                    // }
-
-                    var tname="";
-                    var ttuid=res.data[i].taskTUid
-                    /*获取教师姓名*/
-                    $.ajax({
-                        type:"GET",
-                        async:false,
-                        url:"http://www.jayczee.top:50121/User/GetTeacher/"+ttuid,
-                        success:function (res2){
-                            if(res2.resCode==28){
-                                tname=res2.data.tname;
-                            }
-                            else{
-                                tname="无";
-                            }
-                        }
-                    });
-
                     var tr=$("<tr>"
-                        +"<td>"+"<input type='radio' name='taskradio' value='"+res.data.taskID+"'>"+"</td>"
+                        +"<td>"+"<input type='radio' name='sturadio' value="+res.data[i].sid+">"+"</td>"
+                        +"<td>"+res.data[i].sid+"</td>"
                         +"<td>"+res.data[i].sName+"</td>"
                         +"<td>"+res.data[i].sYear+"</td>"
-                        +"<td>"+res.data[i].sCardNum+"</td>"
                         +"<td>"+res.data[i].sSex+"</td>"
-                        +"<td>"+res.data[i].sCNo+"</td>"
+                        +"<td>"+res.data[i].sCardNum+"</td>"
+                        +"<td>"+res.data[i].scNo+"</td>"
                         +"</tr>"
                     );
                     $("#taskInfoTab").append(tr);
                 }
+            }
+            else {
+                alert(res.msg);
             }
         }
     });
