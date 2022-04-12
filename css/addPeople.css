@@ -31,6 +31,15 @@ body{
     height: 35px;
     padding: 5px 5px;
 }
+#regForm p label:first-child,#regForm1 p label:first-child{
+    font-weight: bold;
+}
+#regForm p label:last-child,#regForm1 p label:last-child{
+    color: red;
+}
+#regForm,#regForm1{
+    width: 100%;
+}
 .btnbox{
     width: 100%;
     height: 60px;
@@ -122,32 +131,32 @@ ul{
     list-style: none;
 }
 /*用于弹窗的CSS设置事件*/
-.containerbox#containerbox.active{
-    filter: blur(20px);
-    pointer-events: none;
-    user-select: none ;
-}
-#register,#taskEdit,#taskCheck{
-    position: fixed;
-    top: 40%;
-    left: 50%;
-    transform: translate(-50%,-50%);
-    width: 600px;
-    padding: 50px;
-    box-shadow: 0 5px 30px rgb(0,0,0.3);
-    background: #fff;
-    visibility: hidden;
-    opacity: 0;
-    transition: 0.5s;
-}
-#register.active,#taskEdit.active,#taskCheck.active{
-    top: 50%;
-    visibility: visible;
-    opacity: 1;
-    transition: 0.5s;
-}
-/*鼠标点击后链接不变色*/
-a:visited {
-    color:#0000FF;
-    text-decoration:none;
-}
+/*.containerbox#containerbox.active{*/
+/*    filter: blur(20px);*/
+/*    pointer-events: none;*/
+/*    user-select: none ;*/
+/*}*/
+/*#register,#taskEdit,#taskCheck{*/
+/*    position: fixed;*/
+/*    top: 40%;*/
+/*    left: 50%;*/
+/*    transform: translate(-50%,-50%);*/
+/*    width: 600px;*/
+/*    padding: 50px;*/
+/*    box-shadow: 0 5px 30px rgb(0,0,0.3);*/
+/*    background: #fff;*/
+/*    visibility: hidden;*/
+/*    opacity: 0;*/
+/*    transition: 0.5s;*/
+/*}*/
+/*#register.active,#taskEdit.active,#taskCheck.active{*/
+/*    top: 50%;*/
+/*    visibility: visible;*/
+/*    opacity: 1;*/
+/*    transition: 0.5s;*/
+/*}*/
+/*!*鼠标点击后链接不变色*!*/
+/*a:visited {*/
+/*    color:#0000FF;*/
+/*    text-decoration:none;*/
+/*}*/

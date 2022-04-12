@@ -3,11 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="text/javascript" src="js/jquery-3.5.1.min.js"></script>
     <link rel="stylesheet" href="css/addPeople.css">
+    <script type="text/javascript" src="js/addPeople.js"></script>
+    <script type="text/javascript" src="https://cdn.staticfile.org/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
     <title>添加学生</title>
+
 </head>
-<body>
-<div class="containerbox" id="containerbox">
+<body onload="inintClass()">
+<div class="containerbox" id="containerbox" >
     <div class="content">
         <div id="app">
             <div id="taskTable" style="width: 100%;height:100%;">
@@ -15,13 +19,15 @@
                     <a class="taskbtn">添加</a>
                     <a class="taskbtn">编辑</a>
                     <a class="taskbtn">查看</a>
-                    <input class="taskbtn" type="button" value="删除">
+                    <input class="taskbtn" type="button" value="删除" onclick="deleteData()">
                 </div>
                 <div id="taskInfo" style="overflow: scroll; width: 100%;height:100%; font-size: 15px;">
                     <table id="taskInfoTab" style="width: 100%;text-align: center;overflow:auto;overflow-x: hidden">
                         <tr>
+                            <th></th>
                             <th>序号</th>
                             <th>姓名</th>
+                            <th>入学年份</th>
                             <th>性别</th>
                             <th>卡号</th>
                             <th>班级</th>
@@ -39,12 +45,13 @@
         <div id="left">
             <p>
                 <label for="txtName">姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名：</label>
-                <input type="text" id="txtName" name="txtName">
+                <input type="text" id="txtName" name="txtName" placeholder="请输入学生姓名">
                 <label for=""></label>
             </p>
             <p>
                 <label for="txtyear">入学年份：</label>
-                <input type="text" id="txtyear" name="txtyear">
+                <select name="" id="txtyear">
+                </select>
                 <label for=""></label>
             </p>
             <p>
@@ -58,7 +65,10 @@
                 <label for="selGender">性别：</label>
                 <select name="" id="selGender">
                     <option value="">-请选择性别-</option>
+                    <option value="">男</option>
+                    <option value="">女</option>
                 </select>
+                <label for="" class="la"></label>
             </p>
             <p>
                 <label for="txtClass">班级：</label>
@@ -72,7 +82,7 @@
             <input type="submit" id="btnStudent" value="添加">
         </div>
     </form>
-    <a href="#" onclick="ShowTaskFinishInfo()">关闭</a>
+    <a href="#" onclick="">关闭</a>
 </div>
 
 <!--弹窗显示编辑-->
@@ -87,7 +97,6 @@
             <p>
                 <label for="txtyear1">入学年份：</label>
                 <select name="" id="txtyear1">
-                    <option value="">-请选择性别-</option>
                 </select>
                 <label for=""></label>
             </p>
@@ -102,6 +111,8 @@
                 <label for="selGender1">性别：</label>
                 <select name="" id="selGender1">
                     <option value="">-请选择性别-</option>
+                    <option value="">男</option>
+                    <option value="">女</option>
                 </select>
                 <label for=""></label>
             </p>
@@ -117,7 +128,7 @@
             <input type="submit" id="btnStudent1" value="编辑">
         </div>
     </form>
-    <a href="#" onclick="ShowTaskFinishInfo()">关闭</a>
+    <a href="#" onclick="">关闭</a>
 </div>
 
 <!--弹窗显示查看-->
@@ -144,6 +155,37 @@
         </tr>
     </table>
 </div>
+<script>
+    window.onload=function(){
+        //设置年份的选择
+        var myDate= new Date();
+        var startYear=myDate.getFullYear()-3;//起始年份
+        var endYear=myDate.getFullYear()+1;//结束年份
+        var obj=document.getElementById('txtyear');
+        var obj1=document.getElementById('txtyear1');
+        for (var i=startYear;i<=endYear;i++)
+        {
+            obj.options.add(new Option(i,i));
+            obj1.options.add(new Option(i,i));
+        }
+        obj.options[obj.options.length-2].selected=1;
+        obj1.options[obj.options.length-2].selected=1;
+    }
+</script>
+<!--<script>-->
+<!--    window.onload=function(){-->
+<!--        //设置年份的选择-->
+<!--        var myDate= new Date();-->
+<!--        var startYear=myDate.getFullYear()-3;//起始年份-->
+<!--        var endYear=myDate.getFullYear()+1;//结束年份-->
+<!--        var obj=document.getElementById('txtyear1')-->
+<!--        for (var i=startYear;i<=endYear;i++)-->
+<!--        {-->
+<!--            obj.options.add(new Option(i,i));-->
+<!--        }-->
+<!--        obj.options[obj.options.length-2].selected=1;-->
+<!--    }-->
+<!--</script>-->
 
 </body>
 </html>

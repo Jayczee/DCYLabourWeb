@@ -39,34 +39,34 @@ $(function (){
     defaaltDate();
     $("#btnRegister").on("click",function () {
         //非空验证
-        var accountCheck=required($(".txtAccount"),"任务名称不能为空");
-        var stepCheck=required($(".txtStep"),"操作步骤不能为空");
-        var classCheck=required($(".txtClasss"),"请选择班级");
-        var nameCheck=required($(".txtName"),"小组名称不能为空");
-        var idcardCheck=required($(".txtIdcard"),"请选择组长");
-        var idcardsCheck=required($(".txtIdcards"),"请选择组员");
+        var accountCheck=required($("#txtAccount"),"任务名称不能为空");
+        var stepCheck=required($("#txtStep"),"操作步骤不能为空");
+        var classCheck=required($("#txtClasss"),"请选择班级");
+        var nameCheck=required($("#txtName"),"小组名称不能为空");
+        var idcardCheck=required($("#txtIdcard"),"请选择组长");
+        var idcardsCheck=required($("#txtIdcards"),"请选择组员");
         if (accountCheck && stepCheck && classCheck && nameCheck && idcardCheck && idcardsCheck) {
             //获取用户输入的内容
 
-            var account=$(".txtAccount").val();
-            var time=$(".txtTime").val();
-            var classc=$(".txtClasss").val();
+            var account=$("#txtAccount").val();
+            var time=$("#txtTime").val();
+            var classc=$("#txtClasss").val();
             var teacher=$.cookie('.username');
-            var name=$(".txtName").val();
-            var idcard=$(".txtIdcard").val();
-            var idcards=$(".txtIdcards").val();
-            var step=$(".txtStep").val();
-            var turns=$(".turn").is(":checked")?1:0;
-            var soils=$(".soil").is(":checked")?1:0;
-            var measures=$(".measure").is(":checked")?1:0;
-            var executives=$(".executive").is(":checked")?1:0;
-            var crops=$(".crop").is(":checked")?1:0;
-            var waters=$(".water").is(":checked")?1:0;
-            var miechongs=$(".miechong").is(":checked")?1:0;
-            var summers=$(".summer").is(":checked")?1:0;
-            var sprays=$(".spray").is(":checked")?1:0;
-            var fertilizers=$(".fertilizer").is(":checked")?1:0;
-            var insecticides=$(".insecticide").is(":checked")?1:0;
+            var name=$("#txtName").val();
+            var idcard=$("#txtIdcard").val();
+            var idcards=$("#txtIdcards").val();
+            var step=$("#txtStep").val();
+            var turns=$("#turn").is(":checked")?1:0;
+            var soils=$("#soil").is(":checked")?1:0;
+            var measures=$("#measure").is(":checked")?1:0;
+            var executives=$("#executive").is(":checked")?1:0;
+            var crops=$("#crop").is(":checked")?1:0;
+            var waters=$("#water").is(":checked")?1:0;
+            var miechongs=$("#miechong").is(":checked")?1:0;
+            var summers=$("#summer").is(":checked")?1:0;
+            var sprays=$("#spray").is(":checked")?1:0;
+            var fertilizers=$("#fertilizer").is(":checked")?1:0;
+            var insecticides=$("#insecticide").is(":checked")?1:0;
 
             var body={
                 "taskName":account,//任务名称
@@ -339,7 +339,8 @@ $(function (){
                         blur.classList.toggle('active');
                         let popup=document.getElementById("taskEdit");
                         popup.classList.toggle('active');
-                    }else{
+                    }
+                    else{
                         $("input[name='taskradio']:checked").parent().parent().remove();
                         alert("该任务已被删除！无此任务信息");
                     }
@@ -464,17 +465,6 @@ function InitData(){//初始化任务、班级数据
                         }
                     });
 
-                    var isFandi=parseInt(res.data[i].fandi)>0?"是":"否";
-                    var isZhengdi=parseInt(res.data[i].zhengdi)>0?"是":"否";
-                    var isCeliang=parseInt(res.data[i].celiang)>0?"是":"否";
-                    var isCuoshi=parseInt(res.data[i].cuoShi)>0?"是":"否";
-                    var isZWCL=parseInt(res.data[i].zuoWuCeLiang)>0?"是":"否";
-                    var isCSJG=parseInt(res.data[i].cuoShiJiaoGuan)>0?"是":"否";
-                    var isCSMC=parseInt(res.data[i].cuoShiMieChong)>0?"是":"否";
-                    var isCSGZ=parseInt(res.data[i].cuoShiGuangZhao)>0?"是":"否";
-                    var isCSPS=parseInt(res.data[i].cuoShiPenSa)>0?"是":"否";
-                    var isShiFei=parseInt(res.data[i].cuoShiShiFei)>0?"是":"否";
-                    var isShaChong=parseInt(res.data[i].cuoShiShaChong)>0?"是":"否";
                     var tr=$("<tr>"
                         +"<td>"+"<input type='radio' name='taskradio' value='"+res.data[i].taskID+"'>"+"</td>"
                         +"<td>"+res.data[i].taskID+"</td>"
