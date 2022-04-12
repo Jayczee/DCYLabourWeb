@@ -113,7 +113,6 @@ $(function (){
             });
             /*获取组长姓名*/
 
-
             $.ajax({
                 type:"POST",
                 url:"http://www.jayczee.top:50121/Task/AddTask",
