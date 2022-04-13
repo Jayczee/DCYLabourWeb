@@ -213,6 +213,7 @@ function AddStu(){
                     blur.classList.toggle('active');
                     let popup=document.getElementById("register");
                     popup.classList.toggle('active');
+                    tform=false;
                 }
                 else {
                     $("input[name='sturadio']:checked").parent().parent().remove();
@@ -265,6 +266,7 @@ function EditStu(){
                     blur.classList.toggle('active');
                     let popup=document.getElementById("taskEdit");
                     popup.classList.toggle('active');
+                    tform=false;
 
                 }
                 else {
@@ -278,10 +280,6 @@ function EditStu(){
 var teform=false;
 //学生添加页面弹窗
 function ShowAdd(){
-    document.getElementById("txtName").value="";
-    document.getElementById("txtCard").value="";
-    document.getElementById("txtClass").value="";
-    document.getElementById("selGender").value="";
     let blur=document.getElementById("containerbox");
     blur.classList.toggle('active');
     let popup=document.getElementById("register");
@@ -290,16 +288,16 @@ function ShowAdd(){
         teform=true;
     else{
         teform=false;
+        document.getElementById("txtName").value="";
+        document.getElementById("txtCard").value="";
+        document.getElementById("txtClass").value="";
+        document.getElementById("selGender").value="";
         return;
     }
 }
 var tform=false;
 //学生编辑页面弹窗
 function ShowEdit(){
-    document.getElementById("txtName1").value="";
-    document.getElementById("txtCard1").value="";
-    document.getElementById("txtClass1").value="";
-    document.getElementById("selGender1").value="";
     //根据确认框选择结果确认操作
     var stuid=$("input[name='sturadio']:checked").attr('value');
     if(stuid==null){
@@ -311,14 +309,19 @@ function ShowEdit(){
         blur.classList.toggle('active');
         let popup=document.getElementById("taskEdit");
         popup.classList.toggle('active');
-        if(tform==false)//窗体状态变量  窗体打开时为true 关闭时为false
+        if(tform==false){//窗体状态变量  窗体打开时为true 关闭时为false
             tform=true;
+            document.getElementById("selGender1").value=$("input[name='sturadio']:checked").parents('tr').children("td").get(4).innerHTML;
+            document.getElementById("txtName1").value=$("input[name='sturadio']:checked").parents('tr').children("td").get(2).innerHTML;
+            document.getElementById("txtCard1").value=$("input[name='sturadio']:checked").parents('tr').children("td").get(5).innerHTML;
+        }
         else{
             tform=false;
+            document.getElementById("txtName1").value="";
+            document.getElementById("txtCard1").value="";
+            document.getElementById("txtClass1").value="";
+            document.getElementById("selGender1").value="";
             return;
         }
-        document.getElementById("selGender1").value=$("input[name='sturadio']:checked").parents('tr').children("td").get(4).innerHTML;
-        document.getElementById("txtName1").value=$("input[name='sturadio']:checked").parents('tr').children("td").get(2).innerHTML;
-        document.getElementById("txtCard1").value=$("input[name='sturadio']:checked").parents('tr').children("td").get(5).innerHTML;
     }
 }
