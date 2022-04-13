@@ -128,7 +128,7 @@ function  inintClass(){
 
 //获取学生信息
 //获取一个班级的学生名单
-function  initStudent(cno){
+function  initTeacher(cno){
     $.ajax({
         type:"GET",
         url:"http://www.jayczee.top:50121/Student/GetStusByCNo/"+cno ,

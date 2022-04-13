@@ -54,6 +54,9 @@ body{
     padding: 5px 5px;
     text-align: center;
 }
+#LY{
+    margin-top: -10px;
+}
 .la{
     font-size: 9px;
 }

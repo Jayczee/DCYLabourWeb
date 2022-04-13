@@ -216,7 +216,7 @@ function AddStu(){
                     tform=false;
                 }
                 else {
-                    $("input[name='sturadio']:checked").parent().parent().remove();
+                    alert(res.msg)
                 }
             }
         });
@@ -270,7 +270,7 @@ function EditStu(){
 
                 }
                 else {
-                    $("input[name='sturadio']:checked").parent().parent().remove();
+                    alert(res.msg);
                 }
             }
         });
