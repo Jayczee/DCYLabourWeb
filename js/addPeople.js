@@ -2,7 +2,7 @@ var ClassNo;
 var arrTasktxt=new Array(1000000);
 $(function (){
     $("#txtClass2").on("input",function (){
-        if (required($(this),"请选择班级")==true){
+        if (required($(this),"请输入姓名")==true){
             var opt=document.getElementById('txtClass2');
             ClassNo=opt.options[opt.selectedIndex].value;
             initStudent(ClassNo);
@@ -248,15 +248,15 @@ function EditStu(){
         }
         $.ajax({
             type:"POST",
-            url:"http://www.jayczee.top:50121/Student/AddStu",
+            url:"http://www.jayczee.top:50121/Student/UpdateStu",
             contentType:"application/json",
             data:JSON.stringify(body),
             success:function (res){
                 if (res.resCode==39){
                     //创建HTML节点
                     var tr=$("<tr>"
-                        +"<td>"+"<input type='radio' name='sturadio' value="+res.data.sId+">"+"</td>"
-                        +"<td>"+res.data.sId+"</td>"
+                        +"<td>"+"<input type='radio' name='sturadio' value="+sId+">"+"</td>"
+                        +"<td>"+sId+"</td>"
                         +"<td>"+names+"</td>"
                         +"<td>"+years+"</td>"
                         +"<td>"+genders+"</td>"
@@ -267,7 +267,6 @@ function EditStu(){
                     //将HTML节点添加到table子节点的最后
                     $("#taskInfoTab").append(tr);
                     $("input[name='sturadio']:checked").parent().parent().remove();
-                    arrTasktxt[res.data.sid]=cards;
                     alert("学生信息编辑成功！");
                     //关闭添加弹窗
                     let blur=document.getElementById("containerbox");
@@ -297,12 +296,12 @@ function ShowAdd(){
         return;
     }
 }
-var teform=false;
+var tform=false;
 //学生编辑页面弹窗
 function ShowEdit(){
     //根据确认框选择结果确认操作
-    var tskid=$("input[name='sturadio']:checked").attr('value');
-    if(tskid==null){
+    var stuid=$("input[name='sturadio']:checked").attr('value');
+    if(stuid==null){
         alert("请选择要编辑的学生信息");
         return false;
     }
@@ -311,15 +310,15 @@ function ShowEdit(){
         blur.classList.toggle('active');
         let popup=document.getElementById("taskEdit");
         popup.classList.toggle('active');
-        if(teform==false)//窗体状态变量  窗体打开时为true 关闭时为false
-            teform=true;
+        if(tform==false)//窗体状态变量  窗体打开时为true 关闭时为false
+            tform=true;
         else{
-            teform=false;
+            tform=false;
             return;
         }
 
         document.getElementById("selGender1").value=$("input[name='sturadio']:checked").parents('tr').children("td").get(4).innerHTML;
         document.getElementById("txtName1").value=$("input[name='sturadio']:checked").parents('tr').children("td").get(2).innerHTML;
-        // document.getElementById("txtCard1").value=arrTasktxt[$("input[name='sturadio']:checked").parents('tr').children("td").get(5).innerHTML];
+        document.getElementById("txtCard1").value=[$("input[name='sturadio']:checked").parents('tr').children("td").get(5).innerHTML];
     }
 }

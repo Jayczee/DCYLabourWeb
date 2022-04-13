@@ -3,35 +3,148 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="text/javascript" src="js/jquery-3.5.1.min.js"></script>
+    <link rel="stylesheet" href="css/addPeople.css">
+    <script type="text/javascript" src="js/addPeople.js"></script>
+    <script type="text/javascript" src="https://cdn.staticfile.org/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
     <title>添加老师</title>
 </head>
 <body>
-<div id="app">
-    <div id="register">
-        <form action="#" id="regForm" onsubmit="return false">
+<div class="containerbox" id="containerbox" >
+    <div class="content">
+        <div id="app">
+            <div id="taskTable" style="width: 100%;height:100%;">
+                <div style="margin-top:30px; margin-bottom:1px;">
+                    <a class="taskbtn" onclick="ShowAdd()">添加</a>
+                    <a class="taskbtn" onclick="ShowEdit()">编辑</a>
+                    <input class="taskbtn" type="button" value="删除" onclick="deleteData()">
+                    <label for="txtClass2" id="seach">搜索：</label>
+                    <input class="taskbtn" type="text" id="txtClass2" value="">
+                    <label for="" class="la"></label>
+                </div>
+                <div id="taskInfo" style="overflow: scroll; width: 100%;height:100%; font-size: 15px;">
+                    <table id="taskInfoTab" style="width: 100%;text-align: center;overflow:auto;overflow-x: hidden">
+                        <tr>
+                            <th></th>
+                            <th>序号</th>
+                            <th>姓名</th>
+                            <th>入职时间</th>
+                            <th>性别</th>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--弹窗显示添加-->
+<div id="register">
+    <form action="#" id="regForm" onsubmit="return false">
+        <div id="left">
             <p>
-                <label for="txtName">姓名：</label>
-                <input type="text" id="txtName" name="txtName">
-                <label for=""></label>
+                <label for="txtName">姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名：</label>
+                <input type="text" id="txtName" name="txtName" placeholder="请输入学生姓名">
+                <label for="" class="la"></label>
             </p>
             <p>
-                <label for="">性别：</label>
+                <label for="txtyear">入学年份：</label>
+                <select name="" id="txtyear">
+                </select>
+                <label for="" class="la"></label>
+            </p>
+<!--            <p>-->
+<!--                <label for="txtCard">卡&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;号：</label>-->
+<!--                <input type="text" id="txtCard" name="txtCard" placeholder="请输入学生卡号">-->
+<!--                <label for="" class="la"></label>-->
+<!--            </p>-->
+        </div>
+        <div id="right">
+            <p>
+                <label for="selGender">性别：</label>
                 <select name="" id="selGender">
+                    <option value="">-请选择性别-</option>
                     <option value="男">男</option>
                     <option value="女">女</option>
                 </select>
+                <label for="" class="la"></label>
+            </p>
+<!--            <p>-->
+<!--                <label for="txtClass">班级：</label>-->
+<!--                <select name="txtClass" id="txtClass">-->
+<!--                    <option value="">-请选择班级-</option>-->
+<!--                </select>-->
+<!--                <label for="" class="la"></label>-->
+<!--            </p>-->
+        </div>
+        <div class="btnbox">
+            <input type="submit" id="btnStudent" value="添加" onclick="AddStu()">
+        </div>
+    </form>
+    <a href="#" onclick="ShowAdd()">关闭</a>
+</div>
+
+<!--弹窗显示编辑-->
+<div id="taskEdit">
+    <form action="#" id="regForm1" onsubmit="return false">
+        <div id="left1">
+            <p>
+                <label for="txtName1">姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名：</label>
+                <input type="text" id="txtName1" name="txtName1" placeholder="请输入学生姓名">
+                <label for="" class="la"></label>
             </p>
             <p>
-                <label for="txtPwd">卡号：</label>
-                <input type="text" id="txtPwd" name="txtPwd" placeholder="请输入教师卡号">
-                <label for=""></label>
+                <label for="txtyear1">入学年份：</label>
+                <select name="" id="txtyear1">
+                </select>
+                <label for="" class="la"></label>
             </p>
-            <div class="btnbox"><input type="submit" id="btnStudent" value="添加"></div>
-        </form>
-    </div>
+<!--            <p>-->
+<!--                <label for="txtCard1">卡&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;号：</label>-->
+<!--                <input type="text" id="txtCard1" name="txtCard1" placeholder="请输入学生卡号">-->
+<!--                <label for="" class="la"></label>-->
+<!--            </p>-->
+        </div>
+        <div id="right1">
+            <p>
+                <label for="selGender1">性别：</label>
+                <select name="" id="selGender1">
+                    <option value="">-请选择性别-</option>
+                    <option value="男">男</option>
+                    <option value="女">女</option>
+                </select>
+                <label for="" class="la"></label>
+            </p>
+<!--            <p>-->
+<!--                <label for="txtClass1">班级：</label>-->
+<!--                <select name="txtClass1" id="txtClass1">-->
+<!--                    <option value="">-请选择班级-</option>-->
+<!--                </select>-->
+<!--                <label for="" class="la"></label>-->
+<!--            </p>-->
+        </div>
+        <div class="btnbox">
+            <input type="submit" id="btnStudent1" value="编辑" onclick="EditStu()">
+        </div>
+    </form>
+    <a href="#" onclick="ShowEdit()">关闭</a>
 </div>
 <script>
-
+    window.onload=function(){
+        //设置年份的选择
+        var myDate= new Date();
+        var startYear=myDate.getFullYear()-3;//起始年份
+        var endYear=myDate.getFullYear()+1;//结束年份
+        var obj=document.getElementById('txtyear');
+        var obj1=document.getElementById('txtyear1');
+        for (var i=startYear;i<=endYear;i++)
+        {
+            obj.options.add(new Option(i,i));
+            obj1.options.add(new Option(i,i));
+        }
+        obj.options[obj.options.length-2].selected=1;
+        obj1.options[obj.options.length-2].selected=1;
+    }
 </script>
 </body>
 </html>
