@@ -282,7 +282,6 @@ $(function (){
             });
             /*获取组长姓名*/
 
-
             $.ajax({
                 type:"PUT",
                 url:"http://www.jayczee.top:50121/Task/UpdateTask",
@@ -339,8 +338,7 @@ $(function (){
                         blur.classList.toggle('active');
                         let popup=document.getElementById("taskEdit");
                         popup.classList.toggle('active');
-                    }
-                    else{
+                    }else{
                         $("input[name='taskradio']:checked").parent().parent().remove();
                         alert("该任务已被删除！无此任务信息");
                     }
@@ -465,6 +463,17 @@ function InitData(){//初始化任务、班级数据
                         }
                     });
 
+                    var isFandi=parseInt(res.data[i].fandi)>0?"是":"否";
+                    var isZhengdi=parseInt(res.data[i].zhengdi)>0?"是":"否";
+                    var isCeliang=parseInt(res.data[i].celiang)>0?"是":"否";
+                    var isCuoshi=parseInt(res.data[i].cuoShi)>0?"是":"否";
+                    var isZWCL=parseInt(res.data[i].zuoWuCeLiang)>0?"是":"否";
+                    var isCSJG=parseInt(res.data[i].cuoShiJiaoGuan)>0?"是":"否";
+                    var isCSMC=parseInt(res.data[i].cuoShiMieChong)>0?"是":"否";
+                    var isCSGZ=parseInt(res.data[i].cuoShiGuangZhao)>0?"是":"否";
+                    var isCSPS=parseInt(res.data[i].cuoShiPenSa)>0?"是":"否";
+                    var isShiFei=parseInt(res.data[i].cuoShiShiFei)>0?"是":"否";
+                    var isShaChong=parseInt(res.data[i].cuoShiShaChong)>0?"是":"否";
                     var tr=$("<tr>"
                         +"<td>"+"<input type='radio' name='taskradio' value='"+res.data[i].taskID+"'>"+"</td>"
                         +"<td>"+res.data[i].taskID+"</td>"

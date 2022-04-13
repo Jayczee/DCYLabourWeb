@@ -18,10 +18,9 @@
                 <div style="margin-top:30px; margin-bottom:1px;">
                     <a class="taskbtn">添加</a>
                     <a class="taskbtn">编辑</a>
-                    <a class="taskbtn">查看</a>
                     <input class="taskbtn" type="button" value="删除" onclick="deleteData()">
-                    <label for="txtClass">班级：</label>
-                    <select name="txtClass" id="txtClass2">
+                    <label for="txtClass2">班级：</label>
+                    <select name="txtClass2" id="txtClass2">
                         <option value="">-请选择班级-</option>
                     </select>
                     <label for="" class="la"></label>
@@ -134,31 +133,6 @@
         </div>
     </form>
     <a href="#" onclick="">关闭</a>
-</div>
-
-<!--弹窗显示查看-->
-<div id="taskCheck">
-    <table>
-        <tr>
-            <th colspan="6">学生信息列表</th>
-        </tr>
-        <tr>
-            <th>序号</th>
-            <th>姓名</th>
-            <th>性别</th>
-            <th>卡号</th>
-            <th>班级</th>
-            <th>入学年份</th>
-        </tr>
-        <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
-    </table>
 </div>
 <script>
     window.onload=function(){

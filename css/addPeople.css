@@ -26,10 +26,13 @@ body{
     height: 20px;
     padding: 5px 5px;
 }
-#regForm select,#regForm1 select{
+#regForm select,#regForm1 select,#regForm2 select{
     width: 212px;
     height: 35px;
     padding: 5px 5px;
+}
+#regForm2{
+    float: right;
 }
 #regForm p label:first-child,#regForm1 p label:first-child{
     font-weight: bold;
