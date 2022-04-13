@@ -162,6 +162,7 @@ function  initStudent(cno){
 
 //新增学生信息
 function AddStu(){
+
     //非空验证
     var nameCheck=required($("#txtName"),"请输入姓名");
     var yearCheck=required($("#txtyear"),"请输入入学年份");
@@ -242,37 +243,29 @@ function EditStu(){
             "sid":sId,
             "sName":names,//学生姓名
             "sSex": genders,//性别
-            "sCardNum": cards,//教师UID
+            "sCardNum": cards,//学生卡号
             "sCNo": classs,//班级
             "sYear": years,//入学年份
         }
         $.ajax({
-            type:"POST",
+            type:"PUT",
             url:"http://www.jayczee.top:50121/Student/UpdateStu",
             contentType:"application/json",
             data:JSON.stringify(body),
             success:function (res){
                 if (res.resCode==39){
-                    //创建HTML节点
-                    var tr=$("<tr>"
-                        +"<td>"+"<input type='radio' name='sturadio' value="+sId+">"+"</td>"
-                        +"<td>"+sId+"</td>"
-                        +"<td>"+names+"</td>"
-                        +"<td>"+years+"</td>"
-                        +"<td>"+genders+"</td>"
-                        +"<td>"+cards+"</td>"
-                        +"<td>"+classs+"</td>"
-                        +"</tr>");
-
-                    //将HTML节点添加到table子节点的最后
-                    $("#taskInfoTab").append(tr);
-                    $("input[name='sturadio']:checked").parent().parent().remove();
+                    $("input[name='sturadio']:checked").parents('tr').children("td").get(2).innerHTML=names;
+                    $("input[name='sturadio']:checked").parents('tr').children("td").get(3).innerHTML=years;
+                    $("input[name='sturadio']:checked").parents('tr').children("td").get(4).innerHTML=genders;
+                    $("input[name='sturadio']:checked").parents('tr').children("td").get(5).innerHTML=cards;
+                    $("input[name='sturadio']:checked").parents('tr').children("td").get(6).innerHTML=classs;
                     alert("学生信息编辑成功！");
                     //关闭添加弹窗
                     let blur=document.getElementById("containerbox");
                     blur.classList.toggle('active');
                     let popup=document.getElementById("taskEdit");
                     popup.classList.toggle('active');
+
                 }
                 else {
                     $("input[name='sturadio']:checked").parent().parent().remove();
@@ -285,6 +278,10 @@ function EditStu(){
 var teform=false;
 //学生添加页面弹窗
 function ShowAdd(){
+    document.getElementById("txtName").value="";
+    document.getElementById("txtCard").value="";
+    document.getElementById("txtClass").value="";
+    document.getElementById("selGender").value="";
     let blur=document.getElementById("containerbox");
     blur.classList.toggle('active');
     let popup=document.getElementById("register");
@@ -299,6 +296,10 @@ function ShowAdd(){
 var tform=false;
 //学生编辑页面弹窗
 function ShowEdit(){
+    document.getElementById("txtName1").value="";
+    document.getElementById("txtCard1").value="";
+    document.getElementById("txtClass1").value="";
+    document.getElementById("selGender1").value="";
     //根据确认框选择结果确认操作
     var stuid=$("input[name='sturadio']:checked").attr('value');
     if(stuid==null){
@@ -316,9 +317,8 @@ function ShowEdit(){
             tform=false;
             return;
         }
-
         document.getElementById("selGender1").value=$("input[name='sturadio']:checked").parents('tr').children("td").get(4).innerHTML;
         document.getElementById("txtName1").value=$("input[name='sturadio']:checked").parents('tr').children("td").get(2).innerHTML;
-        document.getElementById("txtCard1").value=[$("input[name='sturadio']:checked").parents('tr').children("td").get(5).innerHTML];
+        document.getElementById("txtCard1").value=$("input[name='sturadio']:checked").parents('tr').children("td").get(5).innerHTML;
     }
 }
