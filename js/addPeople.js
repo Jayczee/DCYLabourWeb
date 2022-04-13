@@ -35,66 +35,92 @@ $(function (){
 
         required($(this),"请选择班级");
     });
-    //点击添加按钮触动验证
-    $("#btnStudent").on("click",function () {
-        //非空验证
-        var nameCheck=required($("#txtName"),"请输入学生姓名");
-        var yearCheck=required($("#txtyear"),"请输入入学年份");
-        var cardCheck=required($("#txtCard"),"请输入卡号");
-        var genderCheck=required($("#selGender"),"请选择性别");
-        var classCheck=required($("#txtClass"),"请选择班级");
-        if(nameCheck && yearCheck && cardCheck && genderCheck && classCheck){
-            //获取用户输入的信息
-            // var sId=$("input[name='sturadio']:checked").attr('value');
-            var names=$("#txtName").val();
-            var years=$("#txtyear").val();
-            var cards=$("#txtCard").val();
-            var genders=$("#selGender").val();
-            var classs=$("#txtClass").val();
 
-            var body={
-                "sid":sId,
-                "sName":names,//学生姓名
-                "sSex": genders,//性别
-                "sCardNum": cards,//教师UID
-                "sCNo": classs,//班级
-                "sYear": years,//入学年份
-            }
-            $.ajax({
-                type:"POST",
-                url:"http://www.jayczee.top:50121/Student/AddStu",
-                contentType:"application/json",
-                data:JSON.stringify(body),
-                success:function (res){
-                    if (res.resCode==37){
-                        //创建HTML节点
-                        var tr=$("<tr>"
-                            +"<td>"+"<input type='radio' name='sturadio' value="+res.data.sid+">"+"</td>"
-                            +"<td>"+res.data.sid+"</td>"
-                            +"<td>"+names+"</td>"
-                            +"<td>"+years+"</td>"
-                            +"<td>"+cards+"</td>"
-                            +"<td>"+genders+"</td>"
-                            +"<td>"+classs+"</td>"
-                            +"</tr>");
-
-                        //将HTML节点添加到table子节点的最后
-                        $("#taskInfoTab").append(tr);
-                        $("input[name='sturadio']:checked").parent().parent().remove();
-                        alert("学生新增成功！");
-                        //关闭添加弹窗
-                        let blur=document.getElementById("containerbox");
-                        blur.classList.toggle('active');
-                        let popup=document.getElementById("taskEdit");
-                        popup.classList.toggle('active');
-                    }
-                    else {
-                        $("input[name='sturadio']:checked").parent().parent().remove();
-                    }
-                }
-            });
-        }
-    });
+    /* *********************************************** */
+    /* *********************************************** */
+    /********************编辑页面弹窗**********************/
+    //学生姓名输入框的事件驱动
+    // $("#txtName1").on("blur keyup",function (){
+    //     required($(this),"请输入学生姓名");
+    // });
+    // //入学年份输入框的事件驱动
+    // $("#txtyear1").on("blur keyup",function (){
+    //     required($(this),"请输入入学年份");
+    // });
+    // //卡号输入框的事件驱动
+    // $("#txtCard1").on("blur keyup",function (){
+    //     required($(this),"请输入卡号");
+    // });
+    // //性别输入框的事件驱动///////////
+    // $("#selGender1").on("blur change",function (){
+    //
+    //     required($(this),"请选择性别");
+    // });
+    // //班级输入框的事件驱动
+    // $("#txtClass1").on("blur change",function (){
+    //
+    //     required($(this),"请选择班级");
+    // });
+    // //点击添加按钮触动验证
+    // $("#btnStudent1").on("click",function () {
+    //     //非空验证
+    //     var nameCheck=required($("#txtName1"),"请输入学生姓名");
+    //     var yearCheck=required($("#txtyear1"),"请输入入学年份");
+    //     var cardCheck=required($("#txtCard1"),"请输入卡号");
+    //     var genderCheck=required($("#selGender1"),"请选择性别");
+    //     var classCheck=required($("#txtClass1"),"请选择班级");
+    //     if(nameCheck && yearCheck && cardCheck && genderCheck && classCheck){
+    //         //获取用户输入的信息
+    //         // var sId=$("input[name='sturadio']:checked").attr('value');
+    //         var names=$("#txtName1").val();
+    //         var years=$("#txtyear1").val();
+    //         var cards=$("#txtCard1").val();
+    //         var genders=$("#selGender1").val();
+    //         var classs=$("#txtClass1").val();
+    //
+    //         var body={
+    //             "sid":sId,
+    //             "sName":names,//学生姓名
+    //             "sSex": genders,//性别
+    //             "sCardNum": cards,//教师UID
+    //             "sCNo": classs,//班级
+    //             "sYear": years,//入学年份
+    //         }
+    //         $.ajax({
+    //             type:"POST",
+    //             url:"http://www.jayczee.top:50121/Student/AddStu",
+    //             contentType:"application/json",
+    //             data:JSON.stringify(body),
+    //             success:function (res){
+    //                 if (res.resCode==37){
+    //                     //创建HTML节点
+    //                     var tr=$("<tr>"
+    //                         +"<td>"+"<input type='radio' name='sturadio' value="+res.data.sid+">"+"</td>"
+    //                         +"<td>"+res.data.sid+"</td>"
+    //                         +"<td>"+names+"</td>"
+    //                         +"<td>"+years+"</td>"
+    //                         +"<td>"+cards+"</td>"
+    //                         +"<td>"+genders+"</td>"
+    //                         +"<td>"+classs+"</td>"
+    //                         +"</tr>");
+    //
+    //                     //将HTML节点添加到table子节点的最后
+    //                     $("#taskInfoTab").append(tr);
+    //                     $("input[name='sturadio']:checked").parent().parent().remove();
+    //                     alert("学生新增成功！");
+    //                     //关闭添加弹窗
+    //                     let blur=document.getElementById("containerbox");
+    //                     blur.classList.toggle('active');
+    //                     let popup=document.getElementById("taskEdit");
+    //                     popup.classList.toggle('active');
+    //                 }
+    //                 else {
+    //                     $("input[name='sturadio']:checked").parent().parent().remove();
+    //                 }
+    //             }
+    //         });
+    //     }
+    // });
 });
 
 //非空验证
@@ -193,4 +219,64 @@ function  initStudent(cno){
             }
         }
     });
+}
+
+function AddStu(){
+    //非空验证
+    var nameCheck=required($("#txtName"),"请输入学生姓名");
+    var yearCheck=required($("#txtyear"),"请输入入学年份");
+    var cardCheck=required($("#txtCard"),"请输入卡号");
+    var genderCheck=required($("#selGender"),"请选择性别");
+    var classCheck=required($("#txtClass"),"请选择班级");
+    if(nameCheck && yearCheck && cardCheck && genderCheck && classCheck){
+        //获取用户输入的信息
+        // var sId=$("input[name='sturadio']:checked").attr('value');
+        var names=$("#txtName").val();
+        var years=$("#txtyear").val();
+        var cards=$("#txtCard").val();
+        var genders=$("#selGender").val();
+        var classs=$("#txtClass").val();
+
+        var body={
+            "sName":names,//学生姓名
+            "sSex": genders,//性别
+            "sCardNum": cards,//教师UID
+            "sCNo": classs,//班级
+            "sYear": years//入学年份
+        }
+        $.ajax({
+            type:"POST",
+            url:"http://www.jayczee.top:50121/Student/AddStu",
+            contentType:"application/json",
+            data:JSON.stringify(body),
+            success:function (res){
+                if (res.resCode==37){
+                    console.log(res);
+                    //创建HTML节点
+                    var tr=$("<tr>"
+                        +"<td>"+"<input type='radio' name='sturadio' value="+res.data.sid+">"+"</td>"
+                        +"<td>"+res.data.sid+"</td>"
+                        +"<td>"+names+"</td>"
+                        +"<td>"+years+"</td>"
+                        +"<td>"+cards+"</td>"
+                        +"<td>"+genders+"</td>"
+                        +"<td>"+classs+"</td>"
+                        +"</tr>");
+
+                    //将HTML节点添加到table子节点的最后
+                    $("#taskInfoTab").append(tr);
+                    $("input[name='sturadio']:checked").parent().parent().remove();
+                    alert("学生新增成功！");
+                    //关闭添加弹窗
+                    let blur=document.getElementById("containerbox");
+                    blur.classList.toggle('active');
+                    let popup=document.getElementById("taskEdit");
+                    popup.classList.toggle('active');
+                }
+                else {
+                    $("input[name='sturadio']:checked").parent().parent().remove();
+                }
+            }
+        });
+    }
 }
