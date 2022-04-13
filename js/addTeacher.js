@@ -1,163 +1,44 @@
-var ClassNo;
-var arrTasktxt=new Array(1000000);
-$(function (){
-    $("#txtClass2").on("input",function (){
-        if (required($(this),"请输入姓名")==true){
-            var opt=document.getElementById('txtClass2');
-            ClassNo=opt.options[opt.selectedIndex].value;
-            initStudent(ClassNo);
-        }
-    });
-    /* *********************************************** */
-    /* *********************************************** */
-    /********************添加页面弹窗**********************/
-    $("#bbody").onload=inintClass();
-    //姓名输入框的事件驱动
-    $("#txtName").on("blur keyup",function (){
-        required($(this),"请输入姓名");
-    });
-    //账号输入框的事件驱动
-    $("#txtTuid").on("blur keyup",function (){
-        required($(this),"请输入账号");
-    });
-    //密码输入框的事件驱动
-    $("#txtPwd").on("blur keyup",function (){
-        required($(this),"请输入密码");
-    });
-    //生日输入框的事件驱动
-    $("#txtBirthday").on("blur keyup",function (){
-        required($(this),"请输入生日");
-    });
-    //手机号输入框的事件驱动
-    $("#txtPhone").on("blur keyup",function (){
-        required($(this),"请输入手机");
-    });
-    //性别输入框的事件驱动///////////
-    $("#selGender").on("blur change",function (){
-
-        required($(this),"请选择性别");
-    });
-    //班级输入框的事件驱动
-    $("#txtLeixing").on("blur change",function (){
-
-        required($(this),"请选择类型");
-    });
-
-    /* *********************************************** */
-    /* *********************************************** */
-    /********************编辑页面弹窗**********************/
-    //学生姓名输入框的事件驱动
-    $("#txtName1").on("blur keyup",function (){
-        required($(this),"请输入姓名");
-    });
-    //入学年份输入框的事件驱动
-    $("#txtyear1").on("blur keyup",function (){
-        required($(this),"请输入入学年份");
-    });
-    //卡号输入框的事件驱动
-    $("#txtCard1").on("blur keyup",function (){
-        required($(this),"请输入卡号");
-    });
-    //性别输入框的事件驱动///////////
-    $("#selGender1").on("blur change",function (){
-
-        required($(this),"请选择性别");
-    });
-    //班级输入框的事件驱动
-    $("#txtClass1").on("blur change",function (){
-
-        required($(this),"请选择班级");
-    });
-});
-
-//非空验证
-function required(obj,error){
-    //获取输入框对象
-    if($.trim(obj.val())==""){
-        //提示不能为空
-        obj.next("label").html(error);
-        return false;
-    }else {
-        obj.next("label").html("");
-        return true;
-    }
-}
-
-//删除///
-function deleteData () {
-    //根据确认框选择结果确认操作
-    var sId=$("input[name='thradio']:checked").attr('value');
-    if(sId==null){
-        alert("请选择要删除的任务");
-        return;
-    }
-
-    if (confirm("你确定删除吗？")) {
-        $.ajax({
-            type:"DELETE",
-            url:"http://www.jayczee.top:50121/Student/DeleteStu/"+sId,
-            success:function (res ){
-                if (res.resCode == 41){
-                    $("input[name='thradio']:checked").parent().parent().remove();
-                    alert("删除成功");
-                }else if(res.resCode==42){
-                    $("input[name='thradio']:checked").parent().parent().remove();
-                    alert(res.msg);
-                }
-            }
-        });
-    }
-}
 
 
-//获取班级信息
-function  inintClass(){
-    //初始化数据
-    var username=$.cookie('.username');
-    var userkind=$.cookie('.userkind');
-    $("#loginName").html(username);
+//初始化教师用户信息
+function InitTeacher(){
     $.ajax({
         type:"GET",
-        async:false,
-        url:"http://www.jayczee.top:50121/User/GetClassByTUid/"+username,
-        success:function (res ){
-            if (res.resCode == 30){
+        url:"http://www.jayczee.top:50121/User/GetAllTeacher",
+        success:function (res){
+            var userkind="";
+            if (res.resCode==42){
                 var i=0;
                 for(i=0;i<res.data.length;i++){
-                    $("#txtClass").append(new Option(res.data[i].cName,res.data[i].cNo));
-                    $("#txtClass1").append(new Option(res.data[i].cName,res.data[i].cNo));
-                    $("#txtClass2").append(new Option(res.data[i].cName,res.data[i].cNo));
-                }
-            }
-        }
-    });
-
-}
-
-//获取学生信息
-//获取一个班级的学生名单
-function  initStudent(cno){
-    $.ajax({
-        type:"GET",
-        url:"http://www.jayczee.top:50121/Student/GetStusByCNo/"+cno ,
-        success:function (res ){
-            if (res.resCode == 5){
-                var i=0,j=0;
-                var tb=document.getElementById('taskInfoTab');
-                var len=tb.getElementsByTagName("tr").length;
-                for(i=1;i<len;i++)
-                    tb.deleteRow(1);
-                for(i=0;i<res.data.length;i++){
+                    $.ajax({
+                        type:"GET",
+                        async:false,
+                        url:"http://www.jayczee.top:50121/User/GetUserKind/"+res.data[i].tUid,
+                        success:function (res1){
+                            if (res1.resCode==43){
+                                switch (res1.data){
+                                    case 0:userkind="管理员";break;
+                                    case 1:userkind="校领导";break;
+                                    case 2:userkind="教师";break;
+                                    default:userkind="未知";break;
+                                }
+                            }
+                            else {
+                                userkind="无";
+                            }
+                        }
+                    });
                     var tr=$("<tr>"
-                        +"<td>"+"<input type='radio' name='thradio' value="+res.data[i].sid+">"+"</td>"
-                        +"<td>"+res.data[i].sid+"</td>"
-                        +"<td>"+res.data[i].sName+"</td>"
-                        +"<td>"+res.data[i].sYear+"</td>"
-                        +"<td>"+res.data[i].sSex+"</td>"
-                        +"<td>"+res.data[i].sCardNum+"</td>"
-                        +"<td>"+res.data[i].scNo+"</td>"
-                        +"</tr>"
-                    );
+                        +"<td>"+"<input type='radio' name='tradio' value="+res.data.teacherID+">"+"</td>"
+                        +"<td>"+res.data[i].teacherID+"</td>"
+                        +"<td>"+res.data[i].tname+"</td>"
+                        +"<td>"+res.data[i].tUid+"</td>"
+                        +"<td>"+res.data[i].tSex+"</td>"
+                        +"<td>"+res.data[i].tBirth+"</td>"
+                        +"<td>"+res.data[i].tPhoneNum+"</td>"
+                        +"<td>"+userkind+"</td>"
+                        +"<td>"+res.data[i].tCardNum+"</td>"
+                        +"</tr>");
                     $("#taskInfoTab").append(tr);
                 }
             }
@@ -168,130 +49,8 @@ function  initStudent(cno){
     });
 }
 
-//新增学生信息
-function AddStu(){
-
-    //非空验证
-    var nameCheck=required($("#txtName"),"请输入姓名");
-    var tuidCheck=required($("#txtTuid"),"请输入账号");
-    var pwdCheck=required($("#txtPwd"),"请输入密码");
-    var genderCheck=required($("#selGender"),"请选择性别");
-    var birthdayCheck=required($("#txtBirthday"),"请选择生日");
-    var phoneCheck=required($("#txtPhone"),"请输入手机");
-    var leixingCheck=required($("#txtLeixing"),"请选择类型");
-    if(nameCheck && tuidCheck && pwdCheck && genderCheck && birthdayCheck && phoneCheck && leixingCheck){
-        //获取用户输入的信息
-        // var sId=$("input[name='sturadio']:checked").attr('value');
-        var names=$("#txtName").val();
-        var tuids=$("#txtTuid").val();
-        var pwds=$("#txtPwd").val();
-        var genders=$("#selGender").val();
-        var birthdays=$("#txtBirthday").val();
-        var phones=$("#txtPhone").val();
-        var leixings=$("#txtLeixing").val();
-        var idcards=$("#txtIdcard").val();
-
-        var body={
-            "sName":names,//学生姓名
-            "sSex": genders,//性别
-            "sCardNum": cards,//教师UID
-            "sCNo": classs,//班级
-            "sYear": years//入学年份
-        }
-        $.ajax({
-            type:"POST",
-            url:"http://www.jayczee.top:50121/Student/AddStu",
-            contentType:"application/json",
-            data:JSON.stringify(body),
-            success:function (res){
-                if (res.resCode==37){
-                    console.log(res);
-                    //创建HTML节点
-                    var tr=$("<tr>"
-                        +"<td>"+"<input type='radio' name='thradio' value="+res.data.sid+">"+"</td>"
-                        +"<td>"+res.data.sid+"</td>"
-                        +"<td>"+names+"</td>"
-                        +"<td>"+years+"</td>"
-                        +"<td>"+genders+"</td>"
-                        +"<td>"+cards+"</td>"
-                        +"<td>"+classs+"</td>"
-                        +"</tr>");
-
-                    //将HTML节点添加到table子节点的最后
-                    $("#taskInfoTab").append(tr);
-                    $("input[name='thradio']:checked").parent().parent().remove();
-                    alert("学生信息新增成功！");
-                    //关闭添加弹窗
-                    let blur=document.getElementById("containerbox");
-                    blur.classList.toggle('active');
-                    let popup=document.getElementById("register");
-                    popup.classList.toggle('active');
-                    tform=false;
-                }
-                else {
-                    alert(res.msg)
-                }
-            }
-        });
-    }
-}
-
-//编辑学生信息
-function EditStu(){
-    //非空验证
-    var nameCheck=required($("#txtName1"),"请输入姓名");
-    var yearCheck=required($("#txtyear1"),"请输入入学年份");
-    var cardCheck=required($("#txtCard1"),"请输入卡号");
-    var genderCheck=required($("#selGender1"),"请选择性别");
-    var classCheck=required($("#txtClass1"),"请选择班级");
-    if(nameCheck && yearCheck && cardCheck && genderCheck && classCheck){
-        //获取用户输入的信息
-        var sId=$("input[name='thradio']:checked").attr('value');
-        var names=$("#txtName1").val();
-        var years=$("#txtyear1").val();
-        var cards=$("#txtCard1").val();
-        var genders=$("#selGender1").val();
-        var classs=$("#txtClass1").val();
-
-        var body={
-            "sid":sId,
-            "sName":names,//学生姓名
-            "sSex": genders,//性别
-            "sCardNum": cards,//学生卡号
-            "sCNo": classs,//班级
-            "sYear": years,//入学年份
-        }
-        $.ajax({
-            type:"PUT",
-            url:"http://www.jayczee.top:50121/Student/UpdateStu",
-            contentType:"application/json",
-            data:JSON.stringify(body),
-            success:function (res){
-                if (res.resCode==39){
-                    $("input[name='thradio']:checked").parents('tr').children("td").get(2).innerHTML=names;
-                    $("input[name='thradio']:checked").parents('tr').children("td").get(3).innerHTML=years;
-                    $("input[name='thradio']:checked").parents('tr').children("td").get(4).innerHTML=genders;
-                    $("input[name='thradio']:checked").parents('tr').children("td").get(5).innerHTML=cards;
-                    $("input[name='thradio']:checked").parents('tr').children("td").get(6).innerHTML=classs;
-                    alert("学生信息编辑成功！");
-                    //关闭添加弹窗
-                    let blur=document.getElementById("containerbox");
-                    blur.classList.toggle('active');
-                    let popup=document.getElementById("taskEdit");
-                    popup.classList.toggle('active');
-                    tform=false;
-
-                }
-                else {
-                    alert(res.msg);
-                }
-            }
-        });
-    }
-}
-
 var teform=false;
-//学生添加页面弹窗
+//添加页面弹窗
 function ShowAdd(){
     let blur=document.getElementById("containerbox");
     blur.classList.toggle('active');
@@ -302,18 +61,22 @@ function ShowAdd(){
     else{
         teform=false;
         document.getElementById("txtName").value="";
-        document.getElementById("txtCard").value="";
+        document.getElementById("txtTuid").value="";
+        document.getElementById("txtPwd").value="";
+        document.getElementById("txtIdcard").value="";
         document.getElementById("txtClass").value="";
-        document.getElementById("selGender").value="";
+        document.getElementById("txtBirthday").value="";
+        document.getElementById("txtPhone").value="";
+        document.getElementById("txtLeixing").value="";
         return;
     }
 }
 var tform=false;
-//学生编辑页面弹窗
+//编辑页面弹窗
 function ShowEdit(){
     //根据确认框选择结果确认操作
-    var stuid=$("input[name='sturadio']:checked").attr('value');
-    if(stuid==null){
+    var tid=$("input[name='tradio']:checked").attr('value');
+    if(tid==null){
         alert("请选择要编辑的教师信息");
         return false;
     }
@@ -324,22 +87,70 @@ function ShowEdit(){
         popup.classList.toggle('active');
         if(tform==false){//窗体状态变量  窗体打开时为true 关闭时为false
             tform=true;
-            document.getElementById("selGender1").value=$("input[name='thradio']:checked").parents('tr').children("td").get(4).innerHTML;
-            document.getElementById("txtName1").value=$("input[name='thradio']:checked").parents('tr').children("td").get(2).innerHTML;
-            document.getElementById("txtIdcard").value=$("input[name='thradio']:checked").parents('tr').children("td").get(5).innerHTML;
-            document.getElementById("txtCard1").value=$("input[name='thradio']:checked").parents('tr').children("td").get(5).innerHTML;
-            document.getElementById("txtCard1").value=$("input[name='thradio']:checked").parents('tr').children("td").get(5).innerHTML;
-            document.getElementById("txtCard1").value=$("input[name='thradio']:checked").parents('tr').children("td").get(5).innerHTML;
-            document.getElementById("txtCard1").value=$("input[name='thradio']:checked").parents('tr').children("td").get(5).innerHTML;
-            document.getElementById("txtCard1").value=$("input[name='thradio']:checked").parents('tr').children("td").get(5).innerHTML;
+            document.getElementById("selGender1").value=$("input[name='tradio']:checked").parents('tr').children("td").get(4).innerHTML;
+            document.getElementById("txtName1").value=$("input[name='tradio']:checked").parents('tr').children("td").get(2).innerHTML;
+            document.getElementById("txtIdcard1").value=$("input[name='tradio']:checked").parents('tr').children("td").get(8).innerHTML;
+            document.getElementById("txtBirthday1").value=$("input[name='tradio']:checked").parents('tr').children("td").get(5).innerHTML;
+            document.getElementById("txtPhone1").value=$("input[name='tradio']:checked").parents('tr').children("td").get(6).innerHTML;
         }
         else{
             tform=false;
-            document.getElementById("txtName1").value="";
-            document.getElementById("txtCard1").value="";
-            document.getElementById("txtClass1").value="";
-            document.getElementById("selGender1").value="";
             return;
         }
     }
+}
+
+function ResetPassword(){
+    if($("input[name='tradio']:checked").val()==null){
+        alert("请选择要重置密码的用户");
+        return;
+    }
+    var uid=$("input[name='tradio']:checked").parents('tr').children("td").get(3).innerHTML;
+    var r=confirm("是否确认重置用户【"+uid+"】的密码为：123456？");
+    if(!r)
+        return;
+    $.ajax({
+        type:"GET",
+        url:"http://www.jayczee.top:50121/User/ResetPwd/"+uid,
+        success:function (res){
+            if (res.resCode==45){
+                alert("重置密码成功，密码为【123456】");
+            }
+            else {
+                alert(res.msg)
+            }
+        }
+    });
+}
+
+function DeleteTeacher(){
+    if($("input[name='tradio']:checked").val()==null){
+        alert("请选择要删除的用户");
+        return;
+    }
+    var uid=$("input[name='tradio']:checked").parents('tr').children("td").get(3).innerHTML;
+    var r=confirm("是否删除用户【"+uid+"】？");
+    if(!r)
+        return;
+    $.ajax({
+        type:"DELETE",
+        url:"http://www.jayczee.top:50121/User/DeleteUser/"+uid,
+        success:function (res){
+            if (res.resCode==25){
+                alert("删除成功");
+                $("input[name='tradio']:checked").parents('tr').remove();
+            }
+            else {
+                alert(res.msg)
+            }
+        }
+    });
+}
+
+function AddTeacher(){
+
+}
+
+function EditTeacher(){
+
 }

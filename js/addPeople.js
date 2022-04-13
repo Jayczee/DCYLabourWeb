@@ -192,7 +192,6 @@ function AddStu(){
             data:JSON.stringify(body),
             success:function (res){
                 if (res.resCode==37){
-                    console.log(res);
                     //创建HTML节点
                     var tr=$("<tr>"
                         +"<td>"+"<input type='radio' name='sturadio' value="+res.data.sid+">"+"</td>"

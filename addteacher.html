@@ -9,7 +9,7 @@
     <script type="text/javascript" src="https://cdn.staticfile.org/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
     <title>添加老师</title>
 </head>
-<body>
+<body onload="InitTeacher()">
 <div class="containerbox" id="containerbox" onload="initTeacher()">
     <div class="content">
         <div id="app">
@@ -17,10 +17,11 @@
                 <div style="margin-top:30px; margin-bottom:1px;">
                     <a class="taskbtn" onclick="ShowAdd()">添加</a>
                     <a class="taskbtn" onclick="ShowEdit()">编辑</a>
-                    <input class="taskbtn" type="button" value="删除" onclick="deleteData()">
+                    <input class="taskbtn" type="button" value="删除" onclick="DeleteTeacher()">
+                    <input class="taskbtn" type="button" value="重置密码" onclick="ResetPassword()">
                     <label for="txtClass2" id="seach">搜索：</label>
                     <input class="taskbtn" type="text" id="txtClass2" value="">
-                    <label for="" class="la"></label>
+                    <label  class="la"></label>
                 </div>
                 <div id="taskInfo" style="overflow: scroll; width: 100%;height:100%; font-size: 15px;">
                     <table id="taskInfoTab" style="width: 100%;text-align: center;overflow:auto;overflow-x: hidden">
@@ -29,7 +30,6 @@
                             <th>序号</th>
                             <th>姓名</th>
                             <th>账号</th>
-                            <th>密码</th>
                             <th>性别</th>
                             <th>生日</th>
                             <th>手机号</th>
@@ -50,22 +50,22 @@
             <p>
                 <label for="txtName">姓名：</label>
                 <input type="text" id="txtName" name="txtName" placeholder="请输入姓名">
-                <label for="" class="la"></label>
+                <label  class="la"></label>
             </p>
             <p>
                 <label for="txtTuid">账号：</label>
                 <input type="text" id="txtTuid" name="txtTuid" placeholder="请输入帐号">
-                <label for="" class="la"></label>
+                <label  class="la"></label>
             </p>
             <p>
                 <label for="txtPwd">密码：</label>
                 <input type="text" id="txtPwd" name="txtPwd" placeholder="请输入密码">
-                <label for="" class="la"></label>
+                <label  class="la"></label>
             </p>
             <p>
                 <label for="txtIdcard">卡号：</label>
                 <input type="text" id="txtIdcard" name="txtIdcard" placeholder="">
-                <label for="" class="la"></label>
+                <label  class="la"></label>
             </p>
         </div>
         <div id="right">
@@ -76,31 +76,30 @@
                     <option value="男">男</option>
                     <option value="女">女</option>
                 </select>
-                <label for="" class="la"></label>
+                <label  class="la"></label>
             </p>
             <p>
                 <label for="txtBirthday">生&nbsp;&nbsp;&nbsp;&nbsp;日：</label>
                 <input type="date" id="txtBirthday" name="txtBirthday" placeholder="请选择生日">
-                <label for="" class="la"></label>
+                <label  class="la"></label>
             </p>
             <p>
                 <label for="txtPhone">手机号：</label>
                 <input type="text" id="txtPhone" name="txtPhone" placeholder="请输入手机号">
-                <label for="" class="la"></label>
+                <label  class="la"></label>
             </p>
             <p>
                 <label for="txtLeixing">类&nbsp;&nbsp;&nbsp;&nbsp;型：</label>
                 <select name="" id="txtLeixing">
                     <option value="">-请选择教师类别-</option>
-                    <option value="0">管理员</option>
                     <option value="1">校领导</option>
                     <option value="2">教师</option>
                 </select>
-                <label for="" class="la"></label>
+                <label  class="la"></label>
             </p>
         </div>
         <div class="btnbox">
-            <input type="submit" id="btnStudent" value="添加" onclick="AddStu()">
+            <input type="submit" id="btnStudent" value="添加" onclick="AddTeacher()">
         </div>
     </form>
     <a href="#" onclick="ShowAdd()">关闭</a>
@@ -112,26 +111,14 @@
         <div id="left1">
             <p>
                 <label for="txtName1">姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名：</label>
-                <input type="text" id="txtName1" name="txtName1" placeholder="请输入学生姓名">
-                <label for="" class="la"></label>
-            </p>
-            <p>
-                <label for="txtTuid1">账号：</label>
-                <input type="text" id="txtTuid1" name="txtTuid1" placeholder="请输入帐号">
-                <label for="" class="la"></label>
-            </p>
-            <p>
-                <label for="txtPwd1">密码：</label>
-                <input type="text" id="txtPwd1" name="txtPwd1" placeholder="请输入密码">
-                <label for="" class="la"></label>
+                <input type="text" id="txtName1" name="txtName1" placeholder="请输入姓名">
+                <label  class="la"></label>
             </p>
             <p>
                 <label for="txtIdcard1">卡号：</label>
                 <input type="text" id="txtIdcard1" name="txtIdcard1" placeholder="">
-                <label for="" class="la"></label>
+                <label  class="la"></label>
             </p>
-        </div>
-        <div id="right1">
             <p>
                 <label for="selGender1">性&nbsp;&nbsp;&nbsp;&nbsp;别：</label>
                 <select name="" id="selGender1">
@@ -139,31 +126,32 @@
                     <option value="男">男</option>
                     <option value="女">女</option>
                 </select>
-                <label for="" class="la"></label>
+                <label  class="la"></label>
             </p>
+        </div>
+        <div id="right1">
             <p>
                 <label for="txtBirthday1">生&nbsp;&nbsp;&nbsp;&nbsp;日：</label>
                 <input type="date" id="txtBirthday1" name="txtBirthday1" placeholder="请选择生日">
-                <label for="" class="la"></label>
+                <label  class="la"></label>
             </p>
             <p>
                 <label for="txtPhone1">手机号：</label>
                 <input type="text" id="txtPhone1" name="txtPhone1" placeholder="请输入手机号">
-                <label for="" class="la"></label>
+                <label  class="la"></label>
             </p>
             <p>
                 <label for="txtLeixing1">类型：</label>
                 <select name="" id="txtLeixing1">
                     <option value="">-请选择教师类别-</option>
-                    <option value="0">管理员</option>
                     <option value="1">校领导</option>
                     <option value="2">教师</option>
                 </select>
-                <label for="" class="la"></label>
+                <label  class="la"></label>
             </p>
         </div>
         <div class="btnbox">
-            <input type="submit" id="btnStudent1" value="编辑" onclick="EditStu()">
+            <input type="submit" id="btnStudent1" value="编辑" onclick="EditTeacher()">
         </div>
     </form>
     <a href="#" onclick="ShowEdit()">关闭</a>
