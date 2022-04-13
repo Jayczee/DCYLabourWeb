@@ -45,7 +45,7 @@ $(function (){
         var classCheck=required($("#txtClass"),"请选择班级");
         if(nameCheck && yearCheck && cardCheck && genderCheck && classCheck){
             //获取用户输入的信息
-            var tskid=$("input[name='taskradio']:checked").attr('value');
+            // var sId=$("input[name='sturadio']:checked").attr('value');
             var names=$("#txtName").val();
             var years=$("#txtyear").val();
             var cards=$("#txtCard").val();
@@ -53,6 +53,7 @@ $(function (){
             var classs=$("#txtClass").val();
 
             var body={
+                "sid":sId,
                 "sName":names,//学生姓名
                 "sSex": genders,//性别
                 "sCardNum": cards,//教师UID
@@ -68,7 +69,8 @@ $(function (){
                     if (res.resCode==37){
                         //创建HTML节点
                         var tr=$("<tr>"
-                            +"<td>"+"<input type='radio' name='taskradio' value='"+res.data.taskID+"'>"+"</td>"
+                            +"<td>"+"<input type='radio' name='sturadio' value="+res.data.sid+">"+"</td>"
+                            +"<td>"+res.data.sid+"</td>"
                             +"<td>"+names+"</td>"
                             +"<td>"+years+"</td>"
                             +"<td>"+cards+"</td>"
@@ -78,8 +80,7 @@ $(function (){
 
                         //将HTML节点添加到table子节点的最后
                         $("#taskInfoTab").append(tr);
-                        arrTasktxt[res.data.taskID]=step;
-                        $("input[name='taskradio']:checked").parent().parent().remove();
+                        $("input[name='sturadio']:checked").parent().parent().remove();
                         alert("学生新增成功！");
                         //关闭添加弹窗
                         let blur=document.getElementById("containerbox");
@@ -88,7 +89,7 @@ $(function (){
                         popup.classList.toggle('active');
                     }
                     else {
-                        $("input[name='taskradio']:checked").parent().parent().remove();
+                        $("input[name='sturadio']:checked").parent().parent().remove();
                     }
                 }
             });
@@ -112,8 +113,8 @@ function required(obj,error){
 //删除///
 function deleteData () {
     //根据确认框选择结果确认操作
-    var tskid=$("input[name='taskradio']:checked").attr('value');
-    if(tskid==null){
+    var sId=$("input[name='sturadio']:checked").attr('value');
+    if(sId==null){
         alert("请选择要删除的任务");
         return;
     }
@@ -121,13 +122,13 @@ function deleteData () {
     if (confirm("你确定删除吗？")) {
         $.ajax({
             type:"DELETE",
-            url:"http://www.jayczee.top:50121/Student/DeleteStu/"+tskid,
+            url:"http://www.jayczee.top:50121/Student/DeleteStu/"+sId,
             success:function (res ){
                 if (res.resCode == 16){
-                    $("input[name='taskradio']:checked").parent().parent().remove();
+                    $("input[name='sturadio']:checked").parent().parent().remove();
                     alert("删除成功");
                 }else if(res.resCode==17){
-                    $("input[name='taskradio']:checked").parent().parent().remove();
+                    $("input[name='sturadio']:checked").parent().parent().remove();
                     alert(res.msg);
                 }
             }
