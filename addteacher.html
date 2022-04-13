@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script type="text/javascript" src="js/jquery-3.5.1.min.js"></script>
     <link rel="stylesheet" href="css/addPeople.css">
-    <script type="text/javascript" src="js/addPeople.js"></script>
+    <script type="text/javascript" src="js/addTeacher.js.js"></script>
     <script type="text/javascript" src="https://cdn.staticfile.org/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
     <title>添加老师</title>
 </head>
@@ -43,25 +43,24 @@
     <form action="#" id="regForm" onsubmit="return false">
         <div id="left">
             <p>
-                <label for="txtName">姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名：</label>
-                <input type="text" id="txtName" name="txtName" placeholder="请输入学生姓名">
+                <label for="txtName">姓名：</label>
+                <input type="text" id="txtName" name="txtName" placeholder="请输入姓名">
                 <label for="" class="la"></label>
             </p>
             <p>
-                <label for="txtyear">入学年份：</label>
-                <select name="" id="txtyear">
-                </select>
+                <label for="txtTuid">账号：</label>
+                <input type="text" id="txtTuid" name="txtTuid" placeholder="请输入帐号">
                 <label for="" class="la"></label>
             </p>
-<!--            <p>-->
-<!--                <label for="txtCard">卡&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;号：</label>-->
-<!--                <input type="text" id="txtCard" name="txtCard" placeholder="请输入学生卡号">-->
-<!--                <label for="" class="la"></label>-->
-<!--            </p>-->
+            <p>
+                <label for="txtPwd">密码：</label>
+                <input type="text" id="txtPwd" name="txtPwd" placeholder="请输入密码">
+                <label for="" class="la"></label>
+            </p>
         </div>
         <div id="right">
             <p>
-                <label for="selGender">性别：</label>
+                <label for="selGender">性&nbsp;&nbsp;&nbsp;&nbsp;别：</label>
                 <select name="" id="selGender">
                     <option value="">-请选择性别-</option>
                     <option value="男">男</option>
@@ -69,13 +68,16 @@
                 </select>
                 <label for="" class="la"></label>
             </p>
-<!--            <p>-->
-<!--                <label for="txtClass">班级：</label>-->
-<!--                <select name="txtClass" id="txtClass">-->
-<!--                    <option value="">-请选择班级-</option>-->
-<!--                </select>-->
-<!--                <label for="" class="la"></label>-->
-<!--            </p>-->
+            <p>
+                <label for="txtBirthday">生&nbsp;&nbsp;&nbsp;&nbsp;日：</label>
+                <input type="text" id="txtBirthday" name="txtBirthday" placeholder="请选择生日">
+                <label for="" class="la"></label>
+            </p>
+            <p>
+                <label for="txtPhone">手机号：</label>
+                <input type="text" id="txtPhone" name="txtPhone" placeholder="请输入手机号">
+                <label for="" class="la"></label>
+            </p>
         </div>
         <div class="btnbox">
             <input type="submit" id="btnStudent" value="添加" onclick="AddStu()">
@@ -94,20 +96,19 @@
                 <label for="" class="la"></label>
             </p>
             <p>
-                <label for="txtyear1">入学年份：</label>
-                <select name="" id="txtyear1">
-                </select>
+                <label for="txtTuid1">账号：</label>
+                <input type="text" id="txtTuid1" name="txtTuid1" placeholder="请输入帐号">
                 <label for="" class="la"></label>
             </p>
-<!--            <p>-->
-<!--                <label for="txtCard1">卡&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;号：</label>-->
-<!--                <input type="text" id="txtCard1" name="txtCard1" placeholder="请输入学生卡号">-->
-<!--                <label for="" class="la"></label>-->
-<!--            </p>-->
+            <p>
+                <label for="txtPwd1">密码：</label>
+                <input type="text" id="txtPwd1" name="txtPwd1" placeholder="请输入密码">
+                <label for="" class="la"></label>
+            </p>
         </div>
         <div id="right1">
             <p>
-                <label for="selGender1">性别：</label>
+                <label for="selGender1">性&nbsp;&nbsp;&nbsp;&nbsp;别：</label>
                 <select name="" id="selGender1">
                     <option value="">-请选择性别-</option>
                     <option value="男">男</option>
@@ -115,13 +116,16 @@
                 </select>
                 <label for="" class="la"></label>
             </p>
-<!--            <p>-->
-<!--                <label for="txtClass1">班级：</label>-->
-<!--                <select name="txtClass1" id="txtClass1">-->
-<!--                    <option value="">-请选择班级-</option>-->
-<!--                </select>-->
-<!--                <label for="" class="la"></label>-->
-<!--            </p>-->
+            <p>
+                <label for="txtBirthday1">生&nbsp;&nbsp;&nbsp;&nbsp;日：</label>
+                <input type="text" id="txtBirthday1" name="txtBirthday1" placeholder="请选择生日">
+                <label for="" class="la"></label>
+            </p>
+            <p>
+                <label for="txtPhone1">手机号：</label>
+                <input type="text" id="txtPhone1" name="txtPhone1" placeholder="请输入手机号">
+                <label for="" class="la"></label>
+            </p>
         </div>
         <div class="btnbox">
             <input type="submit" id="btnStudent1" value="编辑" onclick="EditStu()">
@@ -130,21 +134,7 @@
     <a href="#" onclick="ShowEdit()">关闭</a>
 </div>
 <script>
-    window.onload=function(){
-        //设置年份的选择
-        var myDate= new Date();
-        var startYear=myDate.getFullYear()-3;//起始年份
-        var endYear=myDate.getFullYear()+1;//结束年份
-        var obj=document.getElementById('txtyear');
-        var obj1=document.getElementById('txtyear1');
-        for (var i=startYear;i<=endYear;i++)
-        {
-            obj.options.add(new Option(i,i));
-            obj1.options.add(new Option(i,i));
-        }
-        obj.options[obj.options.length-2].selected=1;
-        obj1.options[obj.options.length-2].selected=1;
-    }
+
 </script>
 </body>
 </html>
