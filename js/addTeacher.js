@@ -257,7 +257,7 @@ function AddTeacher(){
         console.log(body);
         $.ajax({
             type:"POST",
-            url:"https://localhost:7168/User/UserReg",
+            url:"http://www.jayczee.top:50121/User/UserReg",
             contentType:"application/json",
             data:JSON.stringify(body),
             success:function (res){
