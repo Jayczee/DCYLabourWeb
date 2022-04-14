@@ -264,7 +264,7 @@ function AddTeacher(){
                 if (res.resCode==7){
                     //创建HTML节点
                     var tr=$("<tr>"
-                        +"<td>"+"<input type='radio' name='thradio' value="+res.data+">"+"</td>"
+                        +"<td>"+"<input type='radio' name='tradio' value="+res.data+">"+"</td>"
                         +"<td>"+res.data+"</td>"
                         +"<td>"+names+"</td>"
                         +"<td>"+tuids+"</td>"
@@ -346,12 +346,6 @@ function EditTeacher(){
     }
 }
 
-function seach(text,arr){
-    return arr.filter(function(elem,index){
-        if(elem.name.indexOf(text)!=-1){
-            return true;
-        }else{
-            return false;
-        }
-    });
+$("#seach").oninput=function (){
+
 }
