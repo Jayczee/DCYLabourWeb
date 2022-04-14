@@ -95,6 +95,11 @@ function ShowEdit(){
         }
         else{
             tform=false;
+            document.getElementById("selGender1").value="";
+            document.getElementById("txtName1").value="";
+            document.getElementById("txtIdcard1").value="";
+            document.getElementById("txtBirthday1").value="";
+            document.getElementById("txtPhone1").value="";
             return;
         }
     }
@@ -148,20 +153,11 @@ function DeleteTeacher(){
         }
     });
 }
-var ClassNo;
-var arrTasktxt=new Array(1000000);
+
 $(function (){
-    // $("#txtClass2").on("input",function (){
-    //     if (required($(this),"请输入姓名")==true){
-    //         var opt=document.getElementById('txtClass2');
-    //         ClassNo=opt.options[opt.selectedIndex].value;
-    //         initStudent(ClassNo);
-    //     }
-    // });
     /* *********************************************** */
     /* *********************************************** */
     /********************添加页面弹窗**********************/
-    $("#bbody").onload=inintClass();
     //姓名输入框的事件驱动
     $("#txtName").on("blur keyup",function (){
         required($(this),"请输入姓名");
@@ -213,11 +209,6 @@ $(function (){
 
         required($(this),"请选择性别");
     });
-    //类型输入框的事件驱动
-    $("#txtLeixing1").on("blur change",function (){
-
-        required($(this),"请选择类型");
-    });
 });
 
 //非空验证
@@ -263,33 +254,25 @@ function AddTeacher(){
             "tPhoneNum":phones,//手机
             "tSex":genders//性别
         }
+        console.log(body);
         $.ajax({
             type:"POST",
-            url:"http://www.jayczee.top:50121/User/UserReg",
+            url:"https://localhost:7168/User/UserReg",
             contentType:"application/json",
             data:JSON.stringify(body),
             success:function (res){
                 if (res.resCode==7){
-                    console.log(res);
-                    var i=0;
-                    //获取卡号
-
-                    $.ajax({
-                       type:"GET",
-                        url:"http://www.jayczee.top:50121/User/GetTeaher",
-                    });
                     //创建HTML节点
                     var tr=$("<tr>"
-                        +"<td>"+"<input type='radio' name='thradio' value="+res.data.uid+">"+"</td>"
-                        +"<td>"+res.data.uid+"</td>"
+                        +"<td>"+"<input type='radio' name='thradio' value="+res.data+">"+"</td>"
+                        +"<td>"+res.data+"</td>"
                         +"<td>"+names+"</td>"
                         +"<td>"+tuids+"</td>"
                         +"<td>"+genders+"</td>"
                         +"<td>"+birthdays+"</td>"
                         +"<td>"+phones+"</td>"
                         +"<td>"+leixings+"</td>"
-                        +"<td>"+idcards+"</td>"
-                        +"<td>"+pwds+"</td>"
+                        +"<td>"+""+"</td>"
                         +"</tr>");
 
                     //将HTML节点添加到table子节点的最后
@@ -300,13 +283,10 @@ function AddTeacher(){
                     blur.classList.toggle('active');
                     let popup=document.getElementById("register");
                     popup.classList.toggle('active');
-                    tform=false;
-                }
-                else if(res.resCode==6){
-                    alert("注册失败账号已存在")
+                    teform=false;
                 }
                 else {
-                    alert(res.msg)
+                    alert(res.msg);
                 }
             }
         });
@@ -314,7 +294,56 @@ function AddTeacher(){
 }
 
 function EditTeacher(){
-
+    //非空验证
+    var nameCheck=required($("#txtName1"),"请输入姓名");
+    var genderCheck=required($("#selGender1"),"请选择性别");
+    var birthdayCheck=required($("#txtBirthday1"),"请选择生日");
+    var phoneCheck=required($("#txtPhone1"),"请输入手机");
+    if(nameCheck  && genderCheck && birthdayCheck && phoneCheck){
+        var names=$("#txtName1").val();
+        var genders=$("#selGender1").val();
+        var birthdays=$("#txtBirthday1").val();
+        var phones=$("#txtPhone1").val();
+        var idcards=$("#txtIdcard1").val();
+        var body={
+            "tUid":$("input[name='tradio']:checked").parents('tr').children("td").get(3).innerHTML,//账号
+            "tname":names,//姓名
+            "tBirth":birthdays,//生日
+            "tPhoneNum":phones,//手机
+            "tSex":genders,//性别
+            "tCardNum":idcards
+        }
+        $.ajax({
+            type:"PUT",
+            url:"http://www.jayczee.top:50121/User/UpdateTeacher",
+            contentType:"application/json",
+            data:JSON.stringify(body),
+            success:function (res){
+                if (res.resCode==54){
+                    $("input[name='tradio']:checked").parents('tr').children("td").get(2).innerHTML=names;
+                    $("input[name='tradio']:checked").parents('tr').children("td").get(4).innerHTML=genders;
+                    $("input[name='tradio']:checked").parents('tr').children("td").get(5).innerHTML=birthdays;
+                    $("input[name='tradio']:checked").parents('tr').children("td").get(6).innerHTML=phones;
+                    $("input[name='tradio']:checked").parents('tr').children("td").get(8).innerHTML=idcards;
+                    alert("教师信息编辑成功！");
+                    //关闭添加弹窗
+                    document.getElementById("selGender1").value="";
+                    document.getElementById("txtName1").value="";
+                    document.getElementById("txtIdcard1").value="";
+                    document.getElementById("txtBirthday1").value="";
+                    document.getElementById("txtPhone1").value="";
+                    let blur=document.getElementById("containerbox");
+                    blur.classList.toggle('active');
+                    let popup=document.getElementById("taskEdit");
+                    popup.classList.toggle('active');
+                    tform=false;
+                }
+                else {
+                    alert(res.msg);
+                }
+            }
+        });
+    }
 }
 
 function seach(text,arr){
