@@ -16,7 +16,7 @@
     <script type="text/javascript" src="js/jquery-ui.min.js"></script>
     <script type="text/javascript" src="js/jquery.multiselect.js"></script>
     <script type="text/javascript" src="js/jquery.multiselect.filter.js"></script>
-    <script type="text/javascript" src="https://cdn.staticfile.org/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+    <script type="text/javascript" src="js/cookie.js"></script>
     <meta charset="UTF-8">
     <title>任务发布</title>
 </head>
@@ -140,7 +140,10 @@
     <div id="popupbox">
         <h2 id="txtTitle">任务详情：</h2>
         <p id="txtContent"></p>
-        <a href="#" onclick="ShowMsg()">关闭</a>
+        <div style="overflow: hidden;float: right">
+            <a href="#" onclick="ShowMsg()">关闭</a>
+        </div>
+
     </div>
     <!--显示任务进度弹窗-->
     <div id="TaskFinishbox">
@@ -291,8 +294,10 @@
                 <td colspan="7" id="fiZuowuPicURL"></td>
             </tr>
         </table>
+        <div style="overflow: hidden;float: right">
+            <a href="#" onclick="ShowTaskFinishInfo()">关闭</a>
+        </div>
 
-        <a href="#" onclick="ShowTaskFinishInfo()">关闭</a>
     </div>
     <!--    显示任务编辑弹窗-->
     <div id="taskEdit">
@@ -371,7 +376,10 @@
                 </div>
             </fieldset>
         </form>
-        <a href="#" onclick="ShowTaskEdit(this)">关闭</a>
+        <div style="overflow: hidden;float: right">
+            <a href="#" onclick="ShowTaskEdit(this)">关闭</a>
+        </div>
+
     </div>
 </body>
 <script type="text/javascript">

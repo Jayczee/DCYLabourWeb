@@ -1,70 +1,71 @@
 <!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <title>下拉菜单</title>
-</head>
-<style type="text/css">
-    ul{margin: 0; padding: 0;}
-    ul{list-style: none;}
-    .menu >ul> li{
-        background-color: black;
-        float: left;
-        width: 80px;
-        height: 40px;
-        text-align: center;
-        line-height: 40px;
-        color: white;
-        margin-right: 10px;
-    }
-    .menu >ul> li:hover{
-        background-color: red;
-    }
-    .sub_menu{
-        display: none;
-    }
-    .sub_menu >li{
-        background-color: black;
-    }
-    .sub_menu >li:hover{
-        background-color: blue;
-    }
-</style>
-<body>
-<div class="main">
-    <div class="menu">
-        <ul>
-            <li>首页</li>
-            <li>视频
-                <div>
-                    <ul class="sub_menu">
-                        <li>案例一</li>
-                        <li>案例二</li>
-                    </ul>
-                </div>
-            </li>
-            <li>教学</li>
-            <li>关于
-                <div>
-                    <ul class="sub_menu">
-                        <li>招聘信息</li>
-                        <li>公司简介</li>
-                    </ul>
-                </div>
-            </li>
-            <li>联系我们</li>
-        </ul>
-    </div>
-</div>
-<script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js" type="text/javascript"></script>
-<script type="text/javascript">
-    $(function(){
-        $(".menu >ul >li").hover(function(){
-            $(this).find(".sub_menu").show();
-            },function(){
-            $(this).find(".sub_menu").hide();
-        });
-    });
-</script>
-</body>
-</html>
+<!--<html>-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>下拉菜单</title>-->
+<!--</head>-->
+<!--<style type="text/css">-->
+<!--    ul{margin: 0; padding: 0;}-->
+<!--    ul{list-style: none;}-->
+<!--    .menu >ul> li{-->
+<!--        background-color: black;-->
+<!--        float: left;-->
+<!--        width: 80px;-->
+<!--        height: 40px;-->
+<!--        text-align: center;-->
+<!--        line-height: 40px;-->
+<!--        color: white;-->
+<!--        margin-right: 10px;-->
+<!--    }-->
+<!--    .menu >ul> li:hover{-->
+<!--        background-color: red;-->
+<!--    }-->
+<!--    .sub_menu{-->
+<!--        display: none;-->
+<!--    }-->
+<!--    .sub_menu >li{-->
+<!--        background-color: black;-->
+<!--    }-->
+<!--    .sub_menu >li:hover{-->
+<!--        background-color: blue;-->
+<!--    }-->
+<!--</style>-->
+<!--<body>-->
+<!--<div class="main">-->
+<!--    <div class="menu">-->
+<!--        <ul>-->
+<!--            <li>首页</li>-->
+<!--            <li>视频-->
+<!--                <div>-->
+<!--                    <ul class="sub_menu">-->
+<!--                        <li>案例一</li>-->
+<!--                        <li>案例二</li>-->
+<!--                    </ul>-->
+<!--                </div>-->
+<!--            </li>-->
+<!--            <li>教学</li>-->
+<!--            <li>关于-->
+<!--                <div>-->
+<!--                    <ul class="sub_menu">-->
+<!--                        <li>招聘信息</li>-->
+<!--                        <li>公司简介</li>-->
+<!--                    </ul>-->
+<!--                </div>-->
+<!--            </li>-->
+<!--            <li>联系我们</li>-->
+<!--        </ul>-->
+<!--    </div>-->
+<!--</div>-->
+<!--<script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js" type="text/javascript"></script>-->
+<!--<script type="text/javascript">-->
+<!--    $(function(){-->
+<!--        $(".menu >ul >li").hover(function(){-->
+<!--            $(this).find(".sub_menu").show();-->
+<!--            },function(){-->
+<!--            $(this).find(".sub_menu").hide();-->
+<!--        });-->
+<!--    });-->
+<!--</script>-->
+<!--</body>-->
+<!--</html>-->
+<html>	<head>		<script type="text/javascript" src="http://www.w3school.com.cn/jquery/jquery.js"></script>		<script type="text/javascript">		var pageSize="20";//Pager对象的pageSize属性值		$(document).ready(function(){			//用于页面初始化的时候选中与Pager对象的pageSize属性值相同的option			$(".pageSize").each(function(){				if($(this).val()==pageSize){					$(this).attr("selected","selected");				}			});			//用于设置每页显示的数据条数			$("#pageSizeSelector").change(function (){				alert("value:"+$(this).attr("value"));				//submit();			});		});		</script>	</head>	<body>		<select name="page.pageSize" id="pageSizeSelector">			<option value="10" class="pageSize">10</option>			<option value="20" class="pageSize">20</option>			<option value="30" class="pageSize">30</option>		</select>	</body></html>

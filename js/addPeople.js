@@ -11,7 +11,7 @@ $(function (){
     /* *********************************************** */
     /* *********************************************** */
     /********************添加页面弹窗**********************/
-    $("#bbody").onload=inintClass();
+    $("#bbody").onload=initClass();
     //学生姓名输入框的事件驱动
     $("#txtName").on("blur keyup",function (){
         required($(this),"请输入姓名");
@@ -103,7 +103,7 @@ function deleteData () {
 
 
 //获取班级信息
-function  inintClass(){
+function  initClass(){
     //初始化数据
     var username=$.cookie('.username');
     var userkind=$.cookie('.userkind');

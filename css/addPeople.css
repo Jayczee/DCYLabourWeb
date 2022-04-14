@@ -152,15 +152,14 @@ ul{
     top: 40%;
     left: 50%;
     transform: translate(-50%,-50%);
-    width: 600px;
     padding: 50px;
     box-shadow: 0 5px 30px rgb(0,0,0.3);
     background: #fff;
     visibility: hidden;
-    opacity: 0;
+    opacity: 0.3;
     transition: 0.5s;
-    width: 50%;
-    height: 40%;
+    width: 55%;
+    height: 50%;
 }
 #register.active,#taskEdit.active,#taskCheck.active{
     top: 50%;
@@ -169,7 +168,8 @@ ul{
     transition: 0.5s;
 }
 /*鼠标点击后链接不变色*/
-a:visited {
+#register a:visited,#taskEdit a:visited,#taskCheck a:visited{
+    float: right;
     color:#0000FF;
     text-decoration:none;
 }
