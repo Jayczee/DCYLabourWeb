@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="text/javascript" src="js/jquery-3.5.1.min.js"></script>
+    <link rel="stylesheet" href="css/addPeople.css">
+    <script type="text/javascript" src="js/addClass.js"></script>
+    <script type="text/javascript" src="js/cookie.js"></script>
+    <title>Title</title>
+</head>
+<body onload="initClass()">
+<div class="containerbox" id="containerbox">
+    <div class="content">
+        <div id="app">
+            <div id="taskTable" style="width: 100%;height:100%;">
+                <div style="margin-top:30px; margin-bottom:1px;">
+                    <a class="taskbtn" onclick="ShowAdd()">添加</a>
+                    <a class="taskbtn" onclick="ShowEdit()">编辑</a>
+                    <input class="taskbtn" type="button" value="删除" onclick="DeleteTeacher()">
+                </div>
+                <div id="taskInfo" style="overflow: scroll; width: 100%;height:100%; font-size: 15px;">
+                    <table id="taskInfoTab" style="width: 100%;text-align: center;overflow:auto;overflow-x: hidden">
+                        <tr>
+                            <th></th>
+                            <th>序号</th>
+                            <th>班级编号</th>
+                            <th>班级名称</th>
+                            <th>班级账号</th>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--弹窗显示添加-->
+<div id="register1">
+    <h2 style="padding-left: 40px;margin-top: -20px">添加班级信息</h2>
+    <form action="#" id="regForm" onsubmit="return false">
+        <div id="left">
+            <p>
+                <label for="txtCsNo">班级编号：</label>
+                <input type="text" id="txtCsNo" name="txtCsNo" placeholder="请输入班级编号" style="width: 40%">
+                <label  class="la"></label>
+            </p>
+            <p>
+                <label for="txtCsName">班级名称：</label>
+                <input type="text" id="txtCsName" name="txtCsName" placeholder="请输入班级名称" style="width: 40%">
+                <label  class="la"></label>
+            </p>
+            <p>
+                <label for="txtCsUid">班级账号：</label>
+                <input type="text" id="txtCsUid" name="txtCsUid" placeholder="请输入班级账号" style="width: 40%">
+                <label  class="la"></label>
+            </p>
+        </div>
+        <div class="btnbox" style="margin-left: 40px;width: 100%">
+            <input type="submit" id="btnClass" value="添加" onclick="" style="width: 55%">
+        </div>
+    </form>
+    <div style="overflow: hidden;float: right">
+        <a href="#" onclick="ShowAdd()">关闭</i></a>
+    </div>
+</div>
+
+<!--弹窗显示编辑-->
+<div id="taskEdit1">
+    <h2 style="padding-left: 40px;margin-top: -20px">编辑班级信息</h2>
+    <form action="#" id="regForm1" onsubmit="return false">
+        <div id="left1">
+            <p>
+                <label for="txtCsNo1">班级编号：</label>
+                <input type="text" id="txtCsNo1" name="txtCsNo1" placeholder="请输入班级编号" style="width: 40%">
+                <label  class="la"></label>
+            </p>
+            <p>
+                <label for="txtCsName1">班级名称：</label>
+                <input type="text" id="txtCsName1" name="txtCsName1" placeholder="请输入班级名称" style="width: 40%">
+                <label  class="la"></label>
+            </p>
+            <p>
+                <label for="txtCsUid1">班级账号：</label>
+                <input type="text" id="txtCsUid1" name="txtCsUid1" placeholder="请输入班级账号" style="width: 40%">
+                <label  class="la"></label>
+            </p>
+
+        </div>
+        <div class="btnbox" style="margin-left: 40px;width: 100%">
+            <input type="submit" id="btnClass1" value="编辑" onclick="" style="width: 55%">
+        </div>
+    </form>
+    <div style="overflow: hidden;float: right">
+        <a href="#" onclick="ShowEdit()">关闭</a>
+    </div>
+
+</div>
+</body>
+</html>
