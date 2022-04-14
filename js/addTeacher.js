@@ -4,6 +4,7 @@
 function InitTeacher(){
     $.ajax({
         type:"GET",
+        async:false,
         url:"http://www.jayczee.top:50121/User/GetAllTeacher",
         success:function (res){
             var userkind="";
@@ -31,7 +32,7 @@ function InitTeacher(){
                     var tr=$("<tr>"
                         +"<td>"+"<input type='radio' name='tradio' value="+res.data.teacherID+">"+"</td>"
                         +"<td>"+res.data[i].teacherID+"</td>"
-                        +"<td>"+res.data[i].tname+"</td>"
+                        +"<td class='ttname'>"+res.data[i].tname+"</td>"
                         +"<td>"+res.data[i].tUid+"</td>"
                         +"<td>"+res.data[i].tSex+"</td>"
                         +"<td>"+res.data[i].tBirth+"</td>"
@@ -257,7 +258,7 @@ function AddTeacher(){
         console.log(body);
         $.ajax({
             type:"POST",
-            url:"https://localhost:7168/User/UserReg",
+            url:"http://www.jayczee.top:50121/User/UserReg",
             contentType:"application/json",
             data:JSON.stringify(body),
             success:function (res){
@@ -266,7 +267,7 @@ function AddTeacher(){
                     var tr=$("<tr>"
                         +"<td>"+"<input type='radio' name='tradio' value="+res.data+">"+"</td>"
                         +"<td>"+res.data+"</td>"
-                        +"<td>"+names+"</td>"
+                        +"<td class='ttname'>"+names+"</td>"
                         +"<td>"+tuids+"</td>"
                         +"<td>"+genders+"</td>"
                         +"<td>"+birthdays+"</td>"
@@ -344,8 +345,4 @@ function EditTeacher(){
             }
         });
     }
-}
-
-$("#seach").oninput=function (){
-
 }
