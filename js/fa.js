@@ -10,26 +10,26 @@ $(function (){
                  console.log(res);
                  $("#loginName").html(res.data.tname+"教师");
                  //权限管理
-                 $(window).load(function (){
-                     //超级管理员
-                     if ($("#loginName").text()==="0"){
-                         $("#qx").show();
-                         $("#qx1").show();
-                         $("#qx2").show();
-                     }
-                     //管理员
-                     if ($("#loginName").text()==="1"){
-                         $("#qx").show();
-                         $("#qx1").show();
-                         $("#qx2").show();
-                     }
-                     //教师
-                     if ($("#loginName").text()==="2"){
-                         $("#qx").show();
-                         $("#qx1").show();
-                         $("#qx2").hide();
-                     }
-                 });
+                 // $(window).load(function (){
+                 //     //超级管理员
+                 //     if ($("#loginName").text()==="0"){
+                 //         $("#qx").show();
+                 //         $("#qx1").show();
+                 //         $("#qx2").show();
+                 //     }
+                 //     //管理员
+                 //     if ($("#loginName").text()==="1"){
+                 //         $("#qx").show();
+                 //         $("#qx1").show();
+                 //         $("#qx2").show();
+                 //     }
+                 //     //教师
+                 //     if ($("#loginName").text()==="2"){
+                 //         $("#qx").show();
+                 //         $("#qx1").show();
+                 //         $("#qx2").hide();
+                 //     }
+                 // });
              }
              else{
                  alert(res.msg);

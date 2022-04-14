@@ -114,11 +114,16 @@ function  inintClass(){
         url:"http://www.jayczee.top:50121/User/GetClassByTUid/"+username,
         success:function (res ){
             if (res.resCode == 30){
-                var i=0;
-                for(i=0;i<res.data.length;i++){
-                    $("#txtClass").append(new Option(res.data[i].cName,res.data[i].cNo));
-                    $("#txtClass1").append(new Option(res.data[i].cName,res.data[i].cNo));
-                    $("#txtClass2").append(new Option(res.data[i].cName,res.data[i].cNo));
+                if (res.data.length>0){
+                    var i=0;
+                    for(i=0;i<res.data.length;i++){
+                        $("#txtClass").append(new Option(res.data[i].cName,res.data[i].cNo));
+                        $("#txtClass1").append(new Option(res.data[i].cName,res.data[i].cNo));
+                        $("#txtClass2").append(new Option(res.data[i].cName,res.data[i].cNo));
+                    }
+                }
+                else {
+                    alert("您暂时未管理班级");
                 }
             }
         }
