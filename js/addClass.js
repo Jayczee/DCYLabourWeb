@@ -127,28 +127,34 @@ function AddClass(){
         var csno=$("#txtCsNo").val();
         var csname=$("#txtCsName").val();
         var csuid=$("#txtCsUid").val();
+        var tuid="";
+        for(i=0;i<csuid.length;i++)
+            if(i<csuid.length-1)
+                tuid+=csuid[i]+",";
+            else
+                tuid+=csuid[i];
+        console.log(tuid);
 
         var body={
             "cNo":csno,//班级编号
             "cName": csname,//班级名称
-            "ctUid": csuid//班级账号
+            "ctUid": tuid//班级账号
         }
         $.ajax({
             type:"POST",
-            url:"http://www.jayczee.top:50121/User/AddClass",
+            url:"https://localhost:7168/User/AddClass",
             contentType:"application/json",
             data:JSON.stringify(body),
             success:function (res){
-                if (res.resCode==37){
+                if (res.resCode==31){
                     //创建HTML节点
                     var tr=$("<tr>"
-                        +"<td>"+"<input type='radio' name='cradio' value="+res.data.cid+">"+"</td>"
-                        +"<td>"+res.data.cid+"</td>"
+                        +"<td>"+"<input type='radio' name='cradio' value="+res.data+">"+"</td>"
+                        +"<td>"+res.data+"</td>"
                         +"<td>"+csno+"</td>"
                         +"<td>"+csname+"</td>"
                         +"<td>"+csuid+"</td>"
                         +"</tr>");
-
                     //将HTML节点添加到table子节点的最后
                     $("#taskInfoTab").append(tr);
                     alert("班级信息新增成功！");
