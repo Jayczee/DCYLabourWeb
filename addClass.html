@@ -7,9 +7,18 @@
     <link rel="stylesheet" href="css/addPeople.css">
     <script type="text/javascript" src="js/addClass.js"></script>
     <script type="text/javascript" src="js/cookie.js"></script>
-    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="css/jquery.multiselect.css" />
+    <link rel="stylesheet" type="text/css" href="css/jquery.multiselect.filter.css" />
+    <link rel="stylesheet" type="text/css" href="css/jquery-ui.css"/>
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <link rel="stylesheet" type="text/css" href="css/prettify.css" />
+    <script type="text/javascript" src="js/prettify.js"></script>
+    <script type="text/javascript" src="js/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="js/jquery.multiselect.js"></script>
+    <script type="text/javascript" src="js/jquery.multiselect.filter.js"></script>
+    <title>班级管理</title>
 </head>
-<body onload="initClass()">
+<body onload="initClass();InitTeacher()">
 <div class="containerbox" id="containerbox">
     <div class="content">
         <div id="app">
@@ -26,7 +35,7 @@
                             <th>序号</th>
                             <th>班级编号</th>
                             <th>班级名称</th>
-                            <th>班级账号</th>
+                            <th>管理教师</th>
                         </tr>
                     </table>
                 </div>
@@ -51,8 +60,10 @@
                 <label  class="la"></label>
             </p>
             <p>
-                <label for="txtCsUid">班级账号：</label>
-                <input type="text" id="txtCsUid" name="txtCsUid" placeholder="请输入班级账号" style="width: 40%">
+                <label for="txtCsUid">管理教师：</label>
+                <select name="txtCsUid" id="txtCsUid" class="txtCsUid">
+                    <option value="">-请选择管理教师-</option>
+                </select>
                 <label  class="la"></label>
             </p>
         </div>
@@ -81,8 +92,10 @@
                 <label  class="la"></label>
             </p>
             <p>
-                <label for="txtCsUid1">班级账号：</label>
-                <input type="text" id="txtCsUid1" name="txtCsUid1" placeholder="请输入班级账号" style="width: 40%">
+                <label for="txtCsUid1">管理教师：</label>
+                <select name="txtCsUid1" id="txtCsUid1" class="txtCsUid">
+                    <option value="">-请选择组长-</option>
+                </select>
                 <label  class="la"></label>
             </p>
 
@@ -97,4 +110,22 @@
 
 </div>
 </body>
+<script type="text/javascript">
+    $(function (){
+        //任务发布组员选择
+        $("#txtCsUid").multiselect({
+            noneSelectedText: "-请选择教师-",
+            checkAllText: "全选",
+            uncheckAllText: '全不选',
+            selectedList:4
+        });
+        //任务编辑弹窗组员选择
+        $("#txtCsUid1").multiselect({
+            noneSelectedText: "-请选择教师-",
+            checkAllText: "全选",
+            uncheckAllText: '全不选',
+            selectedList:4
+        });
+    });
+</script>
 </html>

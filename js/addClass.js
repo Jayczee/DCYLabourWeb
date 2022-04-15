@@ -1,5 +1,4 @@
-var ClassNo;
-var arrTasktxt=new Array(1000000);
+
 $(function (){
     // $("#txtClass2").on("input",function (){
     //     if (required($(this),"请输入姓名")==true){
@@ -21,14 +20,14 @@ $(function (){
     });
     //账号输入框的事件驱动
     $("#txtCsUid").on("blur keyup",function (){
-        required($(this),"请输入班级所属账号");
+        required($(this),"请选择班级管理教师");
     });
     //添加班级按钮点击事件
     $("#btnClass").on("click",function (){
         //非空验证
         var csnoCheck=required($("#txtCsNo"),"请输入班级编号");
         var csnameCheck=required($("#txtCsName"),"请输入班级名称");
-        var csuidCheck=required($("#txtCsUid"),"请输入班级所属账号");
+        var csuidCheck=required($("#txtCsUid"),"请输入班级管理教师");
         if(csnoCheck && csnameCheck && csuidCheck){
             //获取用户输入的信息
             // var sId=$("input[name='sturadio']:checked").attr('value');
@@ -88,7 +87,7 @@ $(function (){
     });
     //账号输入框的事件驱动
     $("#txtCsUid").on("blur keyup",function (){
-        required($(this),"请输入班级所属账号");
+        required($(this),"请选择班级管理教师");
     });
 });
 
@@ -140,17 +139,21 @@ function  initClass(cno){
         success:function (res ){
             if (res.resCode == 30){
                 var i=0,j=0;
-                var tb=document.getElementById('taskInfoTab');
-                var len=tb.getElementsByTagName("tr").length;
-                for(i=1;i<len;i++)
-                    tb.deleteRow(1);
                 for(i=0;i<res.data.length;i++){
+                    var tnamelist="";
+                    var arrUid=res.data[i].ctUid.split(',');
+                    for(j=0;j<arrUid.length;j++){
+                        if(j<arrUid.length-1)
+                            tnamelist+=GetTNameByTUid(arrUid[j])+",";
+                        else
+                            tnamelist+=GetTNameByTUid(arrUid[j]);
+                    }
                     var tr=$("<tr>"
                         +"<td>"+"<input type='radio' name='cradio' value="+res.data[i].cid+">"+"</td>"
                         +"<td>"+res.data[i].cid+"</td>"
                         +"<td>"+res.data[i].cNo+"</td>"
                         +"<td>"+res.data[i].cName+"</td>"
-                        +"<td>"+res.data[i].ctUid+"</td>"
+                        +"<td>"+tnamelist+"</td>"
                         +"</tr>"
                     );
                     $("#taskInfoTab").append(tr);
@@ -234,15 +237,14 @@ function ShowAdd(){
         teform=true;
     else{
         teform=false;
-        document.getElementById("txtName").value="";
-        document.getElementById("txtCard").value="";
-        document.getElementById("txtClass").value="";
-        document.getElementById("selGender").value="";
+        document.getElementById("txtCsNo").value="";
+        document.getElementById("txtCsName").value="";
+        document.getElementById("txtCsUid").value="";
         return;
     }
 }
 var tform=false;
-//学生页面弹窗
+//编辑页面弹窗
 function ShowEdit(){
     //根据确认框选择结果确认操作
     var stuid=$("input[name='cradio']:checked").attr('value');
@@ -257,17 +259,56 @@ function ShowEdit(){
         popup.classList.toggle('active');
         if(tform==false){//窗体状态变量  窗体打开时为true 关闭时为false
             tform=true;
-            document.getElementById("selGender1").value=$("input[name='cradio']:checked").parents('tr').children("td").get(4).innerHTML;
-            document.getElementById("txtName1").value=$("input[name='cradio']:checked").parents('tr').children("td").get(2).innerHTML;
-            document.getElementById("txtCard1").value=$("input[name='cradio']:checked").parents('tr').children("td").get(5).innerHTML;
+            document.getElementById("txtCsNo1").value=$("input[name='cradio']:checked").parents('tr').children("td").get(2).innerHTML;
+            document.getElementById("txtCsName1").value=$("input[name='cradio']:checked").parents('tr').children("td").get(3).innerHTML;
         }
         else{
             tform=false;
-            document.getElementById("txtName1").value="";
-            document.getElementById("txtCard1").value="";
-            document.getElementById("txtClass1").value="";
-            document.getElementById("selGender1").value="";
+            document.getElementById("txtCsNo1").value="";
+            document.getElementById("txtCsName1").value="";
+            document.getElementById("txtCsUid1").value="";
             return;
         }
     }
+}
+
+function InitTeacher(){
+    $.ajax({
+        type:"GET",
+        url:"http://www.jayczee.top:50121/User/GetALLTeacher",
+        success:function (res ){
+            if (res.resCode == 42){
+                var i=0,j=0;
+                $("#txtCsUid").empty();
+                $("#txtCsUid1").empty();
+                for(i=0;i<res.data.length;i++){
+                    $("#txtCsUid").append(new Option(res.data[i].tname,res.data[i].tUid));
+                    $("#txtCsUid1").append(new Option(res.data[i].tname,res.data[i].tUid));
+                }
+                $("#txtCsUid").multiselect('refresh');
+                $("#txtCsUid1").multiselect('refresh');
+            }
+            else {
+                alert(res.msg);
+            }
+        }
+    });
+}
+
+function GetTNameByTUid(tuid){
+    var tname="";
+    $.ajax({
+        type:"GET",
+        async:false,
+        url:"http://www.jayczee.top:50121/User/GetTeacher/"+tuid,
+        success:function (res ){
+            if (res.resCode == 28){
+                tname=res.data.tname;
+            }
+            else {
+                tname="无";
+            }
+        }
+    });
+    return tname;
 }
