@@ -28,15 +28,15 @@ $(function (){
     /* *********************************************** */
     /********************编辑页面弹窗**********************/
     //班级编号输入框的事件驱动
-    $("#txtCsNo").on("blur keyup",function (){
+    $("#txtCsNo1").on("blur keyup",function (){
         required($(this),"请输入班级编号");
     });
     //班级名称输入框的事件驱动
-    $("#txtCsName").on("blur keyup",function (){
+    $("#txtCsName1").on("blur keyup",function (){
         required($(this),"请输入班级名称");
     });
     //账号输入框的事件驱动
-    $("#txtCsUid").on("blur keyup",function (){
+    $("#txtCsUid1").on("blur keyup",function (){
         required($(this),"请选择班级管理教师");
     });
 })
@@ -55,23 +55,23 @@ function required(obj,error){
 }
 
 //删除///
-function deleteData () {
+function DeleteTeacher () {
     //根据确认框选择结果确认操作
-    var sId=$("input[name='cradio']:checked").attr('value');
-    if(sId==null){
-        alert("请选择要删除的任务");
+    var cuid=$("input[name='cradio']:checked").attr('value');
+    if(cuid==null){
+        alert("请选择要删除的班级");
         return;
     }
 
     if (confirm("你确定删除吗？")) {
         $.ajax({
             type:"DELETE",
-            url:"http://www.jayczee.top:50121/Student/DeleteStu/"+sId,
+            url:"http://www.jayczee.top:50121/User/DeleteClass/"+cuid,
             success:function (res ){
-                if (res.resCode == 41){
+                if (res.resCode == 35){
                     $("input[name='cradio']:checked").parent().parent().remove();
                     alert("删除成功");
-                }else if(res.resCode==42){
+                }else if(res.resCode==36){
                     $("input[name='cradio']:checked").parent().parent().remove();
                     alert(res.msg);
                 }
@@ -133,7 +133,6 @@ function AddClass(){
                 tuid+=csuid[i]+",";
             else
                 tuid+=csuid[i];
-        console.log(tuid);
 
         var body={
             "cNo":csno,//班级编号
@@ -142,7 +141,7 @@ function AddClass(){
         }
         $.ajax({
             type:"POST",
-            url:"https://localhost:7168/User/AddClass",
+            url:"http://www.jayczee.top:50121/User/AddClass",
             contentType:"application/json",
             data:JSON.stringify(body),
             success:function (res){
@@ -153,7 +152,7 @@ function AddClass(){
                         +"<td>"+res.data+"</td>"
                         +"<td>"+csno+"</td>"
                         +"<td>"+csname+"</td>"
-                        +"<td>"+csuid+"</td>"
+                        +"<td>"+tnamelist+"</td>"
                         +"</tr>");
                     //将HTML节点添加到table子节点的最后
                     $("#taskInfoTab").append(tr);
@@ -163,7 +162,7 @@ function AddClass(){
                     blur.classList.toggle('active');
                     let popup=document.getElementById("register1");
                     popup.classList.toggle('active');
-                    tform=false;
+                    teform=false;
                 }
                 else {
                     alert(res.msg)
@@ -187,12 +186,19 @@ function EditClass(){
         var csnos=$("#txtCsNo1").val();
         var csnames=$("#txtCsName1").val();
         var csuids=$("#txtCsUid1").val();
+        var tuids="";
+        for(i=0;i<csuids.length;i++)
+            if(i<csuids.length-1)
+                tuids+=csuids[i]+",";
+            else
+                tuids+=csuids[i];
+
 
         var body={
             "cid":cId,
             "cNo":csnos,//班级编号
             "cName": csnames,//班级名称
-            "ctUid": csuids//班级账号
+            "ctUid": tuids//班级账号
         }
         $.ajax({
             type:"PUT",
@@ -256,6 +262,7 @@ function ShowEdit(){
             tform=true;
             document.getElementById("txtCsNo1").value=$("input[name='cradio']:checked").parents('tr').children("td").get(2).innerHTML;
             document.getElementById("txtCsName1").value=$("input[name='cradio']:checked").parents('tr').children("td").get(3).innerHTML;
+            document.getElementById("txtCsUid1").value=$("input[name='cradio']:checked").parents('tr').children("td").get(4).innerHTML;
         }
         else{
             tform=false;

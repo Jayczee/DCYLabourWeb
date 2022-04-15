@@ -63,6 +63,9 @@ body{
 #register1 #left,#taskEdit1 #left1{
     width: 100%;
 }
+#register1 select,#taskEdit1 select{
+    width: 20%;
+}
 #left,#left1{
     width: 50%;
     display: inline-block;

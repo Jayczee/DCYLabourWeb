@@ -37,7 +37,6 @@ $(function (){
          }
      });
      $("#loginName").html(username+"教师");
-     console.log(username);
 });
 function show(e){
     if (document.all(e).style.display=='none'){
