@@ -22,57 +22,7 @@ $(function (){
     $("#txtCsUid").on("blur keyup",function (){
         required($(this),"请选择班级管理教师");
     });
-    //添加班级按钮点击事件
-    $("#btnClass").on("click",function (){
-        //非空验证
-        var csnoCheck=required($("#txtCsNo"),"请输入班级编号");
-        var csnameCheck=required($("#txtCsName"),"请输入班级名称");
-        var csuidCheck=required($("#txtCsUid"),"请输入班级管理教师");
-        if(csnoCheck && csnameCheck && csuidCheck){
-            //获取用户输入的信息
-            // var sId=$("input[name='sturadio']:checked").attr('value');
-            var csno=$("#txtCsNo").val();
-            var csname=$("#txtCsName").val();
-            var csuid=$("#txtCsUid").val();
 
-            var body={
-                "cNo":csno,//班级编号
-                "cName": csname,//班级名称
-                "ctUid": csuid//班级账号
-            }
-            $.ajax({
-                type:"POST",
-                url:"http://www.jayczee.top:50121/User/AddClass",
-                contentType:"application/json",
-                data:JSON.stringify(body),
-                success:function (res){
-                    if (res.resCode==37){
-                        //创建HTML节点
-                        var tr=$("<tr>"
-                            +"<td>"+"<input type='radio' name='cradio' value="+res.data.cid+">"+"</td>"
-                            +"<td>"+res.data.cid+"</td>"
-                            +"<td>"+csno+"</td>"
-                            +"<td>"+csname+"</td>"
-                            +"<td>"+csuid+"</td>"
-                            +"</tr>");
-
-                        //将HTML节点添加到table子节点的最后
-                        $("#taskInfoTab").append(tr);
-                        alert("班级信息新增成功！");
-                        //关闭添加弹窗
-                        let blur=document.getElementById("containerbox");
-                        blur.classList.toggle('active');
-                        let popup=document.getElementById("register1");
-                        popup.classList.toggle('active');
-                        tform=false;
-                    }
-                    else {
-                        alert(res.msg)
-                    }
-                }
-            });
-        }
-    });
 
     /* *********************************************** */
     /* *********************************************** */
@@ -89,7 +39,7 @@ $(function (){
     $("#txtCsUid").on("blur keyup",function (){
         required($(this),"请选择班级管理教师");
     });
-});
+})
 
 //非空验证
 function required(obj,error){
@@ -166,49 +116,88 @@ function  initClass(cno){
     });
 }
 
-// //新增学生信息
-// function AddClass(){
-//
-//
-// }
+function AddClass(){
+    //非空验证
+    var csnoCheck=required($("#txtCsNo"),"请输入班级编号");
+    var csnameCheck=required($("#txtCsName"),"请输入班级名称");
+    var csuidCheck=required($("#txtCsUid"),"请输入班级所属账号");
+    if(csnoCheck && csnameCheck && csuidCheck){
+        //获取用户输入的信息
+        // var sId=$("input[name='sturadio']:checked").attr('value');
+        var csno=$("#txtCsNo").val();
+        var csname=$("#txtCsName").val();
+        var csuid=$("#txtCsUid").val();
+
+        var body={
+            "cNo":csno,//班级编号
+            "cName": csname,//班级名称
+            "ctUid": csuid//班级账号
+        }
+        $.ajax({
+            type:"POST",
+            url:"http://www.jayczee.top:50121/User/AddClass",
+            contentType:"application/json",
+            data:JSON.stringify(body),
+            success:function (res){
+                if (res.resCode==37){
+                    //创建HTML节点
+                    var tr=$("<tr>"
+                        +"<td>"+"<input type='radio' name='cradio' value="+res.data.cid+">"+"</td>"
+                        +"<td>"+res.data.cid+"</td>"
+                        +"<td>"+csno+"</td>"
+                        +"<td>"+csname+"</td>"
+                        +"<td>"+csuid+"</td>"
+                        +"</tr>");
+
+                    //将HTML节点添加到table子节点的最后
+                    $("#taskInfoTab").append(tr);
+                    alert("班级信息新增成功！");
+                    //关闭添加弹窗
+                    let blur=document.getElementById("containerbox");
+                    blur.classList.toggle('active');
+                    let popup=document.getElementById("register1");
+                    popup.classList.toggle('active');
+                    tform=false;
+                }
+                else {
+                    alert(res.msg)
+                }
+            }
+        });
+    }
+}
+
+
 
 //编辑学生信息
 function EditClass(){
     //非空验证
-    var nameCheck=required($("#txtName1"),"请输入姓名");
-    var yearCheck=required($("#txtyear1"),"请输入入学年份");
-    var cardCheck=required($("#txtCard1"),"请输入卡号");
-    var genderCheck=required($("#selGender1"),"请选择性别");
-    var classCheck=required($("#txtClass1"),"请选择班级");
-    if(nameCheck && yearCheck && cardCheck && genderCheck && classCheck){
+    var csnoChecks=required($("#txtCsNo1"),"请输入班级编号");
+    var csnameChecks=required($("#txtCsName1"),"请输入班级名称");
+    var csuidChecks=required($("#txtCsUid1"),"请输入班级所属账号");
+    if(csnoChecks && csnameChecks && csuidChecks){
         //获取用户输入的信息
-        var sId=$("input[name='cradio']:checked").attr('value');
-        var names=$("#txtName1").val();
-        var years=$("#txtyear1").val();
-        var cards=$("#txtCard1").val();
-        var genders=$("#selGender1").val();
-        var classs=$("#txtClass1").val();
+        var cId=$("input[name='cradio']:checked").attr('value');
+        var csnos=$("#txtCsNo1").val();
+        var csnames=$("#txtCsName1").val();
+        var csuids=$("#txtCsUid1").val();
 
         var body={
-            "sid":sId,
-            "sName":names,//学生姓名
-            "sSex": genders,//性别
-            "sCardNum": cards,//学生卡号
-            "sCNo": classs,//班级
-            "sYear": years,//入学年份
+            "cid":cId,
+            "cNo":csnos,//班级编号
+            "cName": csnames,//班级名称
+            "ctUid": csuids//班级账号
         }
         $.ajax({
             type:"PUT",
-            url:"http://www.jayczee.top:50121/Student/UpdateStu",
+            url:"http://www.jayczee.top:50121/User/UpdateClass",
             contentType:"application/json",
             data:JSON.stringify(body),
             success:function (res){
-                if (res.resCode==39){
-                    $("input[name='cradio']:checked").parents('tr').children("td").get(2).innerHTML=names;
-                    $("input[name='cradio']:checked").parents('tr').children("td").get(3).innerHTML=years;
-                    $("input[name='cradio']:checked").parents('tr').children("td").get(4).innerHTML=genders;
-                    $("input[name='cradio']:checked").parents('tr').children("td").get(5).innerHTML=cards;
-                    $("input[name='cradio']:checked").parents('tr').children("td").get(6).innerHTML=classs;
+                if (res.resCode==33){
+                    $("input[name='cradio']:checked").parents('tr').children("td").get(2).innerHTML=csnos;
+                    $("input[name='cradio']:checked").parents('tr').children("td").get(3).innerHTML=csnames;
+                    $("input[name='cradio']:checked").parents('tr').children("td").get(4).innerHTML=csuids;
                     alert("学生信息编辑成功！");
                     //关闭添加弹窗
                     let blur=document.getElementById("containerbox");
@@ -247,8 +236,8 @@ var tform=false;
 //编辑页面弹窗
 function ShowEdit(){
     //根据确认框选择结果确认操作
-    var stuid=$("input[name='cradio']:checked").attr('value');
-    if(stuid==null){
+    var cuid=$("input[name='cradio']:checked").attr('value');
+    if(cuid==null){
         alert("请选择要编辑的班级信息");
         return false;
     }
