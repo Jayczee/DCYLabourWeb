@@ -10,6 +10,9 @@ button{
     width:215px;
     height:30px;
 }
+#register1 button{
+	width: 40%;
+}
 .ui-helper-hidden {
 	display: none;
 }

@@ -189,6 +189,7 @@ $(function (){
 
         required($(this),"请选择类型");
     });
+    defaaltDate();
 
     /* *********************************************** */
     /* *********************************************** */
@@ -345,4 +346,17 @@ function EditTeacher(){
             }
         });
     }
+}
+//设置默认日期为当前日期
+function defaaltDate () {
+    //获取当前日期
+    var obj=new Date();
+    //根据当前日期分别获取年，月，日,时，分，秒
+    var year=obj.getFullYear();
+    var month=obj.getMonth()+1;
+    month=month<10?"0"+month:month;
+    var day=obj.getDate();
+    day=day<10?"0"+day:day;
+    //设置日期标签的value为组合后的：年-月-日，时分秒
+    $(".txtTime").val(year+"-"+month+"-"+day);
 }
