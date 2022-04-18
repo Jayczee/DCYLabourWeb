@@ -48,3 +48,13 @@ function show(e){
 function tuichu() {
     window.location.href="login.html";
 }
+
+function check(){
+    var userkind=$.cookie('.userkind');
+    if(userkind==2){
+        alert("权限不足,无法查看");
+        setTimeout(function (){
+            $("#mainFrm").contents().find("body").html("");
+        },100);
+    }
+}

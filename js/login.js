@@ -15,6 +15,7 @@ function btn() {
 					// console.log(res);
 					// console.log(res.data[0].cName)
 					$.cookie('.username',uid);
+					$.cookie('.userkind',res.data.userkind);
 					 window.location.href="fabu.html";
 				}else {
 					alert(res.msg);

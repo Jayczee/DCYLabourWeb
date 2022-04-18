@@ -128,11 +128,20 @@ function AddClass(){
         var csname=$("#txtCsName").val();
         var csuid=$("#txtCsUid").val();
         var tuid="";
-        for(i=0;i<csuid.length;i++)
+        for(i=0;i<csuid.length;i++){
             if(i<csuid.length-1)
                 tuid+=csuid[i]+",";
             else
                 tuid+=csuid[i];
+        }
+        var tnamelist="";
+        var arrUid=tuid.split(',');
+        for(j=0;j<arrUid.length;j++) {
+            if (j < arrUid.length - 1)
+                tnamelist += GetTNameByTUid(arrUid[j]) + ",";
+            else
+                tnamelist += GetTNameByTUid(arrUid[j]);
+        }
 
         var body={
             "cNo":csno,//班级编号
@@ -162,6 +171,9 @@ function AddClass(){
                     blur.classList.toggle('active');
                     let popup=document.getElementById("register1");
                     popup.classList.toggle('active');
+                    document.getElementById("txtCsNo").innerHTML="";
+                    document.getElementById("txtCsName").innerHTML="";
+                    document.getElementById("txtCsUid").val();
                     teform=false;
                 }
                 else {

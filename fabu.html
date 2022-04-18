@@ -9,7 +9,7 @@
 	<link rel="stylesheet" href="css/fa.css">
 	<script type="text/javascript" src="js/jquery-3.5.1.min.js"></script>
 <!--	<script type="text/javascript" src="http://libs.baidu.com/jquery/2.0.0/jquery.js"></script>-->
-	<script type="text/javascript" src="js/jquery-2.0.0.js.js"></script>
+	<script type="text/javascript" src="js/jquery-2.0.0.js"></script>
 	<script type="text/javascript" src="js/cookie.js"></script>
 	<script type="text/javascript" src="js/fa.js"></script>
 	<link rel="stylesheet" type="text/css" href="css/jquery.multiselect.css" />
@@ -71,14 +71,14 @@
 				<a-layout-sider width="200" style="background:#fff;height: 100%" class="daohang" >
 					<a-menu mode="inline" :style="{height:'100%' , borderRight:0}">
 						<a-sub-menu key="sub1">
-							<span slot="title">劳动教育管理</span>
-							<a-menu-item key="1" id="qx"><a href="task.html" target="iframe-link">任务发布管理</a></a-menu-item>
+							<span slot="title">劳动教育任务管理</span>
+							<a-menu-item key="1" id="qx"><a href="task.html" target="iframe-link">任务管理</a></a-menu-item>
 						</a-sub-menu>
 						<a-sub-menu key="sub2">
 							<span slot="title">劳动教育人员管理</span>
 							<a-menu-item key="2" id="qx1"><a href="addstudent.html" target="iframe-link">学生人员管理</a></a-menu-item>
-							<a-menu-item key="3" id="qx2"><a href="addteacher.html" target="iframe-link">老师人员管理</a></a-menu-item>
-							<a-menu-item key="4" id="qx3"><a href="addClass.html" target="iframe-link">劳动班级管理</a></a-menu-item>
+							<a-menu-item key="3" id="qx2"><a href="addteacher.html" target="iframe-link" onclick="check()">教师人员管理</a></a-menu-item>
+							<a-menu-item key="4" id="qx3"><a href="addClass.html" target="iframe-link" onclick="check()">劳动班级管理</a></a-menu-item>
 						</a-sub-menu>
 					</a-menu>
 				</a-layout-sider>
@@ -86,7 +86,7 @@
 					<iframe name="iframe-link" id="mainFrm"  style="border: medium none; height: 100%" >
 						<a-breadcrumb style="margin: 16px 0;">
 							<a-breadcrumb-item>首页</a-breadcrumb-item>
-							<a-breadcrumb-item>劳动教育管理</a-breadcrumb-item>
+							<a-breadcrumb-item>劳动教育任务管理</a-breadcrumb-item>
 							<a-breadcrumb-item>劳动教育人员管理</a-breadcrumb-item>
 						</a-breadcrumb>
 						<a-layout-content :style="{background:'#fff',padding:'24px',margin:0,minHeight:'280px'}"></a-layout-content>
